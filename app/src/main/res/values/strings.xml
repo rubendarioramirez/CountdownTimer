@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Hoy River App</string>
+    <string name="appwidget_text">Hoy River Widget</string>
+    <string name="add_widget">Add widget</string>
+</resources>

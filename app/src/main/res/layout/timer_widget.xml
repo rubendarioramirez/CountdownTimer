@@ -1,0 +1,109 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:padding="@dimen/widget_margin" android:background="#000000">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Dia/s"
+        android:id="@+id/textView"
+        android:textColor="#ffffff"
+        android:textSize="16dp"
+        android:textAlignment="center"
+        android:layout_centerVertical="true"
+        android:layout_toLeftOf="@+id/textView2"
+        android:layout_toStartOf="@+id/textView2"
+        android:layout_marginRight="33dp"
+        android:layout_marginEnd="33dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Hora/s"
+        android:id="@+id/textView2"
+        android:textColor="#ffffff"
+        android:textSize="16dp"
+        android:textAlignment="center"
+        android:layout_alignTop="@+id/textView"
+        android:layout_toLeftOf="@+id/textView3"
+        android:layout_toStartOf="@+id/textView3"
+        android:layout_marginRight="43dp"
+        android:layout_marginEnd="43dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Minuto/s"
+        android:id="@+id/textView3"
+        android:textColor="#ffffff"
+        android:textSize="16dp"
+        android:textAlignment="center"
+        android:layout_below="@+id/tvMin"
+        android:layout_alignLeft="@+id/tvMin"
+        android:layout_alignStart="@+id/tvMin" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Segundo"
+        android:id="@+id/textView4"
+        android:textColor="#ffffff"
+        android:textSize="16dp"
+        android:textAlignment="center"
+        android:layout_alignTop="@+id/textView3"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="44dp"
+        android:layout_marginEnd="44dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="XX"
+        android:id="@+id/tvDia"
+        android:textColor="#ffffff"
+        android:layout_above="@+id/textView2"
+        android:layout_alignEnd="@+id/textView" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="XX"
+        android:id="@+id/tvHora"
+        android:textColor="#ffffff"
+        android:layout_above="@+id/textView2"
+        android:layout_alignLeft="@+id/textView2"
+        android:layout_alignStart="@+id/textView2" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="XX"
+        android:id="@+id/tvMin"
+        android:textColor="#ffffff"
+        android:layout_alignTop="@+id/tvHora"
+        android:layout_toLeftOf="@+id/tvSeg"
+        android:layout_toStartOf="@+id/tvSeg"
+        android:layout_marginRight="48dp"
+        android:layout_marginEnd="48dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="XX"
+        android:id="@+id/tvSeg"
+        android:textColor="#ffffff"
+        android:layout_marginLeft="23dp"
+        android:layout_marginStart="23dp"
+        android:layout_alignTop="@+id/tvMin"
+        android:layout_alignLeft="@+id/textView4"
+        android:layout_alignStart="@+id/textView4" />
+</RelativeLayout>

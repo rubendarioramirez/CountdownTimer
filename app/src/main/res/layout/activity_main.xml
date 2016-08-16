@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin" tools:context=".MainActivity"
+    android:background="@drawable/background_medium"
+    >
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/linearLayout"
+        >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="240dp"
+            android:gravity="center_horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="Titulo Dinamico 1"
+                android:id="@+id/title1"
+                android:textColor="#ffffff"
+                android:gravity="center"
+                android:layout_above="@+id/text2"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="62dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="Titulo Dinamico 2"
+                android:id="@+id/title2"
+                android:textColor="#ffffff"
+                android:gravity="center"
+                android:layout_above="@+id/title1"
+                android:layout_centerHorizontal="true" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Texto Dinamico 1"
+                android:id="@+id/text1"
+                android:textColor="#ffffff"
+                android:gravity="center"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="44dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Texto Dinamico 2"
+                android:id="@+id/text2"
+                android:textColor="#ffffff"
+                android:gravity="center"
+                android:layout_above="@+id/text1"
+                android:layout_centerHorizontal="true" />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/linearLayout">
+
+        <RelativeLayout
+            android:layout_width="370dp"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="Dia/s"
+                android:id="@+id/diaText"
+                android:textColor="#ffffff"
+                android:textSize="16dp"
+                android:textAlignment="center"
+                android:layout_marginLeft="22dp"
+                android:layout_centerVertical="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginStart="22dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="Hora/s"
+                android:id="@+id/horaText"
+                android:textColor="#ffffff"
+                android:textSize="16dp"
+                android:textAlignment="center"
+                android:layout_alignTop="@+id/diaText"
+                android:layout_toRightOf="@+id/diaText"
+                android:layout_toEndOf="@+id/diaText"
+                android:layout_marginLeft="35dp"
+                android:layout_marginStart="35dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="Minuto/s"
+                android:id="@+id/minText"
+                android:textColor="#ffffff"
+                android:textSize="16dp"
+                android:textAlignment="center"
+                android:layout_below="@+id/minCount"
+                android:layout_centerHorizontal="true" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="Segundos"
+                android:id="@+id/segText"
+                android:textColor="#ffffff"
+                android:textSize="16dp"
+                android:textAlignment="center"
+                android:layout_below="@+id/segCount"
+                android:layout_toRightOf="@+id/minText"
+                android:layout_toEndOf="@+id/minText"
+                android:layout_marginLeft="30dp"
+                android:layout_marginStart="30dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="XX"
+                android:id="@+id/dayCount"
+                android:textColor="#ffffff"
+                android:layout_above="@+id/horaText"
+                android:layout_alignEnd="@+id/diaText" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="XX"
+                android:id="@+id/horaCount"
+                android:textColor="#ffffff"
+                android:layout_above="@+id/horaText"
+                android:layout_alignLeft="@+id/horaText"
+                android:layout_alignStart="@+id/horaText" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="XX"
+                android:id="@+id/minCount"
+                android:textColor="#ffffff"
+                android:layout_above="@+id/horaText"
+                android:layout_centerHorizontal="true" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="XX"
+                android:id="@+id/segCount"
+                android:textColor="#ffffff"
+                android:layout_marginLeft="23dp"
+                android:layout_marginStart="23dp"
+                android:layout_alignTop="@+id/minCount"
+                android:layout_alignLeft="@+id/segText"
+                android:layout_alignStart="@+id/segText" />
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>
