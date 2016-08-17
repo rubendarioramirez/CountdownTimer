@@ -14,23 +14,25 @@ import java.util.Calendar;
 import java.util.Date;
 import android.app.Activity;
 import android.app.AlarmManager;
+import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.app.TaskStackBuilder;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v7.app.NotificationCompat;
 import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-
 
 public class MainActivity extends Activity {
 
@@ -59,11 +61,12 @@ public class MainActivity extends Activity {
         //Titulos
         //Crea la font Custom
         Typeface myCustomFont = Typeface.createFromAsset(getAssets(),"fonts/Ubuntu-C.ttf");
+        Typeface myCustomFontNegrita = Typeface.createFromAsset(getAssets(),"fonts/Ubuntu-B.ttf");
 
         TextView title1 = (TextView) findViewById(R.id.title1);
-        title1.setTypeface(myCustomFont);
+        title1.setTypeface(myCustomFontNegrita);
         TextView title2 = (TextView) findViewById(R.id.title2);
-        title2.setTypeface(myCustomFont);
+        title2.setTypeface(myCustomFontNegrita);
         TextView text1 = (TextView) findViewById(R.id.text1);
         text1.setTypeface(myCustomFont);
         TextView text2 = (TextView) findViewById(R.id.text2);
@@ -71,6 +74,56 @@ public class MainActivity extends Activity {
 
         //JSON URL
         String url = "http://esteeselfamosoriver.com/app/info.php";
+
+        //If internet is available
+        if(isNetworkAvailable(this)){
+            makeToast("Informacion actualizada");
+            new getFecha(title1,title2,text1,text2).execute(url);
+
+        } else {
+
+            //Create a toast
+            makeToast("No se pudo conectar al servidor");
+
+            //Get data offline from stored file and parse it
+            String fileToString = readFromFile(this).toString();
+            String[] separated = fileToString.split(",");
+
+            //Set titles and countdown
+            title1.setText(separated[0]);
+            title2.setText(separated[1]);
+            text1.setText(separated[2]);
+            text2.setText(separated[3]);
+            countDownStart(separated[4]);
+        }
+
+        //To remove
+        createNotification("Test","Test");
+
+    }
+
+
+    @Override
+    protected void onResume(){
+        super.onResume();  // Always call the superclass method first
+
+        //Titulos
+        //Crea la font Custom
+        Typeface myCustomFont = Typeface.createFromAsset(getAssets(),"fonts/Ubuntu-C.ttf");
+        Typeface myCustomFontNegrita = Typeface.createFromAsset(getAssets(),"fonts/Ubuntu-B.ttf");
+
+        TextView title1 = (TextView) findViewById(R.id.title1);
+        title1.setTypeface(myCustomFontNegrita);
+        TextView title2 = (TextView) findViewById(R.id.title2);
+        title2.setTypeface(myCustomFontNegrita);
+        TextView text1 = (TextView) findViewById(R.id.text1);
+        text1.setTypeface(myCustomFont);
+        TextView text2 = (TextView) findViewById(R.id.text2);
+        text2.setTypeface(myCustomFont);
+
+        //JSON URL
+        String url = "http://esteeselfamosoriver.com/app/info.php";
+
 
         //If internet is available
         if(isNetworkAvailable(this)){
@@ -171,7 +224,6 @@ public class MainActivity extends Activity {
         }
     }
 
-
     // //////////////COUNT DOWN START/////////////////////////
     public void countDownStart(String eventDate) {
         final String fetchFecha = eventDate;
@@ -224,15 +276,19 @@ public class MainActivity extends Activity {
                         ///////ALARMS //////////
                         //Trigger notification if remains 1 hour.
                         if(remainingHours<=1 && remainingDays==0 && alarmaHora == false){
-                            createAlarm();
+                            createNotification("Falta una hora para el partido de River!", "Millo, andá preparándote que falta poco.");
                             alarmaHora = true;
                         }
                         //Triggers notification if remains 30 minutes or less.
                         if(remainingMinutes<=30 && remainingDays==0 && remainingHours==0 && alarmaMinuto==false){
-                            createAlarm();
+                            createNotification("Falta media hora para el partido de River!", "Millo, andá cortando que en media hora empieza!");
                             alarmaMinuto = true;
                         }
-
+                        //Triggers notification if everything is 0.
+                        if(remainingMinutes==0 && remainingDays==0 && remainingHours==0){
+                            createNotification("Empezó el Partido. Vamos River!", "River, mi buen amigo, esta campaña volveremo a tar contigo!");
+                            
+                        }
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -242,20 +298,6 @@ public class MainActivity extends Activity {
         handler.postDelayed(runnable, 0);
     }
 
-
-    ///Notification set trigger.
-    public void createAlarm(){
-        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-
-        Intent notificationIntent = new Intent("android.media.action.DISPLAY_NOTIFICATION");
-        notificationIntent.addCategory("android.intent.category.DEFAULT");
-
-        PendingIntent broadcast = PendingIntent.getBroadcast(this, 100, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-        Calendar cal = Calendar.getInstance();
-        cal.add(Calendar.SECOND, 0);
-        alarmManager.setExact(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), broadcast);
-
-    }
 
     //Check internet status, both WIFI or 3G
     public static boolean isNetworkAvailable(Context context) {
@@ -281,11 +323,9 @@ public class MainActivity extends Activity {
         return status;
     }
 
-
     public void makeToast(String texto){
         Toast.makeText(this.getBaseContext(),texto, Toast.LENGTH_SHORT).show();
     }
-
 
     //Read from the file. File name is hardcoded inside
     private String readFromFile(Context context) {
@@ -330,6 +370,47 @@ public class MainActivity extends Activity {
             e.printStackTrace();
         }
     }
+
+
+    private void createNotification(String title, String content){
+
+        //Get the sound and convert to URI
+        Uri soundCancha = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.trimmermp3);
+
+
+        NotificationCompat.Builder mBuilder =
+                (NotificationCompat.Builder) new NotificationCompat.Builder(this)
+                        .setSmallIcon(R.mipmap.big_notificationicon)
+                        .setContentTitle(title)
+                        .setContentText(content)
+                        .setSound(soundCancha);
+        // Creates an explicit intent for an Activity in your app
+                Intent resultIntent = new Intent(this, MainActivity.class);
+
+        // The stack builder object will contain an artificial back stack for the
+        // started Activity.
+        // This ensures that navigating backward from the Activity leads out of
+        // your application to the Home screen.
+                TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
+        // Adds the back stack for the Intent (but not the Intent itself)
+                stackBuilder.addParentStack(MainActivity.class);
+        // Adds the Intent that starts the Activity to the top of the stack
+                stackBuilder.addNextIntent(resultIntent);
+                PendingIntent resultPendingIntent =
+                        stackBuilder.getPendingIntent(
+                                0,
+                                PendingIntent.FLAG_UPDATE_CURRENT
+                        );
+                mBuilder.setContentIntent(resultPendingIntent);
+                NotificationManager mNotificationManager =
+                        (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        // mId allows you to update the notification later on.
+                mNotificationManager.notify(0, mBuilder.build());
+
+
+    }
+
+
 
 }
 
