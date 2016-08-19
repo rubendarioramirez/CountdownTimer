@@ -57,37 +57,8 @@
         android:text="Medium Text"
         android:id="@+id/titulo1"
         android:layout_above="@+id/tvDia"
-        android:layout_alignLeft="@+id/tvDia"
-        android:layout_alignStart="@+id/tvDia" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Medium Text"
-        android:id="@+id/textView6"
-        android:layout_above="@+id/tvSeg"
-        android:layout_toRightOf="@+id/tvSeg"
-        android:layout_toEndOf="@+id/tvSeg" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Medium Text"
-        android:id="@+id/textView"
-        android:layout_above="@+id/titulo1"
         android:layout_toRightOf="@+id/tvDia"
-        android:layout_toEndOf="@+id/tvDia" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Medium Text"
-        android:id="@+id/textView2"
-        android:layout_above="@+id/textView6"
-        android:layout_alignLeft="@+id/tvSeg"
-        android:layout_alignStart="@+id/tvSeg" />
+        android:layout_toEndOf="@+id/tvDia"
+        android:layout_marginBottom="15dp" />
 
 </RelativeLayout>

@@ -41,9 +41,9 @@ public class widgetService extends Service {
             view.setTextViewText(R.id.titulo1, lastUpdated);
 
             // Push update for this widget to the home screen
-//            ComponentName thisWidget = new ComponentName(widgetService.this, timerWidget.class);
-//            AppWidgetManager manager = AppWidgetManager.getInstance(this);
-//            manager.updateAppWidget(thisWidget, view);
+            ComponentName thisWidget = new ComponentName(this.getApplicationContext(), timerWidget.class);
+            AppWidgetManager manager = AppWidgetManager.getInstance(this);
+            manager.updateAppWidget(thisWidget, view);
         }
 
         @Override
