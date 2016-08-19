@@ -142,7 +142,9 @@
                 android:text="XX"
                 android:id="@+id/dayCount"
                 android:textColor="#ffffff"
-                android:layout_above="@+id/horaText"
+                android:layout_gravity="center"
+                android:layout_above="@+id/diaText"
+                android:layout_alignRight="@+id/diaText"
                 android:layout_alignEnd="@+id/diaText" />
 
             <TextView
@@ -178,6 +180,18 @@
                 android:layout_alignTop="@+id/minCount"
                 android:layout_alignLeft="@+id/segText"
                 android:layout_alignStart="@+id/segText" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="River esta jugando!"
+                android:id="@+id/riverJuega"
+                android:layout_above="@+id/horaCount"
+                android:layout_alignLeft="@+id/horaCount"
+                android:layout_alignStart="@+id/horaCount"
+                android:textColor="#ffffff"
+                android:visibility="invisible" />
         </RelativeLayout>
 
     </LinearLayout>

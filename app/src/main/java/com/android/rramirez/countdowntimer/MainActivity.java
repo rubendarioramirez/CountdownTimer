@@ -28,6 +28,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.NotificationCompat;
 import android.util.Log;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 import org.json.JSONArray;
@@ -36,11 +37,29 @@ import org.json.JSONObject;
 
 public class MainActivity extends Activity {
 
-    private TextView dayCount, dayText, horaCount, horaText, minCount, minText, segCount, segText;
+    private TextView dayCount, dayText, horaCount, horaText, minCount, minText, segCount, segText, riverJuega;
     private Handler handler;
     private Runnable runnable;
     private boolean alarmaHora;
     private boolean alarmaMinuto;
+    private boolean alarmaComienzo;
+
+
+    //Textos de la notificacion
+    private String tituloHora = "Falta una hora para el partido de River!";
+    private String textoHora = "Millo, andá preparándote que falta poco.";
+    private String tituloMedHora = "Falta media hora para el partido de River!";
+    private String textoMedHora = "Millo, andá cortando que en media hora empieza!";
+    private String tituloFinal = "Empezó el Partido. Vamos River!";
+    private String textoFinal = "River, mi buen amigo, esta campaña volveremo a tar contigo!";
+
+    //Crea la font Custom
+    Typeface myCustomFont = Typeface.createFromAsset(getAssets(),"fonts/Ubuntu-C.ttf");
+    Typeface myCustomFontNegrita = Typeface.createFromAsset(getAssets(),"fonts/Ubuntu-B.ttf");
+
+    //JSON URL
+    //String url = "http://esteeselfamosoriver.com/app/info.php";
+    String url = "http://192.168.1.69/timerdb/info.php";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,13 +75,10 @@ public class MainActivity extends Activity {
         minText = (TextView) findViewById(R.id.minText);
         segCount = (TextView) findViewById(R.id.segCount);
         segText = (TextView) findViewById(R.id.segText);
+        riverJuega = (TextView) findViewById(R.id.riverJuega);
 
 
         //Titulos
-        //Crea la font Custom
-        Typeface myCustomFont = Typeface.createFromAsset(getAssets(),"fonts/Ubuntu-C.ttf");
-        Typeface myCustomFontNegrita = Typeface.createFromAsset(getAssets(),"fonts/Ubuntu-B.ttf");
-
         TextView title1 = (TextView) findViewById(R.id.title1);
         title1.setTypeface(myCustomFontNegrita);
         TextView title2 = (TextView) findViewById(R.id.title2);
@@ -71,9 +87,6 @@ public class MainActivity extends Activity {
         text1.setTypeface(myCustomFont);
         TextView text2 = (TextView) findViewById(R.id.text2);
         text2.setTypeface(myCustomFont);
-
-        //JSON URL
-        String url = "http://esteeselfamosoriver.com/app/info.php";
 
         //If internet is available
         if(isNetworkAvailable(this)){
@@ -94,24 +107,16 @@ public class MainActivity extends Activity {
             title2.setText(separated[1]);
             text1.setText(separated[2]);
             text2.setText(separated[3]);
-            countDownStart(separated[4]);
+            countDownStart(separated[11]);
         }
 
-        //To remove
-        createNotification("Test","Test");
-
     }
-
 
     @Override
     protected void onResume(){
         super.onResume();  // Always call the superclass method first
 
         //Titulos
-        //Crea la font Custom
-        Typeface myCustomFont = Typeface.createFromAsset(getAssets(),"fonts/Ubuntu-C.ttf");
-        Typeface myCustomFontNegrita = Typeface.createFromAsset(getAssets(),"fonts/Ubuntu-B.ttf");
-
         TextView title1 = (TextView) findViewById(R.id.title1);
         title1.setTypeface(myCustomFontNegrita);
         TextView title2 = (TextView) findViewById(R.id.title2);
@@ -121,17 +126,12 @@ public class MainActivity extends Activity {
         TextView text2 = (TextView) findViewById(R.id.text2);
         text2.setTypeface(myCustomFont);
 
-        //JSON URL
-        String url = "http://esteeselfamosoriver.com/app/info.php";
-
-
         //If internet is available
         if(isNetworkAvailable(this)){
             makeToast("Informacion actualizada");
             new getFecha(title1,title2,text1,text2).execute(url);
 
         } else {
-
             //Create a toast
             makeToast("No se pudo conectar al servidor");
 
@@ -144,7 +144,7 @@ public class MainActivity extends Activity {
             title2.setText(separated[1]);
             text1.setText(separated[2]);
             text2.setText(separated[3]);
-            countDownStart(separated[4]);
+            countDownStart(separated[11]);
         }
 
     }
@@ -213,9 +213,15 @@ public class MainActivity extends Activity {
             title2.setText(separated[1]);
             text1.setText(separated[2]);
             text2.setText(separated[3]);
+            text2.setText(separated[4]);
+            text2.setText(separated[5]);
+            text2.setText(separated[6]);
+            text2.setText(separated[7]);
+            text2.setText(separated[8]);
+            text2.setText(separated[9]);
 
             //Start countDown with your custom date
-            countDownStart(separated[4]);
+            countDownStart(separated[11]);
 
             //save new data to a file
             saveFile(currentString);
@@ -246,7 +252,7 @@ public class MainActivity extends Activity {
                         long hours = diff / (60 * 60 * 1000);
                         diff -= hours * (60 * 60 * 1000);
                         long minutes = diff/(60*1000);
-        diff -= minutes * (60 * 1000);
+                        diff -= minutes * (60 * 1000);
                         long seconds = diff / 1000;
                         dayCount.setText("" + String.format("%02d", days));
                         horaCount.setText("" + String.format("%02d", hours));
@@ -275,19 +281,28 @@ public class MainActivity extends Activity {
 
                         ///////ALARMS //////////
                         //Trigger notification if remains 1 hour.
-                        if(remainingHours<=1 && remainingDays==0 && alarmaHora == false){
-                            createNotification("Falta una hora para el partido de River!", "Millo, andá preparándote que falta poco.");
-                            alarmaHora = true;
+                        if(remainingHours<=1 && remainingDays==0 && remainingMinutes <= 1 && !alarmaHora){
+                            alarmaHora=true;
+                            createNotification(tituloHora,textoHora);
                         }
                         //Triggers notification if remains 30 minutes or less.
-                        if(remainingMinutes<=30 && remainingDays==0 && remainingHours==0 && alarmaMinuto==false){
-                            createNotification("Falta media hora para el partido de River!", "Millo, andá cortando que en media hora empieza!");
-                            alarmaMinuto = true;
+                        if(remainingMinutes<=30 && remainingDays==0 && remainingHours==0 && !alarmaMinuto){
+                            alarmaMinuto=true;
+                            createNotification(tituloMedHora, textoMedHora);
                         }
                         //Triggers notification if everything is 0.
-                        if(remainingMinutes==0 && remainingDays==0 && remainingHours==0){
-                            createNotification("Empezó el Partido. Vamos River!", "River, mi buen amigo, esta campaña volveremo a tar contigo!");
-                            
+                        if(remainingMinutes==0 && remainingDays==0 && remainingHours==0 && !alarmaComienzo){
+                            createNotification(tituloFinal,textoFinal);
+                            dayText.setVisibility(View.INVISIBLE);
+                            horaText.setVisibility(View.INVISIBLE);
+                            minText.setVisibility(View.INVISIBLE);
+                            segText.setVisibility(View.INVISIBLE);
+                            dayCount.setVisibility(View.INVISIBLE);
+                            horaCount.setVisibility(View.INVISIBLE);
+                            minCount.setVisibility(View.INVISIBLE);
+                            segCount.setVisibility(View.INVISIBLE);
+                            riverJuega.setVisibility(View.VISIBLE);
+                            alarmaComienzo = true;
                         }
                     }
                 } catch (Exception e) {
