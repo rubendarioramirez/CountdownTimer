@@ -44,22 +44,9 @@ public class MainActivity extends Activity {
     private boolean alarmaMinuto;
     private boolean alarmaComienzo;
 
-
-    //Textos de la notificacion
-    private String tituloHora = "Falta una hora para el partido de River!";
-    private String textoHora = "Millo, andá preparándote que falta poco.";
-    private String tituloMedHora = "Falta media hora para el partido de River!";
-    private String textoMedHora = "Millo, andá cortando que en media hora empieza!";
-    private String tituloFinal = "Empezó el Partido. Vamos River!";
-    private String textoFinal = "River, mi buen amigo, esta campaña volveremo a tar contigo!";
-
-    //Crea la font Custom
-    Typeface myCustomFont = Typeface.createFromAsset(getAssets(),"fonts/Ubuntu-C.ttf");
-    Typeface myCustomFontNegrita = Typeface.createFromAsset(getAssets(),"fonts/Ubuntu-B.ttf");
-
     //JSON URL
     //String url = "http://esteeselfamosoriver.com/app/info.php";
-    String url = "http://192.168.1.69/timerdb/info.php";
+    String url = "http://10.212.235.58/timerdb/info.php";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,6 +65,11 @@ public class MainActivity extends Activity {
         riverJuega = (TextView) findViewById(R.id.riverJuega);
 
 
+        //Crea la font Custom
+       Typeface myCustomFont = Typeface.createFromAsset(getApplicationContext().getAssets(),"fonts/Ubuntu-C.ttf");
+       Typeface myCustomFontNegrita = Typeface.createFromAsset(getApplicationContext().getAssets(),"fonts/Ubuntu-B.ttf");
+
+
         //Titulos
         TextView title1 = (TextView) findViewById(R.id.title1);
         title1.setTypeface(myCustomFontNegrita);
@@ -107,7 +99,9 @@ public class MainActivity extends Activity {
             title2.setText(separated[1]);
             text1.setText(separated[2]);
             text2.setText(separated[3]);
-            countDownStart(separated[11]);
+
+            countDownStart(separated[10],separated[4],separated[5],separated[6],separated[7],separated[8],separated[9]);
+
         }
 
     }
@@ -116,6 +110,11 @@ public class MainActivity extends Activity {
     protected void onResume(){
         super.onResume();  // Always call the superclass method first
 
+        //Crea la font Custom
+        Typeface myCustomFont = Typeface.createFromAsset(getApplicationContext().getAssets(),"fonts/Ubuntu-C.ttf");
+        Typeface myCustomFontNegrita = Typeface.createFromAsset(getApplicationContext().getAssets(),"fonts/Ubuntu-B.ttf");
+
+
         //Titulos
         TextView title1 = (TextView) findViewById(R.id.title1);
         title1.setTypeface(myCustomFontNegrita);
@@ -144,7 +143,7 @@ public class MainActivity extends Activity {
             title2.setText(separated[1]);
             text1.setText(separated[2]);
             text2.setText(separated[3]);
-            countDownStart(separated[11]);
+            countDownStart(separated[10],separated[4],separated[5],separated[6],separated[7],separated[8],separated[9]);
         }
 
     }
@@ -189,10 +188,19 @@ public class MainActivity extends Activity {
                 String secondTitle = titulos.optString("title2");
                 String thirdTitle = titulos.optString("title3");
                 String fourthTitle = titulos.optString("title4");
+                String notHoraTitle = titulos.optString("notHoraTitle");
+                String notHoraContent = titulos.optString("notHoraContent");
+                String notMedTitle = titulos.optString("notMedTitle");
+                String notMedContent = titulos.optString("notMedContent");
+                String notFinalTitle = titulos.optString("notFinalTitle");
+                String notFinalContent = titulos.optString("notFinalContent");
                 String fechayhora = titulos.optString("fechayhora");
 
 
-                titles = firstTitle + "," + secondTitle + "," + thirdTitle + "," + fourthTitle + "," + fechayhora;
+                titles = firstTitle + "," + secondTitle + "," + thirdTitle +
+                        "," + fourthTitle + "," + notHoraTitle+ "," + notHoraContent+ ","
+                        + notMedTitle+ "," + notMedContent+ "," + notFinalTitle+ ","
+                        + notFinalContent + "," + fechayhora;
 
                 urlConnection.disconnect();
             } catch (IOException | JSONException e) {
@@ -213,15 +221,9 @@ public class MainActivity extends Activity {
             title2.setText(separated[1]);
             text1.setText(separated[2]);
             text2.setText(separated[3]);
-            text2.setText(separated[4]);
-            text2.setText(separated[5]);
-            text2.setText(separated[6]);
-            text2.setText(separated[7]);
-            text2.setText(separated[8]);
-            text2.setText(separated[9]);
 
-            //Start countDown with your custom date
-            countDownStart(separated[11]);
+            //Start countDown with your custom date and server notTitles and content
+            countDownStart(separated[10],separated[4],separated[5],separated[6],separated[7],separated[8],separated[9]);
 
             //save new data to a file
             saveFile(currentString);
@@ -231,8 +233,18 @@ public class MainActivity extends Activity {
     }
 
     // //////////////COUNT DOWN START/////////////////////////
-    public void countDownStart(String eventDate) {
+    public void countDownStart(String eventDate, String tituloHora, String textoHora, String tituloMedHora,
+                               String textoMedHora, String tituloFinal, String textoFinal ) {
+
         final String fetchFecha = eventDate;
+        final String fetchTitHora = tituloHora;
+        final String fetchTextHora = textoHora;
+        final String fetchTitMedHora = tituloMedHora;
+        final String fetchTextMedHora = textoMedHora;
+        final String fetchTitFinal = tituloFinal;
+        final String fetchTextFinal = textoFinal;
+
+
         handler = new Handler();
         runnable = new Runnable() {
             @Override
@@ -283,16 +295,16 @@ public class MainActivity extends Activity {
                         //Trigger notification if remains 1 hour.
                         if(remainingHours<=1 && remainingDays==0 && remainingMinutes <= 1 && !alarmaHora){
                             alarmaHora=true;
-                            createNotification(tituloHora,textoHora);
+                            createNotification(fetchTitHora,fetchTextHora);
                         }
                         //Triggers notification if remains 30 minutes or less.
                         if(remainingMinutes<=30 && remainingDays==0 && remainingHours==0 && !alarmaMinuto){
                             alarmaMinuto=true;
-                            createNotification(tituloMedHora, textoMedHora);
+                            createNotification(fetchTitMedHora, fetchTextMedHora);
                         }
                         //Triggers notification if everything is 0.
                         if(remainingMinutes==0 && remainingDays==0 && remainingHours==0 && !alarmaComienzo){
-                            createNotification(tituloFinal,textoFinal);
+                            createNotification(fetchTitFinal,fetchTextFinal);
                             dayText.setVisibility(View.INVISIBLE);
                             horaText.setVisibility(View.INVISIBLE);
                             minText.setVisibility(View.INVISIBLE);
@@ -390,7 +402,7 @@ public class MainActivity extends Activity {
     private void createNotification(String title, String content){
 
         //Get the sound and convert to URI
-        Uri soundCancha = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.trimmermp3);
+        Uri soundCancha = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.hoy_river_app_ringtone);
 
 
         NotificationCompat.Builder mBuilder =
