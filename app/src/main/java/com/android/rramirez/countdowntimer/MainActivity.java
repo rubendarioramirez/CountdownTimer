@@ -214,6 +214,9 @@ public class MainActivity extends Activity {
             String currentString = titles;
             String[] separated = currentString.split(",");
 
+            String buscaV = separated[0].toString();
+            Character laV = buscaV.charAt(2);
+
             //Set titles
             title1.setText(separated[0]);
             title2.setText(separated[1]);
