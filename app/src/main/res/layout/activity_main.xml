@@ -22,69 +22,10 @@
                 android:layout_toRightOf="@+id/diaText"
                 android:layout_toEndOf="@+id/diaText"
                 android:layout_marginLeft="35dp"
-                android:layout_marginStart="35dp" />
+                android:layout_marginStart="35dp"
+        android:gravity="center" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="Minuto/s"
-                android:id="@+id/minText"
-                android:textColor="#ffffff"
-                android:textSize="16dp"
-                android:textAlignment="center"
-                android:layout_below="@+id/minCount"
-                android:layout_centerHorizontal="true" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="Segundos"
-                android:id="@+id/segText"
-                android:textColor="#ffffff"
-                android:textSize="16dp"
-                android:textAlignment="center"
-                android:layout_below="@+id/segCount"
-                android:layout_toRightOf="@+id/minText"
-                android:layout_toEndOf="@+id/minText"
-                android:layout_marginLeft="30dp"
-                android:layout_marginStart="30dp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="XX"
-                android:id="@+id/dayCount"
-                android:textColor="#ffffff"
-                android:layout_gravity="center"
-                android:layout_above="@+id/diaText"
-                android:layout_alignRight="@+id/diaText"
-                android:layout_alignEnd="@+id/diaText" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="XX"
-                android:id="@+id/horaCount"
-                android:textColor="#ffffff"
-                android:layout_above="@+id/horaText"
-                android:layout_alignLeft="@+id/horaText"
-                android:layout_alignStart="@+id/horaText" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="XX"
-                android:id="@+id/minCount"
-                android:textColor="#ffffff"
-                android:layout_above="@+id/horaText"
-                android:layout_centerHorizontal="true" />
-
-            <TextView
+    <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
@@ -179,5 +120,79 @@
         android:layout_above="@+id/text1"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="XX"
+        android:id="@+id/dayCount"
+        android:textColor="#ffffff"
+        android:layout_gravity="center"
+        android:layout_alignBaseline="@+id/horaCount"
+        android:layout_alignBottom="@+id/horaCount"
+        android:layout_toLeftOf="@+id/horaText"
+        android:layout_toStartOf="@+id/horaText" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Minuto/s"
+        android:id="@+id/minText"
+        android:textColor="#ffffff"
+        android:textSize="16dp"
+        android:textAlignment="center"
+        android:gravity="center"
+        android:layout_alignBaseline="@+id/horaText"
+        android:layout_alignBottom="@+id/horaText"
+        android:layout_toLeftOf="@+id/segText"
+        android:layout_toStartOf="@+id/segText"
+        android:layout_marginRight="12dp"
+        android:layout_marginEnd="12dp" />
+
+    <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="XX"
+                android:id="@+id/minCount"
+                android:textColor="#ffffff"
+        android:layout_marginBottom="20dp"
+        android:layout_above="@+id/minText"
+        android:layout_alignLeft="@+id/minText"
+        android:layout_alignStart="@+id/minText"
+        android:layout_marginLeft="11dp"
+        android:layout_marginStart="11dp" />
+
+    <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="XX"
+                android:id="@+id/horaCount"
+                android:textColor="#ffffff"
+        android:layout_alignBaseline="@+id/minCount"
+        android:layout_alignBottom="@+id/minCount"
+        android:layout_alignLeft="@+id/horaText"
+        android:layout_alignStart="@+id/horaText"
+        android:layout_marginLeft="10dp"
+        android:layout_marginStart="10dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Segundos"
+        android:id="@+id/segText"
+        android:textColor="#ffffff"
+        android:textSize="16dp"
+        android:textAlignment="center"
+        android:layout_marginRight="24dp"
+        android:layout_marginEnd="24dp"
+        android:layout_alignBaseline="@+id/minText"
+        android:layout_alignBottom="@+id/minText"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
 </RelativeLayout>
