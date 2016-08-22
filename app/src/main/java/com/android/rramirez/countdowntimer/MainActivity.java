@@ -10,10 +10,8 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 import android.app.Activity;
-import android.app.AlarmManager;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.TaskStackBuilder;
@@ -45,8 +43,8 @@ public class MainActivity extends Activity {
     private boolean alarmaComienzo;
 
     //JSON URL
-    //String url = "http://esteeselfamosoriver.com/app/info.php";
-    String url = "http://10.212.235.58/timerdb/info.php";
+    String url = "http://esteeselfamosoriver.com/app/info.php";
+    //String url = "http://10.212.235.58/timerdb/info.php";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,7 +79,7 @@ public class MainActivity extends Activity {
         text2.setTypeface(myCustomFont);
 
         //If internet is available
-        if(isNetworkAvailable(this)){
+        if(isNetworkAvailable(this.getApplicationContext())){
             makeToast("Informacion actualizada");
             new getFecha(title1,title2,text1,text2).execute(url);
 
@@ -126,7 +124,7 @@ public class MainActivity extends Activity {
         text2.setTypeface(myCustomFont);
 
         //If internet is available
-        if(isNetworkAvailable(this)){
+        if(isNetworkAvailable(this.getApplicationContext())){
             makeToast("Informacion actualizada");
             new getFecha(title1,title2,text1,text2).execute(url);
 
