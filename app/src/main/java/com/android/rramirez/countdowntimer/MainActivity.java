@@ -49,7 +49,7 @@ public class MainActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_constraint);
 
         //Declare UI elements for timer
         dayCount = (TextView) findViewById(R.id.dayCount);
@@ -213,9 +213,6 @@ public class MainActivity extends Activity {
             //Split the info by commas, self explanatory below
             String currentString = titles;
             String[] separated = currentString.split(",");
-
-            String buscaV = separated[0].toString();
-            Character laV = buscaV.charAt(2);
 
             //Set titles
             title1.setText(separated[0]);
@@ -386,7 +383,7 @@ public class MainActivity extends Activity {
         return ret;
     }
 
-    private void saveFile(String currentString){
+    public void saveFile(String currentString){
         String filename = "offlineData";
         FileOutputStream outputStream;
 
