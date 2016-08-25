@@ -36,7 +36,6 @@ public class AlarmManagerBroadcastReceiver extends BroadcastReceiver {
         views.setTextViewText(R.id.dayCount, separated[0]);
         views.setTextViewText(R.id.hourCount, separated[1]);
         views.setTextViewText(R.id.minCount, separated[2]);
-        views.setTextViewText(R.id.segCount, separated[3]);
         views.setTextViewText(R.id.tvTitle1, title1);
         views.setTextViewText(R.id.tvTitle2, title2);
         views.setTextViewText(R.id.tvText1, text1);
