@@ -11,6 +11,8 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
+
 import android.app.Activity;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -101,6 +103,16 @@ public class MainActivity extends Activity {
             countDownStart(separated[10],separated[4],separated[5],separated[6],separated[7],separated[8],separated[9]);
 
         }
+
+                String startHours = "10";
+                String startMinutes = "10";
+                String startSeconds = "00";
+
+                long countDownMillis = TimeUnit.HOURS.toMillis(Long.valueOf(startHours))
+                        + TimeUnit.MINUTES.toMillis(Long.valueOf(startMinutes))
+                        + TimeUnit.SECONDS.toMillis(Long.valueOf(startSeconds));
+
+                Utility.putLong(getApplicationContext(), Utility.KEY_COUNT_DOWN_MILLIS, countDownMillis);
 
     }
 
@@ -291,6 +303,9 @@ public class MainActivity extends Activity {
 
                         ///////ALARMS //////////
                         //Trigger notification if remains 1 hour.
+
+
+
                         if(remainingHours<=1 && remainingDays==0 && remainingMinutes <= 1 && !alarmaHora){
                             alarmaHora=true;
                             createNotification(fetchTitHora,fetchTextHora);

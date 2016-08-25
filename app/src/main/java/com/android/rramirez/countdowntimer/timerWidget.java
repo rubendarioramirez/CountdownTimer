@@ -9,10 +9,12 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
+import android.os.Bundle;
 import android.os.SystemClock;
 import android.text.format.DateFormat;
 import android.util.Log;
 import android.widget.RemoteViews;
+import android.widget.Toast;
 
 import java.util.Calendar;
 
@@ -21,61 +23,50 @@ import java.util.Calendar;
  */
 public class timerWidget extends AppWidgetProvider {
 
-    private static final String APPWIDGET_UPDATE = "com.android.rramirez.countdowntimer.APPWIDGET_UPDATE";
-
     @Override
-    public void onReceive(Context context, Intent intent) {
-        if (APPWIDGET_UPDATE.endsWith(intent.getAction())) {
-            update(context);
-        } else super.onReceive(context, intent);
+    public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
+        super.onUpdate(context, appWidgetManager, appWidgetIds);
+
+        ComponentName thisWidget = new ComponentName(context, timerWidget.class);
+
+        for(int widgetId : appWidgetManager.getAppWidgetIds(thisWidget)) {
+            RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.timer_widget);
+            views.setTextViewText(R.id.tvClock, Utility.updateCurrentCountDownTime(context));
+            appWidgetManager.updateAppWidget(appWidgetIds, views);
+        }
     }
 
-    private void update(Context context) {
-        ComponentName name = new ComponentName(context.getPackageName(), this.getClass().getName());
-        AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
-        int[] appWidgetIds = appWidgetManager.getAppWidgetIds(name);
-        onUpdate(context, appWidgetManager, appWidgetIds);
-
-    }
-
-    @TargetApi(Build.VERSION_CODES.KITKAT)
     @Override
     public void onEnabled(Context context) {
         super.onEnabled(context);
-        Intent intent = new Intent(context, this.getClass());
-        intent.setAction(timerWidget.APPWIDGET_UPDATE);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-        int interval = 60000;
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(System.currentTimeMillis());
-        calendar.add(Calendar.MINUTE, 1);
-        calendar.set(Calendar.SECOND, 0);
-        AlarmManager manager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-        manager.cancel(pendingIntent);
-       // manager.setRepeating(AlarmManager.ELAPSED_REALTIME, calendar.getTimeInMillis(), interval, pendingIntent);
-        manager.setExact(AlarmManager.RTC, calendar.getTimeInMillis(), pendingIntent);
-
+        AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+        Intent intent = new Intent(context, AlarmManagerBroadcastReceiver.class);
+        PendingIntent pi = PendingIntent.getBroadcast(context, 0, intent, 0);
+        //After 3 seconds
+        am.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), 60000, pi);
     }
 
     @Override
     public void onDisabled(Context context) {
+        Toast.makeText(context, "onDisabled(): last widget instance removed", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(context, AlarmManagerBroadcastReceiver.class);
+        PendingIntent sender = PendingIntent.getBroadcast(context, 0, intent, 0);
+        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+        alarmManager.cancel(sender);
+
         super.onDisabled(context);
-        Intent intent = new Intent(context, this.getClass());
-        intent.setAction(timerWidget.APPWIDGET_UPDATE);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-        AlarmManager manager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-        manager.cancel(pendingIntent);
     }
 
     @Override
-    public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
-        for (int appWidgetId : appWidgetIds) {
-            RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.timer_widget);
-            Calendar calendar = Calendar.getInstance();
-            views.setTextViewText(R.id.tvClock, DateFormat.format("hh:mm aa", calendar.getTime()));
-           // views.setTextViewText(R.id.clock_widget_date, DateFormat.format("MMM dd, yyyy", calendar.getTime()));
-            appWidgetManager.updateAppWidget(appWidgetId, views);
-        }
+    public void onDeleted(Context context, int[] appWidgetIds) {
+        Toast.makeText(context, "CountDownTimerWidget removed id(s):" + appWidgetIds, Toast.LENGTH_SHORT).show();
+        super.onDeleted(context, appWidgetIds);
+    }
+
+    @Override
+    public void onAppWidgetOptionsChanged(Context context, AppWidgetManager appWidgetManager, int appWidgetId, Bundle newOptions) {
+        super.onAppWidgetOptionsChanged(context, appWidgetManager, appWidgetId, newOptions);
+        Toast.makeText(context, "onAppWidgetOptionsChanged() called", Toast.LENGTH_SHORT).show();
     }
 }
 
