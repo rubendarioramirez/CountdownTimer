@@ -35,6 +35,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import static com.android.rramirez.countdowntimer.Utility.isNetworkAvailable;
+
 public class MainActivity extends Activity {
 
     private TextView dayCount, dayText, horaCount, horaText, minCount, minText, segCount, segText, riverJuega;
@@ -91,7 +93,7 @@ public class MainActivity extends Activity {
             makeToast("No se pudo conectar al servidor");
 
             //Get data offline from stored file and parse it
-            String fileToString = readFromFile(this).toString();
+            String fileToString = Utility.readFromFile(this).toString();
             String[] separated = fileToString.split(",");
 
             //Set titles and countdown
@@ -135,7 +137,7 @@ public class MainActivity extends Activity {
             makeToast("No se pudo conectar al servidor");
 
             //Get data offline from stored file and parse it
-            String fileToString = readFromFile(this).toString();
+            String fileToString = Utility.readFromFile(this).toString();
             String[] separated = fileToString.split(",");
 
             //Set titles and countdown
@@ -278,7 +280,6 @@ public class MainActivity extends Activity {
                         segCount.setText("" + String.format("%02d", seconds));
 
 
-
                         //Set widget counter Time
                         String startDays = dayCount.getText().toString();
                         String startHours = horaCount.getText().toString();
@@ -352,76 +353,10 @@ public class MainActivity extends Activity {
     }
 
 
-    //Check internet status, both WIFI or 3G
-    public static boolean isNetworkAvailable(Context context) {
-        boolean status = false;
-        try {
-            ConnectivityManager cm = (ConnectivityManager) context
-                    .getSystemService(Context.CONNECTIVITY_SERVICE);
-            NetworkInfo netInfo = cm.getNetworkInfo(0);
 
-            if (netInfo != null
-                    && netInfo.getState() == NetworkInfo.State.CONNECTED) {
-                status = true;
-            } else {
-                netInfo = cm.getNetworkInfo(1);
-                if (netInfo != null
-                        && netInfo.getState() == NetworkInfo.State.CONNECTED)
-                    status = true;
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }
-        return status;
-    }
 
     public void makeToast(String texto){
         Toast.makeText(this.getBaseContext(),texto, Toast.LENGTH_SHORT).show();
-    }
-
-    //Read from the file. File name is hardcoded inside
-    private String readFromFile(Context context) {
-
-        String ret = "";
-
-        try {
-            InputStream inputStream = context.openFileInput("offlineData");
-
-            if ( inputStream != null ) {
-                InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
-                BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-                String receiveString = "";
-                StringBuilder stringBuilder = new StringBuilder();
-
-                while ( (receiveString = bufferedReader.readLine()) != null ) {
-                    stringBuilder.append(receiveString);
-                }
-
-                inputStream.close();
-                ret = stringBuilder.toString();
-            }
-        }
-        catch (FileNotFoundException e) {
-            Log.e("login activity", "File not found: " + e.toString());
-        } catch (IOException e) {
-            Log.e("login activity", "Can not read file: " + e.toString());
-        }
-
-        return ret;
-    }
-
-    public void saveFile(String currentString){
-        String filename = "offlineData";
-        FileOutputStream outputStream;
-
-        try {
-            outputStream = openFileOutput(filename, Context.MODE_PRIVATE);
-            outputStream.write(currentString.getBytes());
-            outputStream.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 
 
@@ -463,7 +398,18 @@ public class MainActivity extends Activity {
 
     }
 
+    public void saveFile(String currentString){
+        String filename = "offlineData";
+        FileOutputStream outputStream;
 
+        try {
+            outputStream = openFileOutput(filename, Context.MODE_PRIVATE);
+            outputStream.write(currentString.getBytes());
+            outputStream.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
 }
 

@@ -27,9 +27,16 @@ public class AlarmManagerBroadcastReceiver extends BroadcastReceiver {
         String text1 = Utility.getString(context,"text1","");
         String text2 = Utility.getString(context,"text2","");
 
+        //Get the date and split
+        String date = Utility.updateCurrentCountDownTime(context);
+        String[] separated = date.split(":");
+
 
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.timer_widget);
-        views.setTextViewText(R.id.tvClock, Utility.updateCurrentCountDownTime(context));
+        views.setTextViewText(R.id.dayCount, separated[0]);
+        views.setTextViewText(R.id.hourCount, separated[1]);
+        views.setTextViewText(R.id.minCount, separated[2]);
+        views.setTextViewText(R.id.segCount, separated[3]);
         views.setTextViewText(R.id.tvTitle1, title1);
         views.setTextViewText(R.id.tvTitle2, title2);
         views.setTextViewText(R.id.tvText1, text1);

@@ -5,10 +5,11 @@
     android:orientation="vertical">
 
 
+
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="wrap_content"
         android:gravity="center">
 
         <LinearLayout
@@ -23,23 +24,24 @@
                 android:id="@+id/tvTitle1"
                 android:textSize="18sp"
                 android:layout_weight="1"
-                android:gravity="center" />
+                android:gravity="right" />
 
             <TextView
                 android:text="TextView"
-                android:layout_width="match_parent"
+                android:layout_width="234dp"
                 android:layout_height="wrap_content"
                 android:id="@+id/tvTitle2"
                 android:textSize="18sp"
-                android:layout_weight="1"
                 android:gravity="center" />
 
         </LinearLayout>
     </LinearLayout>
+
+
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="39dp"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/linearLayout"
         android:gravity="center">
 
@@ -74,12 +76,89 @@
         android:layout_height="wrap_content"
         android:gravity="center">
 
-        <TextView
-            android:text="TextView"
+        <LinearLayout
+            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:id="@+id/tvClock" />
+            android:layout_height="match_parent">
+
+            <TextView
+                android:text="XX"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/dayCount"
+                android:layout_weight="0.68"
+                android:gravity="center" />
+
+            <TextView
+                android:text="XX"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/hourCount"
+                android:layout_weight="0.62"
+                android:gravity="center" />
+
+            <TextView
+                android:text="XX"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/minCount"
+                android:layout_weight="0.83"
+                android:gravity="center" />
+
+            <TextView
+                android:text="XX"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/segCount"
+                android:layout_weight="1"
+                android:gravity="center" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:text="Dia"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView15"
+                android:layout_weight="1"
+                android:gravity="center" />
+
+            <TextView
+                android:text="Hora"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView16"
+                android:layout_weight="1"
+                android:gravity="center" />
+
+            <TextView
+                android:text="Minutos"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView14"
+                android:layout_weight="1"
+                android:gravity="center" />
+
+            <TextView
+                android:text="Segundos"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView13"
+                android:layout_weight="1"
+                android:gravity="center" />
+        </LinearLayout>
+
     </LinearLayout>
 
 
