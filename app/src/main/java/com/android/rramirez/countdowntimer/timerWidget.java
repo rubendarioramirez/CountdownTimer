@@ -27,11 +27,20 @@ public class timerWidget extends AppWidgetProvider {
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
         super.onUpdate(context, appWidgetManager, appWidgetIds);
 
+        String title1 = Utility.getString(context,"title1","");
+        String title2 = Utility.getString(context,"title2","");
+        String text1 = Utility.getString(context,"text1","");
+        String text2 = Utility.getString(context,"text2","");
+
         ComponentName thisWidget = new ComponentName(context, timerWidget.class);
 
         for(int widgetId : appWidgetManager.getAppWidgetIds(thisWidget)) {
             RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.timer_widget);
             views.setTextViewText(R.id.tvClock, Utility.updateCurrentCountDownTime(context));
+            views.setTextViewText(R.id.tvTitle1, title1);
+            views.setTextViewText(R.id.tvTitle2, title2);
+            views.setTextViewText(R.id.tvText1, text1);
+            views.setTextViewText(R.id.tvText2, text2);
             appWidgetManager.updateAppWidget(appWidgetIds, views);
         }
     }

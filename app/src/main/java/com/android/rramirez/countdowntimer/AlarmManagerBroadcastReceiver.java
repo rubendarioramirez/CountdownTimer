@@ -21,8 +21,19 @@ public class AlarmManagerBroadcastReceiver extends BroadcastReceiver {
         PowerManager.WakeLock wl = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, TAG);
         wl.acquire();
 
+        //Get title from Shared preferences
+        String title1 = Utility.getString(context,"title1","");
+        String title2 = Utility.getString(context,"title2","");
+        String text1 = Utility.getString(context,"text1","");
+        String text2 = Utility.getString(context,"text2","");
+
+
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.timer_widget);
         views.setTextViewText(R.id.tvClock, Utility.updateCurrentCountDownTime(context));
+        views.setTextViewText(R.id.tvTitle1, title1);
+        views.setTextViewText(R.id.tvTitle2, title2);
+        views.setTextViewText(R.id.tvText1, text1);
+        views.setTextViewText(R.id.tvText2, text2);
 
         ComponentName thisWidget = new ComponentName(context, timerWidget.class);
         AppWidgetManager manager = AppWidgetManager.getInstance(context);

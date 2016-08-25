@@ -32,8 +32,9 @@ public class Utility {
             Utility.putLong(ctx, Utility.KEY_COUNT_DOWN_MILLIS, countDownMillis);
             Utility.putLong(ctx, Utility.KEY_LAST_TIME_MILLIS, currentTimeMillis);
 
-            hms = String.format("%02d:%02d:%02d",
-                    TimeUnit.MILLISECONDS.toHours(countDownMillis),
+            hms = String.format("%02d:%02d:%02d:%02d",
+                    TimeUnit.MILLISECONDS.toDays(countDownMillis),
+                    TimeUnit.MILLISECONDS.toHours(countDownMillis) - TimeUnit.DAYS.toHours(TimeUnit.MILLISECONDS.toDays(countDownMillis)),
                     TimeUnit.MILLISECONDS.toMinutes(countDownMillis) - TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(countDownMillis)),
                     TimeUnit.MILLISECONDS.toSeconds(countDownMillis) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(countDownMillis)));
         }
@@ -51,9 +52,22 @@ public class Utility {
         editor.commit();
     }
 
+    public static void putString(Context ctx, String key, String value) {
+        SharedPreferences settings = ctx.getSharedPreferences(PREFS_NAME, 0);
+        SharedPreferences.Editor editor = settings.edit();
+        editor.putString(key, value);
+        editor.commit();
+    }
+
     public static long getLong(Context ctx, String key, long defaultValue) {
         SharedPreferences settings = ctx.getSharedPreferences(PREFS_NAME, 0);
         long value = settings.getLong(key, defaultValue);
+        return value;
+    }
+
+    public static String getString(Context ctx, String key, String defaultValue) {
+        SharedPreferences settings = ctx.getSharedPreferences(PREFS_NAME, 0);
+        String value = settings.getString(key, defaultValue);
         return value;
     }
 

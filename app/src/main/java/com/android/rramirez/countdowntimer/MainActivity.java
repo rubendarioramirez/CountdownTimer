@@ -104,16 +104,6 @@ public class MainActivity extends Activity {
 
         }
 
-                String startHours = "10";
-                String startMinutes = "10";
-                String startSeconds = "00";
-
-                long countDownMillis = TimeUnit.HOURS.toMillis(Long.valueOf(startHours))
-                        + TimeUnit.MINUTES.toMillis(Long.valueOf(startMinutes))
-                        + TimeUnit.SECONDS.toMillis(Long.valueOf(startSeconds));
-
-                Utility.putLong(getApplicationContext(), Utility.KEY_COUNT_DOWN_MILLIS, countDownMillis);
-
     }
 
     @Override
@@ -238,6 +228,12 @@ public class MainActivity extends Activity {
             //save new data to a file
             saveFile(currentString);
 
+            //Save title in shared Preferences for Widget Usage
+            Utility.putString(getApplicationContext(),"title1",separated[0]);
+            Utility.putString(getApplicationContext(),"title2",separated[1]);
+            Utility.putString(getApplicationContext(),"text1",separated[2]);
+            Utility.putString(getApplicationContext(),"text2",separated[3]);
+
 
         }
     }
@@ -280,6 +276,23 @@ public class MainActivity extends Activity {
                         horaCount.setText("" + String.format("%02d", hours));
                         minCount.setText("" + String.format("%02d", minutes));
                         segCount.setText("" + String.format("%02d", seconds));
+
+
+
+                        //Set widget counter Time
+                        String startDays = dayCount.getText().toString();
+                        String startHours = horaCount.getText().toString();
+                        String startMinutes = minCount.getText().toString();
+                        String startSeconds = segCount.getText().toString();
+
+                        long countDownMillis =
+                                TimeUnit.DAYS.toMillis(Long.valueOf(startDays))
+                                        + TimeUnit.HOURS.toMillis(Long.valueOf(startHours))
+                                        + TimeUnit.MINUTES.toMillis(Long.valueOf(startMinutes))
+                                        + TimeUnit.SECONDS.toMillis(Long.valueOf(startSeconds));
+
+                        Utility.putLong(getApplicationContext(), Utility.KEY_COUNT_DOWN_MILLIS, countDownMillis);
+
 
 
                         Integer remainingDays = Integer.parseInt(dayCount.getText().toString());
