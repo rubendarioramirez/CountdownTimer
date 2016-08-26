@@ -37,7 +37,7 @@ public class timerWidget extends AppWidgetProvider {
         for(int widgetId : appWidgetManager.getAppWidgetIds(thisWidget)) {
 
             //Get the date and split it
-            String date = Utility.updateCurrentCountDownTime(context);
+           String date = Utility.getString(context,"fecha","");
             String[] separated = date.split(":");
 
 

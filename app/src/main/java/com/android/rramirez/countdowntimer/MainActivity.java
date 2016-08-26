@@ -286,15 +286,18 @@ public class MainActivity extends Activity {
                         String startMinutes = minCount.getText().toString();
                         String startSeconds = segCount.getText().toString();
 
-                        long countDownMillis =
-                                TimeUnit.DAYS.toMillis(Long.valueOf(startDays))
-                                        + TimeUnit.HOURS.toMillis(Long.valueOf(startHours))
-                                        + TimeUnit.MINUTES.toMillis(Long.valueOf(startMinutes))
-                                        + TimeUnit.SECONDS.toMillis(Long.valueOf(startSeconds));
-
-                        Utility.putLong(getApplicationContext(), Utility.KEY_COUNT_DOWN_MILLIS, countDownMillis);
 
 
+//                        long countDownMillis =
+//                                TimeUnit.DAYS.toMillis(Long.valueOf(startDays))
+//                                        + TimeUnit.HOURS.toMillis(Long.valueOf(startHours))
+//                                        + TimeUnit.MINUTES.toMillis(Long.valueOf(startMinutes))
+//                                        + TimeUnit.SECONDS.toMillis(Long.valueOf(startSeconds));
+
+//                        Utility.putLong(getApplicationContext(), Utility.KEY_COUNT_DOWN_MILLIS, countDownMillis);
+
+                        String updateFecha = startDays + ":" + startHours + ":" + startMinutes + ":" + startMinutes;
+                        Utility.putString(getApplicationContext(),"fecha", updateFecha);
 
                         Integer remainingDays = Integer.parseInt(dayCount.getText().toString());
                         Integer remainingHours = Integer.parseInt(horaCount.getText().toString());
@@ -344,12 +347,15 @@ public class MainActivity extends Activity {
                             alarmaComienzo = true;
                         }
                     }
+
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
+
             }
         };
         handler.postDelayed(runnable, 0);
+
     }
 
 

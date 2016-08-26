@@ -28,7 +28,7 @@ public class AlarmManagerBroadcastReceiver extends BroadcastReceiver {
         String text2 = Utility.getString(context,"text2","");
 
         //Get the date and split
-        String date = Utility.updateCurrentCountDownTime(context);
+        String date = Utility.getString(context,"fecha","");
         String[] separated = date.split(":");
 
 
