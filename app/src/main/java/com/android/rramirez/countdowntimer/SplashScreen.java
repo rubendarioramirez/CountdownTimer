@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 import static com.android.rramirez.countdowntimer.Utility.isNetworkAvailable;
 import static com.android.rramirez.countdowntimer.Utility.updateCurrentCountDownTime;
@@ -26,7 +27,7 @@ public class SplashScreen extends Activity {
         Thread timerThread = new Thread(){
             public void run(){
                 try{
-                    sleep(3000);
+                    sleep(4000);
                 }catch(InterruptedException e){
                     e.printStackTrace();
                 }finally{
@@ -37,10 +38,9 @@ public class SplashScreen extends Activity {
         };
         timerThread.start();
 
-            if(Utility.isNetworkAvailable(mContext)){
-                new getFechaTask(this.getApplicationContext()).execute(url);
-                Utility.makeToast(mContext,"Informacion actualizada");
-            }
+        //Start service to fetchData
+        new getFechaTask(this.getApplicationContext()).execute(url);
+
     }
 
     @Override
@@ -48,5 +48,6 @@ public class SplashScreen extends Activity {
         super.onPause();
         finish();
     }
+
 
 }

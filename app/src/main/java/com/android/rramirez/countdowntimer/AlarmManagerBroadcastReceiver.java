@@ -31,7 +31,6 @@ public class AlarmManagerBroadcastReceiver extends BroadcastReceiver {
         String date = Utility.getString(context,"fecha","");
         String[] separated = date.split(":");
 
-
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.timer_widget);
         views.setTextViewText(R.id.dayCount, separated[0]);
         views.setTextViewText(R.id.hourCount, separated[1]);

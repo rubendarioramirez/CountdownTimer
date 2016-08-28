@@ -95,6 +95,7 @@ import java.net.URL;
             Utility.putString(mContext,"text2",separated[3]);
             Utility.putString(mContext,"fecha",separated[10]);
 
+            Utility.makeToast(mContext,"Informacion actualizada");
 
         }
     }
