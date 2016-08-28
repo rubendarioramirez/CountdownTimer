@@ -1,17 +1,7 @@
 package com.android.rramirez.countdowntimer;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.concurrent.TimeUnit;
 
 import android.app.Activity;
 import android.app.NotificationManager;
@@ -20,42 +10,32 @@ import android.app.TaskStackBuilder;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.NotificationCompat;
-import android.util.Log;
-import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import static com.android.rramirez.countdowntimer.Utility.isNetworkAvailable;
+import static com.android.rramirez.countdowntimer.Utility.updateCurrentCountDownTime;
 
 public class MainActivity extends Activity {
 
     private TextView dayCount, dayText, horaCount, horaText, minCount, minText, segCount, segText, riverJuega;
     private Handler handler;
     private Runnable runnable;
-    private boolean alarmaHora;
-    private boolean alarmaMinuto;
-    private boolean alarmaComienzo;
+    private Context mContext;
 
     //JSON URL
     String url = "http://esteeselfamosoriver.com/app/info.php";
-    //String url = "http://10.212.235.58/timerdb/info.php";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_constraint);
+        mContext = getApplicationContext();
 
-        //Declare UI elements for timer
+        //Declare UI elements for MainActivity
         dayCount = (TextView) findViewById(R.id.dayCount);
         dayText = (TextView) findViewById(R.id.diaText);
         horaCount = (TextView) findViewById(R.id.horaCount);
@@ -65,14 +45,9 @@ public class MainActivity extends Activity {
         segCount = (TextView) findViewById(R.id.segCount);
         segText = (TextView) findViewById(R.id.segText);
         riverJuega = (TextView) findViewById(R.id.riverJuega);
-
-
-        //Crea la font Custom
+        //Crea la font Custom and assign to the titles
        Typeface myCustomFont = Typeface.createFromAsset(getApplicationContext().getAssets(),"fonts/Ubuntu-C.ttf");
        Typeface myCustomFontNegrita = Typeface.createFromAsset(getApplicationContext().getAssets(),"fonts/Ubuntu-B.ttf");
-
-
-        //Titulos
         TextView title1 = (TextView) findViewById(R.id.title1);
         title1.setTypeface(myCustomFontNegrita);
         TextView title2 = (TextView) findViewById(R.id.title2);
@@ -82,29 +57,27 @@ public class MainActivity extends Activity {
         TextView text2 = (TextView) findViewById(R.id.text2);
         text2.setTypeface(myCustomFont);
 
+        //Fetch fecha from SharedPref
+        String fecha = Utility.getString(mContext,"fecha", "");
+
         //If internet is available
-        if(isNetworkAvailable(this.getApplicationContext())){
-            makeToast("Informacion actualizada");
-            new getFecha(title1,title2,text1,text2).execute(url);
-
-        } else {
-
-            //Create a toast
-            makeToast("No se pudo conectar al servidor");
-
-            //Get data offline from stored file and parse it
-            String fileToString = Utility.readFromFile(this).toString();
-            String[] separated = fileToString.split(",");
-
-            //Set titles and countdown
-            title1.setText(separated[0]);
-            title2.setText(separated[1]);
-            text1.setText(separated[2]);
-            text2.setText(separated[3]);
-
-            countDownStart(separated[10],separated[4],separated[5],separated[6],separated[7],separated[8],separated[9]);
-
+        if(isNetworkAvailable(mContext)) {
+            //Get new data
+            new getFechaTask(mContext).execute(url);
+            Utility.makeToast(mContext,"Informacion actualizada");
         }
+
+            //Get and Set the titles
+            String fetchTitle1 = Utility.getString(mContext,"title1","");
+            String fetchTitle2 = Utility.getString(mContext,"title2","");
+            String fetchText1 = Utility.getString(mContext,"text1","");
+            String fetchText2 = Utility.getString(mContext,"text2","");
+            title1.setText(fetchTitle1);
+            title2.setText(fetchTitle2);
+            text1.setText(fetchText1);
+            text2.setText(fetchText2);
+            //Start the countDown
+            countDownStart(fecha);
 
     }
 
@@ -112,146 +85,12 @@ public class MainActivity extends Activity {
     protected void onResume(){
         super.onResume();  // Always call the superclass method first
 
-        //Crea la font Custom
-        Typeface myCustomFont = Typeface.createFromAsset(getApplicationContext().getAssets(),"fonts/Ubuntu-C.ttf");
-        Typeface myCustomFontNegrita = Typeface.createFromAsset(getApplicationContext().getAssets(),"fonts/Ubuntu-B.ttf");
-
-
-        //Titulos
-        TextView title1 = (TextView) findViewById(R.id.title1);
-        title1.setTypeface(myCustomFontNegrita);
-        TextView title2 = (TextView) findViewById(R.id.title2);
-        title2.setTypeface(myCustomFontNegrita);
-        TextView text1 = (TextView) findViewById(R.id.text1);
-        text1.setTypeface(myCustomFont);
-        TextView text2 = (TextView) findViewById(R.id.text2);
-        text2.setTypeface(myCustomFont);
-
-        //If internet is available
-        if(isNetworkAvailable(this.getApplicationContext())){
-            makeToast("Informacion actualizada");
-            new getFecha(title1,title2,text1,text2).execute(url);
-
-        } else {
-            //Create a toast
-            makeToast("No se pudo conectar al servidor");
-
-            //Get data offline from stored file and parse it
-            String fileToString = Utility.readFromFile(this).toString();
-            String[] separated = fileToString.split(",");
-
-            //Set titles and countdown
-            title1.setText(separated[0]);
-            title2.setText(separated[1]);
-            text1.setText(separated[2]);
-            text2.setText(separated[3]);
-            countDownStart(separated[10],separated[4],separated[5],separated[6],separated[7],separated[8],separated[9]);
-        }
-
-    }
-
-    //Async task
-    private class getFecha extends AsyncTask<String, Void, String> {
-
-        private TextView title1;
-        private TextView title2;
-        private TextView text1;
-        private TextView text2;
-
-        public getFecha(TextView title1, TextView title2, TextView text1, TextView text2) {
-            this.title1 = title1;
-            this.title2 = title2;
-            this.text1 = text1;
-            this.text2 = text2;
-        }
-
-        @Override
-        protected String doInBackground(String... strings) {
-            String titles = "UNDEFINED";
-            try {
-                URL url = new URL(strings[0]);
-                HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
-
-                InputStream stream = new BufferedInputStream(urlConnection.getInputStream());
-                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(stream));
-                StringBuilder builder = new StringBuilder();
-
-                String inputString;
-                while ((inputString = bufferedReader.readLine()) != null) {
-                    builder.append(inputString);
-                }
-
-                //JSONObject topLevel = new JSONObject(builder.toString());
-                JSONObject theArray = new JSONObject(builder.toString());
-                JSONArray info = theArray.getJSONArray("info");
-                JSONObject titulos = info.getJSONObject(0);
-
-                String firstTitle = titulos.optString("title1");
-                String secondTitle = titulos.optString("title2");
-                String thirdTitle = titulos.optString("title3");
-                String fourthTitle = titulos.optString("title4");
-                String notHoraTitle = titulos.optString("notHoraTitle");
-                String notHoraContent = titulos.optString("notHoraContent");
-                String notMedTitle = titulos.optString("notMedTitle");
-                String notMedContent = titulos.optString("notMedContent");
-                String notFinalTitle = titulos.optString("notFinalTitle");
-                String notFinalContent = titulos.optString("notFinalContent");
-                String fechayhora = titulos.optString("fechayhora");
-
-
-                titles = firstTitle + "," + secondTitle + "," + thirdTitle +
-                        "," + fourthTitle + "," + notHoraTitle+ "," + notHoraContent+ ","
-                        + notMedTitle+ "," + notMedContent+ "," + notFinalTitle+ ","
-                        + notFinalContent + "," + fechayhora;
-
-                urlConnection.disconnect();
-            } catch (IOException | JSONException e) {
-                e.printStackTrace();
-            }
-            return titles;
-        }
-
-        @Override
-        protected void onPostExecute(String titles) {
-
-            //Split the info by commas, self explanatory below
-            String currentString = titles;
-            String[] separated = currentString.split(",");
-
-            //Set titles
-            title1.setText(separated[0]);
-            title2.setText(separated[1]);
-            text1.setText(separated[2]);
-            text2.setText(separated[3]);
-
-            //Start countDown with your custom date and server notTitles and content
-            countDownStart(separated[10],separated[4],separated[5],separated[6],separated[7],separated[8],separated[9]);
-
-            //save new data to a file
-            saveFile(currentString);
-
-            //Save title in shared Preferences for Widget Usage
-            Utility.putString(getApplicationContext(),"title1",separated[0]);
-            Utility.putString(getApplicationContext(),"title2",separated[1]);
-            Utility.putString(getApplicationContext(),"text1",separated[2]);
-            Utility.putString(getApplicationContext(),"text2",separated[3]);
-
-
-        }
     }
 
     // //////////////COUNT DOWN START/////////////////////////
-    public void countDownStart(String eventDate, String tituloHora, String textoHora, String tituloMedHora,
-                               String textoMedHora, String tituloFinal, String textoFinal ) {
+    public void countDownStart(String eventDate) {
 
         final String fetchFecha = eventDate;
-        final String fetchTitHora = tituloHora;
-        final String fetchTextHora = textoHora;
-        final String fetchTitMedHora = tituloMedHora;
-        final String fetchTextMedHora = textoMedHora;
-        final String fetchTitFinal = tituloFinal;
-        final String fetchTextFinal = textoFinal;
-
 
         handler = new Handler();
         runnable = new Runnable() {
@@ -287,65 +126,10 @@ public class MainActivity extends Activity {
                         String startSeconds = segCount.getText().toString();
 
 
-
-//                        long countDownMillis =
-//                                TimeUnit.DAYS.toMillis(Long.valueOf(startDays))
-//                                        + TimeUnit.HOURS.toMillis(Long.valueOf(startHours))
-//                                        + TimeUnit.MINUTES.toMillis(Long.valueOf(startMinutes))
-//                                        + TimeUnit.SECONDS.toMillis(Long.valueOf(startSeconds));
-
-//                        Utility.putLong(getApplicationContext(), Utility.KEY_COUNT_DOWN_MILLIS, countDownMillis);
-
                         String updateFecha = startDays + ":" + startHours + ":" + startMinutes + ":" + startMinutes;
                         Utility.putString(getApplicationContext(),"fecha", updateFecha);
 
-                        Integer remainingDays = Integer.parseInt(dayCount.getText().toString());
-                        Integer remainingHours = Integer.parseInt(horaCount.getText().toString());
-                        Integer remainingMinutes = Integer.parseInt(minCount.getText().toString());
 
-
-                        //Change text from singular to plural
-                        if(remainingDays<=1){
-                            dayText.setText("Dia");
-                        } else { dayText.setText("Dias");}
-
-                        if(remainingHours<=2){
-                            horaText.setText("Hora");
-                        } else { horaText.setText("Horas");}
-
-                        if(remainingMinutes<=1){
-                            minText.setText("Minuto");
-                        } else { minText.setText("Minutos");}
-
-
-                        ///////ALARMS //////////
-                        //Trigger notification if remains 1 hour.
-
-
-
-                        if(remainingHours<=1 && remainingDays==0 && remainingMinutes <= 1 && !alarmaHora){
-                            alarmaHora=true;
-                            createNotification(fetchTitHora,fetchTextHora);
-                        }
-                        //Triggers notification if remains 30 minutes or less.
-                        if(remainingMinutes<=30 && remainingDays==0 && remainingHours==0 && !alarmaMinuto){
-                            alarmaMinuto=true;
-                            createNotification(fetchTitMedHora, fetchTextMedHora);
-                        }
-                        //Triggers notification if everything is 0.
-                        if(remainingMinutes==0 && remainingDays==0 && remainingHours==0 && !alarmaComienzo){
-                            createNotification(fetchTitFinal,fetchTextFinal);
-                            dayText.setVisibility(View.INVISIBLE);
-                            horaText.setVisibility(View.INVISIBLE);
-                            minText.setVisibility(View.INVISIBLE);
-                            segText.setVisibility(View.INVISIBLE);
-                            dayCount.setVisibility(View.INVISIBLE);
-                            horaCount.setVisibility(View.INVISIBLE);
-                            minCount.setVisibility(View.INVISIBLE);
-                            segCount.setVisibility(View.INVISIBLE);
-                            riverJuega.setVisibility(View.VISIBLE);
-                            alarmaComienzo = true;
-                        }
                     }
 
                 } catch (Exception e) {
@@ -357,14 +141,6 @@ public class MainActivity extends Activity {
         handler.postDelayed(runnable, 0);
 
     }
-
-
-
-
-    public void makeToast(String texto){
-        Toast.makeText(this.getBaseContext(),texto, Toast.LENGTH_SHORT).show();
-    }
-
 
     private void createNotification(String title, String content){
 
@@ -402,19 +178,6 @@ public class MainActivity extends Activity {
                 mNotificationManager.notify(0, mBuilder.build());
 
 
-    }
-
-    public void saveFile(String currentString){
-        String filename = "offlineData";
-        FileOutputStream outputStream;
-
-        try {
-            outputStream = openFileOutput(filename, Context.MODE_PRIVATE);
-            outputStream.write(currentString.getBytes());
-            outputStream.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 
 }

@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.util.Log;
+import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -137,6 +138,27 @@ public class Utility {
         }
         return status;
     }
+
+
+
+    public static void makeToast(Context mContext, String texto){
+        Toast.makeText(mContext,texto, Toast.LENGTH_SHORT).show();
+    }
+
+
+    public static void saveFile(Context ctx, String currentString){
+        String filename = "offlineData";
+        FileOutputStream outputStream;
+
+        try {
+            outputStream = ctx.openFileOutput(filename, Context.MODE_PRIVATE);
+            outputStream.write(currentString.getBytes());
+            outputStream.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 
 
 
