@@ -26,9 +26,6 @@ public class MainActivity extends Activity {
     private Runnable runnable;
     private Context mContext;
 
-    //JSON URL
-    String url = "http://esteeselfamosoriver.com/app/info.php";
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,13 +56,6 @@ public class MainActivity extends Activity {
 
         //Fetch fecha from SharedPref
         String fecha = Utility.getString(mContext,"fecha", "");
-
-        //If internet is available
-        if(isNetworkAvailable(mContext)) {
-            //Get new data
-            new getFechaTask(mContext).execute(url);
-            Utility.makeToast(mContext,"Informacion actualizada");
-        }
 
             //Get and Set the titles
             String fetchTitle1 = Utility.getString(mContext,"title1","");
@@ -118,17 +108,14 @@ public class MainActivity extends Activity {
                         minCount.setText("" + String.format("%02d", minutes));
                         segCount.setText("" + String.format("%02d", seconds));
 
-
                         //Set widget counter Time
                         String startDays = dayCount.getText().toString();
                         String startHours = horaCount.getText().toString();
                         String startMinutes = minCount.getText().toString();
                         String startSeconds = segCount.getText().toString();
 
-
                         String updateFecha = startDays + ":" + startHours + ":" + startMinutes + ":" + startMinutes;
                         Utility.putString(getApplicationContext(),"fecha", updateFecha);
-
 
                     }
 
