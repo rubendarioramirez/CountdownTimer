@@ -40,7 +40,7 @@ public class SplashScreen extends Activity {
 
         //Start service to fetchData
         new getFechaTask(this.getApplicationContext()).execute(url);
-
+        startService(new Intent(this, TimerService.class));
     }
 
     @Override

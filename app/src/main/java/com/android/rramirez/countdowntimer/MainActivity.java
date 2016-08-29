@@ -22,11 +22,12 @@ import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
+import static com.android.rramirez.countdowntimer.Utility.getDate;
+
 public class MainActivity extends Activity {
 
     private TextView dayCount, dayText, horaCount, horaText, minCount, minText, segCount, segText, riverJuega;
     private Context mContext;
-    String url = "http://esteeselfamosoriver.com/app/info.php";
     private static final String TAG = "BroadcastTest";
     private Intent intent;
 
@@ -35,6 +36,8 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_constraint);
         mContext = getApplicationContext();
+        //Get the intent from the service
+        intent = new Intent(this, TimerService.class);
 
         //Declare UI elements for MainActivity
         dayCount = (TextView) findViewById(R.id.dayCount);
@@ -68,10 +71,6 @@ public class MainActivity extends Activity {
             title2.setText(fetchTitle2);
             text1.setText(fetchText1);
             text2.setText(fetchText2);
-
-            //Start the service
-            startService(new Intent(this, TimerService.class));
-            intent = new Intent(this, TimerService.class);
     }
 
     //Gets the updates for the CountDown.
@@ -125,22 +124,10 @@ public class MainActivity extends Activity {
         }
     }
 
-    public static String getDate(long milliSeconds, String dateFormat)
-    {
-        // Create a DateFormatter object for displaying date in specified format.
-        SimpleDateFormat formatter = new SimpleDateFormat(dateFormat);
-
-        // Create a calendar object that will convert the date and time value in milliseconds to date.
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(milliSeconds);
-        return formatter.format(calendar.getTime());
-    }
-
     @Override
     public void onResume() {
         super.onResume();
         registerReceiver(br, new IntentFilter(TimerService.COUNTDOWN_BR));
-        //startService(intent);
         Log.i(TAG, "Registered broacast receiver");
     }
 

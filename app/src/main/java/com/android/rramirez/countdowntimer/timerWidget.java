@@ -5,46 +5,76 @@ import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
+import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
+import android.content.IntentFilter;
 import android.os.Bundle;
-import android.os.SystemClock;
-import android.text.format.DateFormat;
-import android.util.Log;
 import android.widget.RemoteViews;
 import android.widget.Toast;
-
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
+
+import static com.android.rramirez.countdowntimer.Utility.getDate;
 
 /**
  * Implementation of App Widget functionality.
  */
 public class timerWidget extends AppWidgetProvider {
 
+    private Intent intent;
+
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
         super.onUpdate(context, appWidgetManager, appWidgetIds);
 
-        String title1 = Utility.getString(context,"title1","");
-        String title2 = Utility.getString(context,"title2","");
-        String text1 = Utility.getString(context,"text1","");
-        String text2 = Utility.getString(context,"text2","");
+        intent = new Intent(context, TimerService.class);
+
+        String title1 = Utility.getString(context, "title1", "");
+        String title2 = Utility.getString(context, "title2", "");
+        String text1 = Utility.getString(context, "text1", "");
+        String text2 = Utility.getString(context, "text2", "");
+        String fetchFecha = Utility.getString(context, "longMilis", "");
 
         ComponentName thisWidget = new ComponentName(context, timerWidget.class);
-
-        for(int widgetId : appWidgetManager.getAppWidgetIds(thisWidget)) {
-
-            //Get the date and split it
-           String date = Utility.getString(context,"fecha","");
-            String[] separated = date.split(":");
-
-
+        for (int widgetId : appWidgetManager.getAppWidgetIds(thisWidget)) {
             RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.timer_widget);
-            views.setTextViewText(R.id.dayCount, separated[0]);
-            views.setTextViewText(R.id.hourCount, separated[1]);
-            views.setTextViewText(R.id.minCount, separated[2]);
+
+            //Parse the string to Long.
+            long l = Long.parseLong(fetchFecha);
+            //Convert the LONG to a date
+            String fecha = getDate(l, "dd/MM/yyyy hh:mm:ss");
+            //Parse the date into days,hours,minutes and seconds
+            SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
+
+            try {
+                Date futureDate = format.parse(fecha);
+                Date currentDate = new Date();
+                if (!currentDate.after(futureDate)) {
+                    long diff = futureDate.getTime()
+                            - currentDate.getTime();
+                    long days = diff / (24 * 60 * 60 * 1000);
+                    diff -= days * (24 * 60 * 60 * 1000);
+                    long hours = diff / (60 * 60 * 1000);
+                    diff -= hours * (60 * 60 * 1000);
+                    long minutes = diff / (60 * 1000);
+                    diff -= minutes * (60 * 1000);
+                    long seconds = diff / 1000;
+
+                    views.setTextViewText(R.id.dayCount, String.format("%02d", days));
+                    views.setTextViewText(R.id.hourCount, String.format("%02d", hours));
+                    views.setTextViewText(R.id.minCount, String.format("%02d", minutes));
+
+                }
+
+            } catch (ParseException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+
             views.setTextViewText(R.id.tvTitle1, title1);
             views.setTextViewText(R.id.tvTitle2, title2);
             views.setTextViewText(R.id.tvText1, text1);
@@ -52,10 +82,10 @@ public class timerWidget extends AppWidgetProvider {
             appWidgetManager.updateAppWidget(appWidgetIds, views);
         }
     }
-
     @Override
     public void onEnabled(Context context) {
         super.onEnabled(context);
+
         AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(context, AlarmManagerBroadcastReceiver.class);
         PendingIntent pi = PendingIntent.getBroadcast(context, 0, intent, 0);
@@ -85,6 +115,8 @@ public class timerWidget extends AppWidgetProvider {
         super.onAppWidgetOptionsChanged(context, appWidgetManager, appWidgetId, newOptions);
         Toast.makeText(context, "onAppWidgetOptionsChanged() called", Toast.LENGTH_SHORT).show();
     }
+
+
 }
 
 
