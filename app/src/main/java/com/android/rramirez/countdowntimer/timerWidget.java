@@ -4,20 +4,15 @@ import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
-import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.os.Bundle;
+import android.os.Handler;
 import android.widget.RemoteViews;
 import android.widget.Toast;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
-
-import static com.android.rramirez.countdowntimer.Utility.getDate;
 
 /**
  * Implementation of App Widget functionality.
@@ -25,6 +20,9 @@ import static com.android.rramirez.countdowntimer.Utility.getDate;
 public class timerWidget extends AppWidgetProvider {
 
     private Intent intent;
+    public Context mContext;
+    Runnable runnable;
+    Handler handler;
 
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
@@ -42,38 +40,14 @@ public class timerWidget extends AppWidgetProvider {
         for (int widgetId : appWidgetManager.getAppWidgetIds(thisWidget)) {
             RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.timer_widget);
 
-            //Parse the string to Long.
-            long l = Long.parseLong(fetchFecha);
-            //Convert the LONG to a date
-            String fecha = getDate(l, "dd/MM/yyyy hh:mm:ss");
-            //Parse the date into days,hours,minutes and seconds
-            SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
-
-            try {
-                Date futureDate = format.parse(fecha);
-                Date currentDate = new Date();
-                if (!currentDate.after(futureDate)) {
-                    long diff = futureDate.getTime()
-                            - currentDate.getTime();
-                    long days = diff / (24 * 60 * 60 * 1000);
-                    diff -= days * (24 * 60 * 60 * 1000);
-                    long hours = diff / (60 * 60 * 1000);
-                    diff -= hours * (60 * 60 * 1000);
-                    long minutes = diff / (60 * 1000);
-                    diff -= minutes * (60 * 1000);
-                    long seconds = diff / 1000;
-
-                    views.setTextViewText(R.id.dayCount, String.format("%02d", days));
-                    views.setTextViewText(R.id.hourCount, String.format("%02d", hours));
-                    views.setTextViewText(R.id.minCount, String.format("%02d", minutes));
-                    views.setTextViewText(R.id.segCount, String.format("%02d", seconds));
-
-                }
-
-            } catch (ParseException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
+            String day = Utility.getString(context,"daysRemaining", "");
+            String hour = Utility.getString(context,"hoursRemaining", "");
+            String min = Utility.getString(context,"minutesRemaining", "");
+            String sec = Utility.getString(context,"secRemaining", "");
+            views.setTextViewText(R.id.dayCount, day);
+            views.setTextViewText(R.id.hourCount, hour);
+            views.setTextViewText(R.id.minCount, min);
+            views.setTextViewText(R.id.segCount, sec);
 
             views.setTextViewText(R.id.tvTitle1, title1);
             views.setTextViewText(R.id.tvTitle2, title2);
@@ -84,7 +58,6 @@ public class timerWidget extends AppWidgetProvider {
     @Override
     public void onEnabled(Context context) {
         super.onEnabled(context);
-
         AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(context, AlarmManagerBroadcastReceiver.class);
         PendingIntent pi = PendingIntent.getBroadcast(context, 0, intent, 0);

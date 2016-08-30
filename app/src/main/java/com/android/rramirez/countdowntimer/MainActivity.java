@@ -1,10 +1,6 @@
 package com.android.rramirez.countdowntimer;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-
 import android.app.Activity;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -16,14 +12,10 @@ import android.content.IntentFilter;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v7.app.NotificationCompat;
 import android.text.Html;
 import android.util.Log;
-import android.view.View;
 import android.widget.TextView;
-
-import static com.android.rramirez.countdowntimer.Utility.getDate;
 
 public class MainActivity extends Activity {
 
@@ -31,12 +23,15 @@ public class MainActivity extends Activity {
     private Context mContext;
     private static final String TAG = "BroadcastTest";
     private Intent intent;
+    public static String packageName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_constraint);
         mContext = getApplicationContext();
+        packageName = getPackageName();
+
         //Get the intent from the service
         intent = new Intent(this, TimerService.class);
 
@@ -102,45 +97,14 @@ public class MainActivity extends Activity {
             //Gets the missing time in LONG format
             long millisUntilFinished = intent.getLongExtra("countdown", 0);
 
-
            String day = Utility.getString(this,"daysRemaining", "");
            String hour = Utility.getString(this,"hoursRemaining", "");
            String min = Utility.getString(this,"minutesRemaining", "");
            String sec = Utility.getString(this,"secRemaining", "");
-
-                    dayCount.setText(day);
-                    horaCount.setText(hour);
-                    minCount.setText(min);
-                    segCount.setText(sec);
-
-              //Convert the LONG to a date
-//            String fecha = getDate(millisUntilFinished, "dd/MM/yyyy hh:mm:ss");
-//            //Parse the date into days,hours,minutes and seconds
-//            SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
-//            try {
-//                Date futureDate = format.parse(fecha);
-//                Date currentDate = new Date();
-//                if (!currentDate.after(futureDate)) {
-//                    long diff = futureDate.getTime()
-//                            - currentDate.getTime();
-//                    long days = diff / (24 * 60 * 60 * 1000);
-//                    diff -= days * (24 * 60 * 60 * 1000);
-//                    long hours = diff / (60 * 60 * 1000);
-//                    diff -= hours * (60 * 60 * 1000);
-//                    long minutes = diff / (60 * 1000);
-//                    diff -= minutes * (60 * 1000);
-//                    long seconds = diff / 1000;
-//                    dayCount.setText("" + String.format("%02d", days));
-//                    horaCount.setText("" + String.format("%02d", hours));
-//                    minCount.setText("" + String.format("%02d", minutes));
-//                    segCount.setText("" + String.format("%02d", seconds));
-//                }
-//
-//            } catch (ParseException e) {
-//                // TODO Auto-generated catch block
-//                e.printStackTrace();
-//            }
-
+            dayCount.setText(day);
+            horaCount.setText(hour);
+            minCount.setText(min);
+            segCount.setText(sec);
 
         }
     }
@@ -170,72 +134,15 @@ public class MainActivity extends Activity {
     }
     @Override
     public void onDestroy() {
-        stopService(new Intent(this, TimerService.class));
+//        stopService(new Intent(this, TimerService.class));
         Log.i(TAG, "Stopped service");
         super.onDestroy();
     }
 
-
-
-
-    //deprecated Countdown on mainactivity
-    //////////////////COUNT DOWN START/////////////////////////
-//    public void countDownStart(String eventDate) {
-//
-//        final String fetchFecha = eventDate;
-//
-//        handler = new Handler();
-//        runnable = new Runnable() {
-//            @Override
-//            public void run() {
-//                handler.postDelayed(this, 1000);
-//                try {
-//                    SimpleDateFormat dateFormat = new SimpleDateFormat(
-//                            "yyyy-MM-dd HH:mm:ss");
-//                    // Here Set your Event Date
-//                    Date futureDate = dateFormat.parse(fetchFecha);
-//                    Date currentDate = new Date();
-//                    if (!currentDate.after(futureDate)) {
-//                        long diff = futureDate.getTime()
-//                                - currentDate.getTime();
-//                        long days = diff / (24 * 60 * 60 * 1000);
-//                        diff -= days * (24 * 60 * 60 * 1000);
-//                        long hours = diff / (60 * 60 * 1000);
-//                        diff -= hours * (60 * 60 * 1000);
-//                        long minutes = diff/(60*1000);
-//                        diff -= minutes * (60 * 1000);
-//                        long seconds = diff / 1000;
-//                        dayCount.setText("" + String.format("%02d", days));
-//                        horaCount.setText("" + String.format("%02d", hours));
-//                        minCount.setText("" + String.format("%02d", minutes));
-//                        segCount.setText("" + String.format("%02d", seconds));
-//
-//                        //Set widget counter Time
-//                        String startDays = dayCount.getText().toString();
-//                        String startHours = horaCount.getText().toString();
-//                        String startMinutes = minCount.getText().toString();
-//                        String startSeconds = segCount.getText().toString();
-//
-//                        String updateFecha = startDays + ":" + startHours + ":" + startMinutes + ":" + startMinutes;
-//                        Utility.putString(getApplicationContext(),"fecha", updateFecha);
-//
-//                    }
-//
-//                } catch (Exception e) {
-//                    e.printStackTrace();
-//                }
-//
-//            }
-//        };
-//        handler.postDelayed(runnable, 0);
-//
-//    }
-
-    private void createNotification(String title, String content){
+    public void createNotification(String title, String content){
 
         //Get the sound and convert to URI
         Uri soundCancha = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.hoy_river_app_ringtone);
-
 
         NotificationCompat.Builder mBuilder =
                 (NotificationCompat.Builder) new NotificationCompat.Builder(this)

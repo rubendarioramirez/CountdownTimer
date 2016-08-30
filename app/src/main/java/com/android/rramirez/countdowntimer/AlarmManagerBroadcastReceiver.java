@@ -35,33 +35,19 @@ public class AlarmManagerBroadcastReceiver extends BroadcastReceiver {
         String title1 = Utility.getString(context,"title1","");
         String title2 = Utility.getString(context,"title2","");
         String text1 = Utility.getString(context,"text1","");
-        String text2 = Utility.getString(context,"text2","");
         String fetchFecha = Utility.getString(context,"longMilis","");
 
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.timer_widget);
-            long l = Long.parseLong(fetchFecha);
-            //Convert the LONG to a date
-            String fecha = getDate(l, "dd/MM/yyyy hh:mm:ss");
-            //Parse the date into days,hours,minutes and seconds
-            SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
-            try {
-                Date futureDate = format.parse(fecha);
-                Date currentDate = new Date();
-                if (!currentDate.after(futureDate)) {
-                    long diff = futureDate.getTime()
-                            - currentDate.getTime();
-                    long days = diff / (24 * 60 * 60 * 1000);
-                    diff -= days * (24 * 60 * 60 * 1000);
-                    long hours = diff / (60 * 60 * 1000);
-                    diff -= hours * (60 * 60 * 1000);
-                    long minutes = diff / (60 * 1000);
-                    diff -= minutes * (60 * 1000);
-                    long seconds = diff / 1000;
 
-                    views.setTextViewText(R.id.dayCount, String.format("%02d", days));
-                    views.setTextViewText(R.id.hourCount, String.format("%02d", hours));
-                    views.setTextViewText(R.id.minCount, String.format("%02d", minutes));
-                    views.setTextViewText(R.id.segCount, String.format("%02d", seconds));
+
+                    String day = Utility.getString(context,"daysRemaining", "");
+                    String hour = Utility.getString(context,"hoursRemaining", "");
+                    String min = Utility.getString(context,"minutesRemaining", "");
+                    String sec = Utility.getString(context,"secRemaining", "");
+                    views.setTextViewText(R.id.dayCount, day);
+                    views.setTextViewText(R.id.hourCount, hour);
+                    views.setTextViewText(R.id.minCount, min);
+                    views.setTextViewText(R.id.segCount, sec);
                     views.setTextViewText(R.id.tvTitle1, title1);
                     views.setTextViewText(R.id.tvTitle2, title2);
                     views.setTextViewText(R.id.tvText1, text1);
@@ -72,10 +58,5 @@ public class AlarmManagerBroadcastReceiver extends BroadcastReceiver {
                     wl.release();
                 }
 
-            } catch (ParseException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
             }
-        }
-    }
 
