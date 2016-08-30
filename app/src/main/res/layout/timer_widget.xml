@@ -58,13 +58,6 @@
                 android:layout_weight="1"
                 android:gravity="center" />
 
-            <TextView
-                android:text="TextView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/tvText2"
-                android:layout_weight="1"
-                android:gravity="center" />
         </LinearLayout>
 
     </LinearLayout>
@@ -105,6 +98,13 @@
                 android:layout_weight="0.83"
                 android:gravity="center" />
 
+            <TextView
+                android:text="XX"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/segCount"
+                android:layout_weight="0.68" />
+
         </LinearLayout>
 
     </LinearLayout>
@@ -142,6 +142,13 @@
                 android:id="@+id/textView14"
                 android:layout_weight="1"
                 android:gravity="center" />
+
+            <TextView
+                android:text="Segundos"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView2"
+                android:layout_weight="1" />
 
         </LinearLayout>
 

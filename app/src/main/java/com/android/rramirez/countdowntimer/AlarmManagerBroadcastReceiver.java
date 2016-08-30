@@ -13,7 +13,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import static com.android.rramirez.countdowntimer.Utility.getDate;
-import static java.lang.String.valueOf;
 
 /**
  * Created by gusta_000 on 24/8/2016.
@@ -41,7 +40,6 @@ public class AlarmManagerBroadcastReceiver extends BroadcastReceiver {
 
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.timer_widget);
             long l = Long.parseLong(fetchFecha);
-
             //Convert the LONG to a date
             String fecha = getDate(l, "dd/MM/yyyy hh:mm:ss");
             //Parse the date into days,hours,minutes and seconds
@@ -63,10 +61,10 @@ public class AlarmManagerBroadcastReceiver extends BroadcastReceiver {
                     views.setTextViewText(R.id.dayCount, String.format("%02d", days));
                     views.setTextViewText(R.id.hourCount, String.format("%02d", hours));
                     views.setTextViewText(R.id.minCount, String.format("%02d", minutes));
+                    views.setTextViewText(R.id.segCount, String.format("%02d", seconds));
                     views.setTextViewText(R.id.tvTitle1, title1);
                     views.setTextViewText(R.id.tvTitle2, title2);
                     views.setTextViewText(R.id.tvText1, text1);
-                    views.setTextViewText(R.id.tvText2, text2);
                     ComponentName thisWidget = new ComponentName(context, timerWidget.class);
                     AppWidgetManager manager = AppWidgetManager.getInstance(context);
                     manager.updateAppWidget(thisWidget, views);

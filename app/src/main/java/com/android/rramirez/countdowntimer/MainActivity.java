@@ -18,6 +18,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.NotificationCompat;
+import android.text.Html;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
@@ -61,13 +62,22 @@ public class MainActivity extends Activity {
         TextView text2 = (TextView) findViewById(R.id.text2);
         text2.setTypeface(myCustomFont);
 
+        dayCount.setTypeface(myCustomFontNegrita);
+        horaCount.setTypeface(myCustomFontNegrita);
+        minCount.setTypeface(myCustomFontNegrita);
+        segCount.setTypeface(myCustomFontNegrita);
+        dayText.setTypeface(myCustomFontNegrita);
+        horaText.setTypeface(myCustomFontNegrita);
+        minText.setTypeface(myCustomFontNegrita);
+        segText.setTypeface(myCustomFontNegrita);
 
+            //define River
+            String text = "<font color=white>RI</font><font color=#cc0029>V</font><font color=white>ER</font>";
             //Get and Set the titles
-            String fetchTitle1 = Utility.getString(mContext,"title1","");
             String fetchTitle2 = Utility.getString(mContext,"title2","");
             String fetchText1 = Utility.getString(mContext,"text1","");
             String fetchText2 = Utility.getString(mContext,"text2","");
-            title1.setText(fetchTitle1);
+            title1.setText(Html.fromHtml(text));
             title2.setText(fetchTitle2);
             text1.setText(fetchText1);
             text2.setText(fetchText2);
@@ -91,34 +101,45 @@ public class MainActivity extends Activity {
 
             //Gets the missing time in LONG format
             long millisUntilFinished = intent.getLongExtra("countdown", 0);
-            //Convert the LONG to a date
-            String fecha = getDate(millisUntilFinished, "dd/MM/yyyy hh:mm:ss");
 
-            //Parse the date into days,hours,minutes and seconds
-            SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
-            try {
-                Date futureDate = format.parse(fecha);
-                Date currentDate = new Date();
-                if (!currentDate.after(futureDate)) {
-                    long diff = futureDate.getTime()
-                            - currentDate.getTime();
-                    long days = diff / (24 * 60 * 60 * 1000);
-                    diff -= days * (24 * 60 * 60 * 1000);
-                    long hours = diff / (60 * 60 * 1000);
-                    diff -= hours * (60 * 60 * 1000);
-                    long minutes = diff / (60 * 1000);
-                    diff -= minutes * (60 * 1000);
-                    long seconds = diff / 1000;
-                    dayCount.setText("" + String.format("%02d", days));
-                    horaCount.setText("" + String.format("%02d", hours));
-                    minCount.setText("" + String.format("%02d", minutes));
-                    segCount.setText("" + String.format("%02d", seconds));
-                }
 
-            } catch (ParseException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
+           String day = Utility.getString(this,"daysRemaining", "");
+           String hour = Utility.getString(this,"hoursRemaining", "");
+           String min = Utility.getString(this,"minutesRemaining", "");
+           String sec = Utility.getString(this,"secRemaining", "");
+
+                    dayCount.setText(day);
+                    horaCount.setText(hour);
+                    minCount.setText(min);
+                    segCount.setText(sec);
+
+              //Convert the LONG to a date
+//            String fecha = getDate(millisUntilFinished, "dd/MM/yyyy hh:mm:ss");
+//            //Parse the date into days,hours,minutes and seconds
+//            SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
+//            try {
+//                Date futureDate = format.parse(fecha);
+//                Date currentDate = new Date();
+//                if (!currentDate.after(futureDate)) {
+//                    long diff = futureDate.getTime()
+//                            - currentDate.getTime();
+//                    long days = diff / (24 * 60 * 60 * 1000);
+//                    diff -= days * (24 * 60 * 60 * 1000);
+//                    long hours = diff / (60 * 60 * 1000);
+//                    diff -= hours * (60 * 60 * 1000);
+//                    long minutes = diff / (60 * 1000);
+//                    diff -= minutes * (60 * 1000);
+//                    long seconds = diff / 1000;
+//                    dayCount.setText("" + String.format("%02d", days));
+//                    horaCount.setText("" + String.format("%02d", hours));
+//                    minCount.setText("" + String.format("%02d", minutes));
+//                    segCount.setText("" + String.format("%02d", seconds));
+//                }
+//
+//            } catch (ParseException e) {
+//                // TODO Auto-generated catch block
+//                e.printStackTrace();
+//            }
 
 
         }

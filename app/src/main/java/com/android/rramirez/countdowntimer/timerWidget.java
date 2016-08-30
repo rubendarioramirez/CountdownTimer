@@ -1,6 +1,5 @@
 package com.android.rramirez.countdowntimer;
 
-import android.annotation.TargetApi;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
@@ -67,6 +66,7 @@ public class timerWidget extends AppWidgetProvider {
                     views.setTextViewText(R.id.dayCount, String.format("%02d", days));
                     views.setTextViewText(R.id.hourCount, String.format("%02d", hours));
                     views.setTextViewText(R.id.minCount, String.format("%02d", minutes));
+                    views.setTextViewText(R.id.segCount, String.format("%02d", seconds));
 
                 }
 
@@ -78,7 +78,6 @@ public class timerWidget extends AppWidgetProvider {
             views.setTextViewText(R.id.tvTitle1, title1);
             views.setTextViewText(R.id.tvTitle2, title2);
             views.setTextViewText(R.id.tvText1, text1);
-            views.setTextViewText(R.id.tvText2, text2);
             appWidgetManager.updateAppWidget(appWidgetIds, views);
         }
     }
