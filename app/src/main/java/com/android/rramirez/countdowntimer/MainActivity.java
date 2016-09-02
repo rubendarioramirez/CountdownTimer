@@ -12,6 +12,7 @@ import android.content.IntentFilter;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.IntegerRes;
 import android.support.v7.app.NotificationCompat;
 import android.text.Html;
 import android.util.Log;
@@ -24,11 +25,12 @@ public class MainActivity extends Activity {
     private static final String TAG = "BroadcastTest";
     private Intent intent;
     public static String packageName;
+    String url = "http://esteeselfamosoriver.com/app/info.php";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_constraint);
+        setContentView(R.layout.activity_main);
         mContext = getApplicationContext();
         packageName = getPackageName();
 
@@ -46,8 +48,8 @@ public class MainActivity extends Activity {
         segText = (TextView) findViewById(R.id.segText);
         riverJuega = (TextView) findViewById(R.id.riverJuega);
         //Crea la font Custom and assign to the titles
-       Typeface myCustomFont = Typeface.createFromAsset(getApplicationContext().getAssets(),"fonts/Ubuntu-C.ttf");
-       Typeface myCustomFontNegrita = Typeface.createFromAsset(getApplicationContext().getAssets(),"fonts/Ubuntu-B.ttf");
+        Typeface myCustomFont = Typeface.createFromAsset(getApplicationContext().getAssets(), "fonts/Ubuntu-C.ttf");
+        Typeface myCustomFontNegrita = Typeface.createFromAsset(getApplicationContext().getAssets(), "fonts/Ubuntu-B.ttf");
         TextView title1 = (TextView) findViewById(R.id.title1);
         title1.setTypeface(myCustomFontNegrita);
         TextView title2 = (TextView) findViewById(R.id.title2);
@@ -66,16 +68,28 @@ public class MainActivity extends Activity {
         minText.setTypeface(myCustomFontNegrita);
         segText.setTypeface(myCustomFontNegrita);
 
-            //define River
+        //define River
+        String fetchTitle1 = Utility.getString(mContext, "title1", "");
+        if (fetchTitle1.equals("RIVER")) {
             String text = "<font color=white>RI</font><font color=#cc0029>V</font><font color=white>ER</font>";
-            //Get and Set the titles
-            String fetchTitle2 = Utility.getString(mContext,"title2","");
-            String fetchText1 = Utility.getString(mContext,"text1","");
-            String fetchText2 = Utility.getString(mContext,"text2","");
             title1.setText(Html.fromHtml(text));
+        } else {
+            title1.setText(fetchTitle1);
+        }
+
+        String fetchTitle2 = Utility.getString(mContext, "title2", "");
+        if (fetchTitle2.equals("RIVER")) {
+            String text = "<font color=white>RI</font><font color=#cc0029>V</font><font color=white>ER</font>";
+            title2.setText(Html.fromHtml(text));
+        } else {
             title2.setText(fetchTitle2);
-            text1.setText(fetchText1);
-            text2.setText(fetchText2);
+        }
+
+        //Get and Set the titles
+        String fetchText1 = Utility.getString(mContext, "text1", "");
+        String fetchText2 = Utility.getString(mContext, "text2", "");
+        text1.setText(fetchText1);
+        text2.setText(fetchText2);
     }
 
     //Gets the updates for the CountDown.
@@ -97,14 +111,36 @@ public class MainActivity extends Activity {
             //Gets the missing time in LONG format
             long millisUntilFinished = intent.getLongExtra("countdown", 0);
 
-           String day = Utility.getString(this,"daysRemaining", "");
-           String hour = Utility.getString(this,"hoursRemaining", "");
-           String min = Utility.getString(this,"minutesRemaining", "");
-           String sec = Utility.getString(this,"secRemaining", "");
+            String day = Utility.getString(this, "daysRemaining", "");
+            String hour = Utility.getString(this, "hoursRemaining", "");
+            String min = Utility.getString(this, "minutesRemaining", "");
+            String sec = Utility.getString(this, "secRemaining", "");
             dayCount.setText(day);
             horaCount.setText(hour);
             minCount.setText(min);
             segCount.setText(sec);
+
+            int diasFaltan = Integer.parseInt(day);
+            int horasFaltan = Integer.parseInt(hour);
+            int minFaltan = Integer.parseInt(min);
+
+            if (diasFaltan <= 1) {
+                dayText.setText("Día");
+            } else {
+                dayText.setText("Días");
+            }
+
+            if (horasFaltan <= 1) {
+                horaText.setText("Hora");
+            } else {
+                horaText.setText("Horas");
+            }
+
+            if (minFaltan <= 1) {
+                minText.setText("Minuto");
+            } else {
+                minText.setText("Minutos");
+            }
 
         }
     }
@@ -113,7 +149,16 @@ public class MainActivity extends Activity {
     public void onResume() {
         super.onResume();
         registerReceiver(br, new IntentFilter(TimerService.COUNTDOWN_BR));
+        boolean internet = Utility.isNetworkAvailable(this);
+        if (!internet) {
+            Utility.makeToast(this, "No se pudo conectar al servidor");
+        } else {
+            //Start service to fetchData
+            new getFechaTask(this.getApplicationContext()).execute(url);
+        }
+
         Log.i(TAG, "Registered broacast receiver");
+
     }
 
     @Override
@@ -132,48 +177,12 @@ public class MainActivity extends Activity {
         }
         super.onStop();
     }
+
     @Override
     public void onDestroy() {
 //        stopService(new Intent(this, TimerService.class));
         Log.i(TAG, "Stopped service");
         super.onDestroy();
-    }
-
-    public void createNotification(String title, String content){
-
-        //Get the sound and convert to URI
-        Uri soundCancha = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.hoy_river_app_ringtone);
-
-        NotificationCompat.Builder mBuilder =
-                (NotificationCompat.Builder) new NotificationCompat.Builder(this)
-                        .setSmallIcon(R.mipmap.big_notificationicon)
-                        .setContentTitle(title)
-                        .setContentText(content)
-                        .setSound(soundCancha);
-        // Creates an explicit intent for an Activity in your app
-                Intent resultIntent = new Intent(this, MainActivity.class);
-
-        // The stack builder object will contain an artificial back stack for the
-        // started Activity.
-        // This ensures that navigating backward from the Activity leads out of
-        // your application to the Home screen.
-                TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
-        // Adds the back stack for the Intent (but not the Intent itself)
-                stackBuilder.addParentStack(MainActivity.class);
-        // Adds the Intent that starts the Activity to the top of the stack
-                stackBuilder.addNextIntent(resultIntent);
-                PendingIntent resultPendingIntent =
-                        stackBuilder.getPendingIntent(
-                                0,
-                                PendingIntent.FLAG_UPDATE_CURRENT
-                        );
-                mBuilder.setContentIntent(resultPendingIntent);
-                NotificationManager mNotificationManager =
-                        (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-        // mId allows you to update the notification later on.
-                mNotificationManager.notify(0, mBuilder.build());
-
-
     }
 
 }

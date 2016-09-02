@@ -1,16 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="wrap_content"
-    android:background="@drawable/background"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:background="@drawable/widget_background"
     android:orientation="vertical">
-
-
 
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center">
+        android:gravity="center"
+        android:layout_marginTop="20dp">
 
         <LinearLayout
             android:orientation="horizontal"
@@ -18,21 +17,36 @@
             android:layout_height="wrap_content">
 
             <TextView
-                android:text="TextView"
-                android:layout_width="match_parent"
+                android:text="River"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/tvTitle1"
-                android:textSize="20sp"
+                android:gravity="right"
                 android:layout_weight="1"
-                android:gravity="right" />
+                android:typeface="sans"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                android:textSize="30sp" />
 
             <TextView
-                android:text="TextView"
-                android:layout_width="234dp"
+                android:text="-"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView"
+                android:gravity="center"
+                android:layout_weight="0.3"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                android:textSize="30sp" />
+
+            <TextView
+                android:text="Equipo"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/tvTitle2"
-                android:textSize="20sp"
-                android:gravity="center" />
+                android:layout_weight="1"
+                android:gravity="left"
+                android:typeface="normal"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                android:textSize="30sp" />
 
         </LinearLayout>
     </LinearLayout>
@@ -56,7 +70,8 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/tvText1"
                 android:layout_weight="1"
-                android:gravity="center" />
+                android:gravity="center"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
         </LinearLayout>
 
@@ -72,38 +87,37 @@
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
 
             <TextView
                 android:text="XX"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/dayCount"
-                android:layout_weight="0.68"
-                android:gravity="center" />
+                android:layout_weight="1"
+                android:gravity="center_horizontal|center"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                android:textSize="28sp" />
 
             <TextView
                 android:text="XX"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/hourCount"
-                android:layout_weight="0.62"
-                android:gravity="center" />
+                android:layout_weight="1"
+                android:gravity="center_horizontal|center"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                android:textSize="28sp" />
 
             <TextView
                 android:text="XX"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/minCount"
-                android:layout_weight="0.83"
-                android:gravity="center" />
-
-            <TextView
-                android:text="XX"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/segCount"
-                android:layout_weight="0.68" />
+                android:layout_weight="1"
+                android:gravity="center_horizontal|center"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                android:textSize="28sp" />
 
         </LinearLayout>
 
@@ -112,20 +126,22 @@
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
 
             <TextView
-                android:text="Dia"
+                android:text="Día"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/textView15"
                 android:layout_weight="1"
-                android:gravity="center" />
+                android:gravity="center_horizontal|center"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                android:textSize="10sp" />
 
             <TextView
                 android:text="Hora"
@@ -133,7 +149,9 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/textView16"
                 android:layout_weight="1"
-                android:gravity="center" />
+                android:gravity="center_horizontal|center"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                android:textSize="10sp" />
 
             <TextView
                 android:text="Minutos"
@@ -141,14 +159,9 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/textView14"
                 android:layout_weight="1"
-                android:gravity="center" />
-
-            <TextView
-                android:text="Segundos"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/textView2"
-                android:layout_weight="1" />
+                android:gravity="center_horizontal|center"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                android:textSize="10sp" />
 
         </LinearLayout>
 

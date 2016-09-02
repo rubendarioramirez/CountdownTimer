@@ -8,12 +8,6 @@ import android.content.Intent;
 import android.os.PowerManager;
 import android.widget.RemoteViews;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
-import static com.android.rramirez.countdowntimer.Utility.getDate;
-
 /**
  * Created by gusta_000 on 24/8/2016.
  */
@@ -39,7 +33,6 @@ public class AlarmManagerBroadcastReceiver extends BroadcastReceiver {
 
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.timer_widget);
 
-
                     String day = Utility.getString(context,"daysRemaining", "");
                     String hour = Utility.getString(context,"hoursRemaining", "");
                     String min = Utility.getString(context,"minutesRemaining", "");
@@ -54,7 +47,6 @@ public class AlarmManagerBroadcastReceiver extends BroadcastReceiver {
                     ComponentName thisWidget = new ComponentName(context, timerWidget.class);
                     AppWidgetManager manager = AppWidgetManager.getInstance(context);
                     manager.updateAppWidget(thisWidget, views);
-
                     wl.release();
                 }
 

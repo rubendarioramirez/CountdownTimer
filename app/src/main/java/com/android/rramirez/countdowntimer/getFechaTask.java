@@ -93,6 +93,16 @@ import java.net.URL;
             Utility.putString(mContext,"title2",separated[1]);
             Utility.putString(mContext,"text1",separated[2]);
             Utility.putString(mContext,"text2",separated[3]);
+
+            //Notification titles
+            Utility.putString(mContext,"notHoraTitle",separated[4]);
+            Utility.putString(mContext,"notHoraContent",separated[5]);
+            Utility.putString(mContext,"notMedTitle",separated[6]);
+            Utility.putString(mContext,"notMedContent",separated[7]);
+            Utility.putString(mContext,"notFinalTitle",separated[8]);
+            Utility.putString(mContext,"notFinalContent",separated[9]);
+
+            //Date
             Utility.putString(mContext,"fecha",separated[10]);
 
             Utility.makeToast(mContext,"Informacion actualizada");

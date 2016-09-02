@@ -1,204 +1,175 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin" tools:context=".MainActivity"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mainlayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:background="@drawable/background"
-    android:id="@+id/mainlayout">
+    android:orientation="vertical"
+    tools:context=".MainActivity">
 
 
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Texto Dinamico 1"
-        android:id="@+id/text1"
-        android:textColor="#ffffff"
-        android:gravity="center"
-        android:layout_marginBottom="8dp"
-        android:layout_above="@+id/text2"
-        android:layout_toStartOf="@+id/segCount"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_height="match_parent"
+        android:layout_weight="0.92"
+        android:orientation="vertical">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Texto Dinamico 2"
-        android:id="@+id/text2"
-        android:textColor="#ffffff"
-        android:gravity="center"
-        android:layout_marginBottom="40dp"
-        android:layout_above="@+id/riverJuega"
-        android:layout_alignLeft="@+id/text1"
-        android:layout_alignStart="@+id/text1" />
+        <TextView
+            android:id="@+id/title1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal|center"
+            android:text="Titulo Dinamico 1"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="#ffffff"
+            android:textSize="33sp"
+            android:layout_marginTop="150dp" />
 
-    <!-- Dias -->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Dia/s"
-        android:id="@+id/diaText"
-        android:textColor="#ffffff"
-        android:textSize="16dp"
-        android:textAlignment="center"
-        android:layout_marginLeft="15dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginBottom="89dp" />
+        <TextView
+            android:id="@+id/title2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal|center"
+            android:text="Titulo Dinamico 2"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="#ffffff"
+            android:textSize="33sp" />
 
+        <TextView
+            android:id="@+id/text1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Texto Dinamico 1"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="#ffffff"
+            android:layout_marginTop="30dp" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="XX"
-        android:id="@+id/dayCount"
-        android:textColor="#ffffff"
-        android:layout_gravity="center"
-        android:layout_alignBaseline="@+id/horaCount"
-        android:layout_alignBottom="@+id/horaCount"
-        android:layout_toLeftOf="@+id/horaText"
-        android:layout_toStartOf="@+id/horaText" />
+        <TextView
+            android:id="@+id/text2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Texto Dinamico 2"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="#ffffff"
+            />
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="50dp">
 
-    <!-- Hora -->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="XX"
-        android:id="@+id/horaCount"
-        android:textColor="#ffffff"
-        android:layout_alignBaseline="@+id/minCount"
-        android:layout_alignBottom="@+id/minCount"
-        android:layout_alignLeft="@+id/horaText"
-        android:layout_alignStart="@+id/horaText"
-        android:layout_marginLeft="10dp"
-        android:layout_marginStart="10dp" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginRight="20dp">
 
+                <TextView
+                    android:id="@+id/dayCount"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="XX"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="#ffffff"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:textSize="26sp" />
 
-    <!-- Minutos -->
+                <TextView
+                    android:id="@+id/horaCount"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="XX"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="#ffffff"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:textSize="26sp" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="XX"
-        android:id="@+id/minCount"
-        android:textColor="#ffffff"
-        android:layout_marginBottom="20dp"
-        android:layout_above="@+id/minText"
-        android:layout_alignLeft="@+id/minText"
-        android:layout_alignStart="@+id/minText"
-        android:layout_marginLeft="15dp"
-        android:layout_marginStart="15dp" />
+                <TextView
+                    android:id="@+id/minCount"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="XX"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="#ffffff"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:textSize="26sp" />
 
-    <!-- Segundos -->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="XX"
-        android:id="@+id/segCount"
-        android:textColor="#ffffff"
-        android:layout_marginLeft="15dp"
-        android:layout_marginStart="15dp"
-        android:layout_alignTop="@+id/minCount"
-        android:layout_alignLeft="@+id/segText"
-        android:layout_alignStart="@+id/segText" />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Segundos"
-        android:id="@+id/segText"
-        android:textColor="#ffffff"
-        android:textSize="16dp"
-        android:textAlignment="center"
-        android:layout_marginRight="15dp"
-        android:layout_marginEnd="15dp"
-        android:layout_alignBaseline="@+id/minText"
-        android:layout_alignBottom="@+id/minText"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+                <TextView
+                    android:id="@+id/segCount"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="XX"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="#ffffff"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:textSize="26sp" />
+            </LinearLayout>
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="30dp">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Hora/s"
-        android:id="@+id/horaText"
-        android:textColor="#ffffff"
-        android:textSize="16dp"
-        android:textAlignment="center"
-        android:layout_marginLeft="46dp"
-        android:layout_marginStart="46dp"
-        android:gravity="center"
-        android:layout_alignBaseline="@+id/diaText"
-        android:layout_alignBottom="@+id/diaText"
-        android:layout_toRightOf="@+id/diaText"
-        android:layout_toEndOf="@+id/diaText" />
+                <TextView
+                    android:id="@+id/diaText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Dia/s"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="#ffffff"
+                    android:textSize="16dp"
+                    android:layout_weight="1"
+                    android:gravity="center"/>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="River esta jugando!"
-        android:id="@+id/riverJuega"
-        android:textColor="#ffffff"
-        android:visibility="invisible"
-        android:layout_above="@+id/horaCount"
-        android:layout_centerHorizontal="true" />
+                <TextView
+                    android:id="@+id/horaText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Hora/s"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="#ffffff"
+                    android:textSize="16dp"
+                    android:layout_weight="1"
+                    android:gravity="center"/>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Minuto/s"
-        android:id="@+id/minText"
-        android:textColor="#ffffff"
-        android:textSize="16dp"
-        android:textAlignment="center"
-        android:gravity="center"
-        android:layout_marginRight="25dp"
-        android:layout_marginEnd="25dp"
-        android:layout_alignBaseline="@+id/horaText"
-        android:layout_alignBottom="@+id/horaText"
-        android:layout_alignRight="@+id/riverJuega"
-        android:layout_alignEnd="@+id/riverJuega" />
+                <TextView
+                    android:id="@+id/minText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Minuto/s"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="#ffffff"
+                    android:textSize="16dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    />
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Titulo Dinamico 2"
-        android:id="@+id/title2"
-        android:textColor="#ffffff"
-        android:gravity="center"
-        android:textSize="30sp"
-        android:layout_marginBottom="89dp"
-        android:layout_above="@+id/text1"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+                <TextView
+                    android:id="@+id/segText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Segundos"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="#ffffff"
+                    android:textSize="16dp"
+                    android:layout_weight="1"
+                    android:gravity="center"/>
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Titulo Dinamico 1"
-        android:id="@+id/title1"
-        android:textColor="#ffffff"
-        android:gravity="center"
-        android:textSize="30sp"
-        android:layout_above="@+id/title2"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+            </LinearLayout>
 
-</RelativeLayout>
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>
