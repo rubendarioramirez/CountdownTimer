@@ -108,9 +108,6 @@ public class MainActivity extends Activity {
     private void updateGUI(Intent intent) throws ParseException {
         if (intent.getExtras() != null) {
 
-            //Gets the missing time in LONG format
-            long millisUntilFinished = intent.getLongExtra("countdown", 0);
-
             String day = Utility.getString(this, "daysRemaining", "");
             String hour = Utility.getString(this, "hoursRemaining", "");
             String min = Utility.getString(this, "minutesRemaining", "");
@@ -171,7 +168,7 @@ public class MainActivity extends Activity {
     @Override
     public void onStop() {
         try {
-            unregisterReceiver(br);
+           unregisterReceiver(br);
         } catch (Exception e) {
             // Receiver was probably already stopped in onPause()
         }
@@ -180,8 +177,6 @@ public class MainActivity extends Activity {
 
     @Override
     public void onDestroy() {
-//        stopService(new Intent(this, TimerService.class));
-        Log.i(TAG, "Stopped service");
         super.onDestroy();
     }
 
