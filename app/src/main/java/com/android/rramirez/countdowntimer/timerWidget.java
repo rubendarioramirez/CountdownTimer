@@ -21,27 +21,81 @@ public class timerWidget extends AppWidgetProvider {
 
     private static int WIDGET_REFRESH_TIME = 1;
     public Handler handler = new Handler();
-    public Intent intent;
+      public Intent intent;
+      private Context ctx;
 
-    private Context ctx;
+//    Runnable updateWidgetText = new Runnable()
+//    {
+//        @Override
+//        public void run() {
+////            AppWidgetManager gm = AppWidgetManager.getInstance(ctx);
+////            ComponentName thisWidget = new ComponentName(ctx, timerWidget.class);
+////
+////            try{
+////                //Fetch fecha from SharedPref
+////                String fetchFecha = Utility.getString(ctx, "fecha", "");
+////                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+////                // Here Set your Event Date
+////                Date futureDate = dateFormat.parse(fetchFecha);
+////                Date currentDate = new Date();
+////                if (!currentDate.after(futureDate)) {
+////                    long diff = futureDate.getTime()
+////                            - currentDate.getTime();
+////                    long days = diff / (24 * 60 * 60 * 1000);
+////                    diff -= days * (24 * 60 * 60 * 1000);
+////                    long hours = diff / (60 * 60 * 1000);
+////                    diff -= hours * (60 * 60 * 1000);
+////                    long minutes = diff / (60 * 1000);
+////                    diff -= minutes * (60 * 1000);
+////                    long seconds = diff / 1000;
+////
+////                    RemoteViews views = new RemoteViews(ctx.getPackageName(), R.layout.timer_widget);
+////                    views.setTextViewText(R.id.dayCount,  String.format("%d", days));
+////                    views.setTextViewText(R.id.hourCount, String.format("%d", hours));
+////                    views.setTextViewText(R.id.minCount, String.format("%d", minutes));
+////                    views.setTextViewText(R.id.secondCount, String.format("%d", seconds));
+////
+////                    gm.updateAppWidget(thisWidget, views);
+////
+////                }
+////
+////            } catch (ParseException e) {
+////                e.printStackTrace();
+////            }
+////
+////            handler.postDelayed(this, WIDGET_REFRESH_TIME * 1000);
+////
+//        }
+//    };
 
-    Runnable updateWidgetText = new Runnable()
-    {
+    //Gets the updates for the CountDown.
+    private BroadcastReceiver br = new BroadcastReceiver() {
         @Override
-        public void run() {
+        public void onReceive(Context context, Intent intent) {
+            try {
+                updateGUI(intent); // or whatever method used to update your GUI fields
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
+    };
+
+    private void updateGUI(Intent intent) throws ParseException {
+        if (intent.getExtras() != null) {
+
+            Utility.makeToast(ctx, "getting GUI");
+            //Fetch fecha from SharedPref
+            String fetchFecha = Utility.getString(ctx, "fecha", "");
+            Log.d("app", "dummy");
+
             AppWidgetManager gm = AppWidgetManager.getInstance(ctx);
             ComponentName thisWidget = new ComponentName(ctx, timerWidget.class);
-
-            try{
-                //Fetch fecha from SharedPref
-                String fetchFecha = Utility.getString(ctx, "fecha", "");
-                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                // Here Set your Event Date
-                Date futureDate = dateFormat.parse(fetchFecha);
-                Date currentDate = new Date();
-                if (!currentDate.after(futureDate)) {
-                    long diff = futureDate.getTime()
-                            - currentDate.getTime();
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            // Here Set your Event Date
+            Date futureDate = dateFormat.parse(fetchFecha);
+            Date currentDate = new Date();
+            if (!currentDate.after(futureDate)) {
+                long diff = futureDate.getTime() - currentDate.getTime();
                     long days = diff / (24 * 60 * 60 * 1000);
                     diff -= days * (24 * 60 * 60 * 1000);
                     long hours = diff / (60 * 60 * 1000);
@@ -60,41 +114,12 @@ public class timerWidget extends AppWidgetProvider {
 
                 }
 
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-
-            handler.postDelayed(this, WIDGET_REFRESH_TIME * 1000);
-
-        }
-    };
-
-    //Gets the updates for the CountDown.
-    private BroadcastReceiver br = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            try {
-                updateGUI(intent); // or whatever method used to update your GUI fields
-            } catch (ParseException e) {
-                e.printStackTrace();
             }
         }
-    };
-
-    private void updateGUI(Intent intent) throws ParseException {
-        if (intent.getExtras() != null) {
-            Utility.makeToast(ctx, "getting GUI");
-            Log.i("APP GUI", "Registered to Service");
-
-
-        }
-    }
 
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
         super.onUpdate(context, appWidgetManager, appWidgetIds);
-
-        intent = new Intent(context, TimerService.class);
 
         String title1 = Utility.getString(context, "title1", "");
         String title2 = Utility.getString(context, "title2", "");
@@ -109,16 +134,19 @@ public class timerWidget extends AppWidgetProvider {
             views.setTextViewText(R.id.tvText1, text1);
             appWidgetManager.updateAppWidget(appWidgetIds, views);
         }
+
     }
 
     @Override
     public void onEnabled(Context context) {
        super.onEnabled(context);
-        AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-        Intent intent = new Intent(context, AlarmManagerBroadcastReceiver.class);
-        PendingIntent pi = PendingIntent.getBroadcast(context, 0, intent, 0);
-        //After 3 seconds
-        am.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), 1000, pi);
+        intent = new Intent(context, TimerService.class);
+
+//        AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+//        Intent intent = new Intent(context, AlarmManagerBroadcastReceiver.class);
+//        PendingIntent pi = PendingIntent.getBroadcast(context, 0, intent, 0);
+//        //After 3 seconds
+//        am.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), 1000, pi);
 
         try {
             context.getApplicationContext().registerReceiver(br, new IntentFilter(TimerService.COUNTDOWN_BR));} catch (Exception e) {
@@ -132,14 +160,18 @@ public class timerWidget extends AppWidgetProvider {
     @Override
     public void onReceive(Context context, Intent intent) {
         super.onReceive(context, intent);
-        if (intent.getAction().equals("android.appwidget.action.APPWIDGET_ENABLED")) {
-            handler.removeCallbacks(updateWidgetText);
-            ctx = context;
-             handler.postDelayed(updateWidgetText, WIDGET_REFRESH_TIME*1000);
-        }
-        else if (intent.getAction().equals("android.appwidget.action.APPWIDGET_DISABLED")) {
-            handler.removeCallbacks(updateWidgetText);
-        }
+
+        ctx = context;
+
+//        if (intent.getAction().equals("android.appwidget.action.APPWIDGET_ENABLED")) {
+//            handler.removeCallbacks(updateWidgetText);
+//            ctx = context;
+//            handler.postDelayed(updateWidgetText, WIDGET_REFRESH_TIME*1000);
+//        }
+//        else if (intent.getAction().equals("android.appwidget.action.APPWIDGET_DISABLED")) {
+//            handler.removeCallbacks(updateWidgetText);
+//        }
+
 
     }
 
@@ -149,7 +181,7 @@ public class timerWidget extends AppWidgetProvider {
 //        PendingIntent sender = PendingIntent.getBroadcast(context, 0, intent, 0);
 //        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
 //        alarmManager.cancel(sender);
-//        super.onDisabled(context);
+        super.onDisabled(context);
     }
 
     @Override
