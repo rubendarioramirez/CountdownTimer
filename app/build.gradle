@@ -6,11 +6,14 @@ android {
 
     defaultConfig {
         applicationId "com.android.rramirez.countdowntimer"
-        minSdkVersion 10
+        minSdkVersion 15
         targetSdkVersion 23
         versionCode 1
         versionName "1.0"
     }
+
+
+
     buildTypes {
         release {
             minifyEnabled false
@@ -24,4 +27,5 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:23.0.1'
     compile 'com.android.support.constraint:constraint-layout:1.0.0-alpha7'
+    compile 'com.facebook.android:facebook-android-sdk:[4,5)'
 }

@@ -2,21 +2,27 @@ package com.android.rramirez.countdowntimer;
 
 import java.text.ParseException;
 import android.app.Activity;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
-import android.app.TaskStackBuilder;
+import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.Bitmap;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.IntegerRes;
-import android.support.v7.app.NotificationCompat;
 import android.text.Html;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
+import com.facebook.FacebookSdk;
+import com.facebook.share.model.ShareLinkContent;
+import com.facebook.share.model.SharePhoto;
+import com.facebook.share.model.SharePhotoContent;
+import com.facebook.share.widget.ShareButton;
+
 
 public class MainActivity extends Activity {
 
@@ -25,11 +31,25 @@ public class MainActivity extends Activity {
     private static final String TAG = "BroadcastTest";
     private Intent intent;
     public static String packageName;
+
+    //Facebook Elements
+    // share button
+    private ShareButton shareButton;
+    //image
+    private Bitmap image;
+    //counter
+    private int counter = 0;
+
     String url = "http://esteeselfamosoriver.com/app/info.php";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
+
+        //Initialize SDK before inflating the layout
+        FacebookSdk.sdkInitialize(getApplicationContext());
+
         setContentView(R.layout.activity_main);
         mContext = getApplicationContext();
         packageName = getPackageName();
@@ -68,7 +88,8 @@ public class MainActivity extends Activity {
         minText.setTypeface(myCustomFontNegrita);
         segText.setTypeface(myCustomFontNegrita);
 
-        //define River
+
+        //define River with red V
         String fetchTitle1 = Utility.getString(mContext, "title1", "");
         if (fetchTitle1.equals("RIVER")) {
             String text = "<font color=white>RI</font><font color=#cc0029>V</font><font color=white>ER</font>";
@@ -90,6 +111,22 @@ public class MainActivity extends Activity {
         String fetchText2 = Utility.getString(mContext, "text2", "");
         text1.setText(fetchText1);
         text2.setText(fetchText2);
+
+        //share button
+        shareButton = (ShareButton) findViewById(R.id.share_btn);
+        ShareLinkContent content = new ShareLinkContent.Builder()
+                .setContentUrl(Uri.parse("https://developers.facebook.com"))
+                .build();
+        shareButton.setShareContent(content);
+
+
+        shareButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                Utility.makeToast(mContext,"tocado");
+                postPicture();
+            }
+        });
+
     }
 
     //Gets the updates for the CountDown.
@@ -104,6 +141,45 @@ public class MainActivity extends Activity {
         }
     };
 
+
+    //Post picture in facebook
+    public void postPicture() {
+        //check counter
+        if(counter == 0) {
+            //save the screenshot
+            View rootView = findViewById(android.R.id.content).getRootView();
+            rootView.setDrawingCacheEnabled(true);
+            // creates immutable clone of image
+            image = Bitmap.createBitmap(rootView.getDrawingCache());
+            // destroy
+            rootView.destroyDrawingCache();
+
+            //share dialog
+            AlertDialog.Builder shareDialog = new AlertDialog.Builder(this);
+            shareDialog.setTitle("Share Screen Shot");
+            shareDialog.setMessage("Share image to Facebook?");
+            shareDialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    //share the image to Facebook
+                    SharePhoto photo = new SharePhoto.Builder().setBitmap(image).build();
+                    SharePhotoContent content = new SharePhotoContent.Builder().addPhoto(photo).build();
+                    shareButton.setShareContent(content);
+                    counter = 1;
+                    shareButton.performClick();
+                }
+            });
+            shareDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.cancel();
+                }
+            });
+            shareDialog.show();
+        }
+        else {
+            counter = 0;
+            shareButton.setShareContent(null);
+        }
+    }
 
     private void updateGUI(Intent intent) throws ParseException {
         if (intent.getExtras() != null) {

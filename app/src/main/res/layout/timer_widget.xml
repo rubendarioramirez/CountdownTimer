@@ -23,9 +23,11 @@
                 android:id="@+id/tvTitle1"
                 android:gravity="right"
                 android:layout_weight="1"
-                android:typeface="sans"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                android:textSize="30sp" />
+                android:textSize="30sp"
+                android:typeface="normal"
+                android:fontFamily="sans-serif"
+                android:textStyle="normal|bold" />
 
             <TextView
                 android:text="-"
@@ -46,7 +48,8 @@
                 android:gravity="left"
                 android:typeface="normal"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                android:textSize="30sp" />
+                android:textSize="30sp"
+                android:textStyle="normal|bold" />
 
         </LinearLayout>
     </LinearLayout>

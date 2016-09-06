@@ -2,7 +2,7 @@
 <appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
     android:initialKeyguardLayout="@layout/timer_widget"
     android:initialLayout="@layout/timer_widget"
-    android:minHeight="80dp"
+    android:minHeight="85dp"
     android:minWidth="250dp"
     android:previewImage="@drawable/widget_background"
     android:resizeMode="horizontal|vertical"

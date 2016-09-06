@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mainlayout"
     android:layout_width="match_parent"
@@ -14,6 +15,15 @@
         android:layout_height="match_parent"
         android:layout_weight="0.92"
         android:orientation="vertical">
+
+        <com.facebook.share.widget.ShareButton
+            android:id="@+id/share_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:contentDescription="Share"
+            android:visibility="visible"
+            android:clickable="true"
+            android:enabled="true" />
 
         <TextView
             android:id="@+id/title1"
@@ -169,6 +179,8 @@
             </LinearLayout>
 
         </LinearLayout>
+
+
 
     </LinearLayout>
 
