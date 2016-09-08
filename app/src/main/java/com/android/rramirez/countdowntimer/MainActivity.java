@@ -1,22 +1,38 @@
 package com.android.rramirez.countdowntimer;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.text.ParseException;
+import java.util.Timer;
+
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
 import android.graphics.Typeface;
+import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.text.Html;
+import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+
 import com.facebook.FacebookSdk;
 import com.facebook.share.model.ShareLinkContent;
 import com.facebook.share.model.SharePhoto;
@@ -26,19 +42,11 @@ import com.facebook.share.widget.ShareButton;
 
 public class MainActivity extends Activity {
 
-    private TextView dayCount, dayText, horaCount, horaText, minCount, minText, segCount, segText, riverJuega;
+    private TextView dayCount, dayText, horaCount, horaText, minCount, minText, segCount, segText, copyText, designText, riverText;
     private Context mContext;
     private static final String TAG = "BroadcastTest";
     private Intent intent;
     public static String packageName;
-
-    //Facebook Elements
-    // share button
-    private ShareButton shareButton;
-    //image
-    private Bitmap image;
-    //counter
-    private int counter = 0;
 
     String url = "http://esteeselfamosoriver.com/app/info.php";
 
@@ -46,9 +54,6 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-
-        //Initialize SDK before inflating the layout
-        FacebookSdk.sdkInitialize(getApplicationContext());
 
         setContentView(R.layout.activity_main);
         mContext = getApplicationContext();
@@ -66,7 +71,10 @@ public class MainActivity extends Activity {
         minText = (TextView) findViewById(R.id.minText);
         segCount = (TextView) findViewById(R.id.segCount);
         segText = (TextView) findViewById(R.id.segText);
-        riverJuega = (TextView) findViewById(R.id.riverJuega);
+        copyText = (TextView) findViewById(R.id.copyText);
+        designText = (TextView) findViewById(R.id.designText);
+        riverText = (TextView) findViewById(R.id.riverText);
+
         //Crea la font Custom and assign to the titles
         Typeface myCustomFont = Typeface.createFromAsset(getApplicationContext().getAssets(), "fonts/Ubuntu-C.ttf");
         Typeface myCustomFontNegrita = Typeface.createFromAsset(getApplicationContext().getAssets(), "fonts/Ubuntu-B.ttf");
@@ -78,7 +86,16 @@ public class MainActivity extends Activity {
         text1.setTypeface(myCustomFont);
         TextView text2 = (TextView) findViewById(R.id.text2);
         text2.setTypeface(myCustomFont);
+        riverText.setTypeface(myCustomFontNegrita);
 
+        //Set hyperLinks
+        copyText.setText(Html.fromHtml(
+                "<b><font color=white>Copyright © 2016</b>" + "<a href=\"http://esteeselfamosoriver.com\"><font color=red> EsteeselfamosoRiver.com</font>" + "</a> "));
+        copyText.setMovementMethod(LinkMovementMethod.getInstance());
+        designText.setText(Html.fromHtml("<b><font color=white>Design By </b>" + "<a href=\"http://cerebrosdigitales.com\"> " + "<font color=red> CerebrosDigiales{} </font>" + "</a> "));
+        designText.setMovementMethod(LinkMovementMethod.getInstance());
+
+        //Set the customTypeFace for the texts
         dayCount.setTypeface(myCustomFontNegrita);
         horaCount.setTypeface(myCustomFontNegrita);
         minCount.setTypeface(myCustomFontNegrita);
@@ -112,21 +129,6 @@ public class MainActivity extends Activity {
         text1.setText(fetchText1);
         text2.setText(fetchText2);
 
-        //share button
-        shareButton = (ShareButton) findViewById(R.id.share_btn);
-        ShareLinkContent content = new ShareLinkContent.Builder()
-                .setContentUrl(Uri.parse("https://developers.facebook.com"))
-                .build();
-        shareButton.setShareContent(content);
-
-
-        shareButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View view) {
-                Utility.makeToast(mContext,"tocado");
-                postPicture();
-            }
-        });
-
     }
 
     //Gets the updates for the CountDown.
@@ -141,45 +143,6 @@ public class MainActivity extends Activity {
         }
     };
 
-
-    //Post picture in facebook
-    public void postPicture() {
-        //check counter
-        if(counter == 0) {
-            //save the screenshot
-            View rootView = findViewById(android.R.id.content).getRootView();
-            rootView.setDrawingCacheEnabled(true);
-            // creates immutable clone of image
-            image = Bitmap.createBitmap(rootView.getDrawingCache());
-            // destroy
-            rootView.destroyDrawingCache();
-
-            //share dialog
-            AlertDialog.Builder shareDialog = new AlertDialog.Builder(this);
-            shareDialog.setTitle("Share Screen Shot");
-            shareDialog.setMessage("Share image to Facebook?");
-            shareDialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int which) {
-                    //share the image to Facebook
-                    SharePhoto photo = new SharePhoto.Builder().setBitmap(image).build();
-                    SharePhotoContent content = new SharePhotoContent.Builder().addPhoto(photo).build();
-                    shareButton.setShareContent(content);
-                    counter = 1;
-                    shareButton.performClick();
-                }
-            });
-            shareDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int which) {
-                    dialog.cancel();
-                }
-            });
-            shareDialog.show();
-        }
-        else {
-            counter = 0;
-            shareButton.setShareContent(null);
-        }
-    }
 
     private void updateGUI(Intent intent) throws ParseException {
         if (intent.getExtras() != null) {
@@ -196,26 +159,48 @@ public class MainActivity extends Activity {
             int diasFaltan = Integer.parseInt(day);
             int horasFaltan = Integer.parseInt(hour);
             int minFaltan = Integer.parseInt(min);
+            int total = diasFaltan + horasFaltan + minFaltan;
 
-            if (diasFaltan <= 1) {
-                dayText.setText("Día");
+            if (total == 0) {
+                setFinalText();
             } else {
-                dayText.setText("Días");
+                setInitialTexts(diasFaltan, horasFaltan, minFaltan);
             }
-
-            if (horasFaltan <= 1) {
-                horaText.setText("Hora");
-            } else {
-                horaText.setText("Horas");
-            }
-
-            if (minFaltan <= 1) {
-                minText.setText("Minuto");
-            } else {
-                minText.setText("Minutos");
-            }
-
         }
+    }
+
+    public void setFinalText() {
+        horaCount.setText("");
+        dayCount.setText("");
+        dayText.setText("");
+        horaText.setText("");
+        minCount.setText("");
+        minText.setText("");
+        segCount.setText("");
+        segText.setText("");
+        riverText.setText("River esta jugando!");
+    }
+
+    public void setInitialTexts(int diasFaltan, int horasFaltan, int minFaltan) {
+        if (diasFaltan <= 1) {
+            dayText.setText("Día");
+        } else {
+            dayText.setText("Días");
+        }
+
+        if (horasFaltan <= 1) {
+            horaText.setText("Hora");
+        } else {
+            horaText.setText("Horas");
+        }
+
+        if (minFaltan <= 1) {
+            minText.setText("Minuto");
+        } else {
+            minText.setText("Minutos");
+        }
+        segText.setText("Segundos");
+        riverText.setText("");
     }
 
     @Override
@@ -230,21 +215,18 @@ public class MainActivity extends Activity {
             new getFechaTask(this.getApplicationContext()).execute(url);
         }
 
-        Log.i(TAG, "Registered broacast receiver");
-
     }
 
     @Override
     public void onPause() {
         super.onPause();
         unregisterReceiver(br);
-        Log.i(TAG, "Unregistered broacast receiver");
     }
 
     @Override
     public void onStop() {
         try {
-           unregisterReceiver(br);
+            unregisterReceiver(br);
         } catch (Exception e) {
             // Receiver was probably already stopped in onPause()
         }

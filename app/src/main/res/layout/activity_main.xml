@@ -13,17 +13,16 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="0.92"
         android:orientation="vertical">
 
-        <com.facebook.share.widget.ShareButton
-            android:id="@+id/share_btn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:contentDescription="Share"
-            android:visibility="visible"
-            android:clickable="true"
-            android:enabled="true" />
+        <!--<com.facebook.share.widget.ShareButton-->
+            <!--android:id="@+id/share_btn"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:contentDescription="Share"-->
+            <!--android:visibility="visible"-->
+            <!--android:clickable="true"-->
+            <!--android:enabled="true" />-->
 
         <TextView
             android:id="@+id/title1"
@@ -34,7 +33,7 @@
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textColor="#ffffff"
             android:textSize="33sp"
-            android:layout_marginTop="150dp" />
+            android:layout_marginTop="100dp" />
 
         <TextView
             android:id="@+id/title2"
@@ -66,11 +65,22 @@
             android:textColor="#ffffff"
             />
 
-        <LinearLayout
+        <TextView
+            android:text=""
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center"
+            android:id="@+id/riverText"
+            android:layout_marginTop="40dp"
+            android:textSize="33sp"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="#ffffff" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:orientation="vertical"
-            android:layout_marginTop="50dp">
+            android:layout_marginTop="10dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -178,8 +188,34 @@
 
             </LinearLayout>
 
-        </LinearLayout>
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="120dp">
 
+                <TextView
+                    android:id="@+id/copyText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.75"
+                    android:background="#99000000"
+                    android:gravity="center"
+                    android:text="TextView"
+                    android:textColorLink="@android:color/holo_red_dark" />
+
+                <TextView
+                    android:id="@+id/designText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.75"
+                    android:background="#99000000"
+                    android:gravity="center"
+                    android:text="TextView"
+                    android:textColorLink="@android:color/holo_red_dark" />
+            </LinearLayout>
+
+        </LinearLayout>
 
 
     </LinearLayout>

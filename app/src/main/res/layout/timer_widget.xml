@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:layout_marginTop="20dp">
+        android:layout_marginTop="5dp">
 
         <LinearLayout
             android:orientation="horizontal"
@@ -61,7 +61,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/linearLayout"
         android:gravity="center"
-        android:layout_marginTop="20dp">
+        android:layout_marginTop="10dp">
 
         <LinearLayout
             android:orientation="horizontal"
@@ -96,7 +96,7 @@
 
             <TextView
                 android:text="XX"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/dayCount"
                 android:layout_weight="1"
@@ -106,7 +106,7 @@
 
             <TextView
                 android:text="XX"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/hourCount"
                 android:layout_weight="1"
@@ -116,7 +116,7 @@
 
             <TextView
                 android:text="XX"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/minCount"
                 android:layout_weight="1"
@@ -126,7 +126,7 @@
 
             <TextView
                 android:text="XX"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/secondCount"
                 android:layout_weight="1"
@@ -150,27 +150,27 @@
 
             <TextView
                 android:text="Día"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/textView15"
-                android:layout_weight="1.15"
+                android:id="@+id/widgetDiaText"
+                android:layout_weight="1"
                 android:gravity="center_horizontal|center"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                 android:textSize="10sp" />
 
             <TextView
-                android:text="Hora"
-                android:layout_width="wrap_content"
+                android:text="Horas"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/textView16"
-                android:layout_weight="1.15"
+                android:id="@+id/widgetHoraText"
+                android:layout_weight="1"
                 android:gravity="center_horizontal|center"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                 android:textSize="10sp" />
 
             <TextView
                 android:text="Minutos"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/textView14"
                 android:layout_weight="1"
@@ -180,10 +180,10 @@
 
             <TextView
                 android:text="Segundos"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/textView2"
-                android:layout_weight="0.79"
+                android:layout_weight="1"
                 android:gravity="center_horizontal|center"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                 android:textSize="10sp" />
