@@ -1,67 +1,40 @@
 package com.android.rramirez.countdowntimer;
 
 import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.text.Annotation;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Timer;
-
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.app.Dialog;
-import android.content.ActivityNotFoundException;
 import android.content.BroadcastReceiver;
 import android.content.Context;
-import android.content.ContextWrapper;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
 import android.graphics.Typeface;
-import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.provider.MediaStore;
 import android.text.Html;
 import android.text.method.LinkMovementMethod;
-import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.facebook.FacebookSdk;
-import com.facebook.share.model.ShareLinkContent;
 import com.facebook.share.model.SharePhoto;
 import com.facebook.share.model.SharePhotoContent;
 import com.facebook.share.widget.ShareButton;
 import com.twitter.sdk.android.tweetcomposer.TweetComposer;
 
-import static com.android.rramirez.countdowntimer.TimerService.context;
-
+import static com.android.rramirez.countdowntimer.R.drawable.facebook;
 
 public class MainActivity extends Activity {
 
     private TextView dayCount, dayText, horaCount, horaText, minCount, minText, segCount, segText, designText, riverText;
 
-    //Facebook and Twitter buttons
+    //Facebook, Twitter and URL buttons
     private ShareButton shareButton;
-    private ImageButton twitterBtn;
+    private ImageButton twitterBtn, urlBtn;
 
     private Context mContext;
-    private View rootView;
     private static final String TAG = "BroadcastTest";
     private Intent intent;
     public static String packageName;
@@ -77,8 +50,10 @@ public class MainActivity extends Activity {
         mContext = getApplicationContext();
         packageName = getPackageName();
 
+        //Sharing buttons
         shareButton = (ShareButton) findViewById(R.id.share_btn);
         twitterBtn = (ImageButton) findViewById(R.id.twitterBtn);
+        urlBtn = (ImageButton) findViewById(R.id.urlBtn);
 
         //Get the intent from the service
         intent = new Intent(this, TimerService.class);
@@ -92,7 +67,6 @@ public class MainActivity extends Activity {
         minText = (TextView) findViewById(R.id.minText);
         segCount = (TextView) findViewById(R.id.segCount);
         segText = (TextView) findViewById(R.id.segText);
-//        copyText = (TextView) findViewById(R.id.copyText);
         designText = (TextView) findViewById(R.id.designText);
         riverText = (TextView) findViewById(R.id.riverText);
 
@@ -113,7 +87,7 @@ public class MainActivity extends Activity {
 //        copyText.setText(Html.fromHtml(
 //                "<b><font color=white>Copyright © 2016</b>" + "<a href=\"http://esteeselfamosoriver.com\"><font color=red> EsteeselfamosoRiver.com</font>" + "</a> "));
 //        copyText.setMovementMethod(LinkMovementMethod.getInstance());
-        designText.setText(Html.fromHtml("<b><font color=white>Design By </b>" + "<a href=\"http://cerebrosdigitales.com\"> " + "<font color=red> CerebrosDigiales{} </font>" + "</a> "));
+        designText.setText(Html.fromHtml("<b>Design By </b>" + "<a href=\"http://cerebrosdigitales.com\"> " + "CerebrosDigiales{}" + "</a> "));
         designText.setMovementMethod(LinkMovementMethod.getInstance());
 
         //Set the customTypeFace for the texts
@@ -158,6 +132,13 @@ public class MainActivity extends Activity {
             }
         });
 
+        urlBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               openURL();
+            }
+        });
+
 
     }
 
@@ -169,6 +150,9 @@ public class MainActivity extends Activity {
         Bitmap bm = getScreen();
         SharePhoto photo = new SharePhoto.Builder().setBitmap(bm).build();
         SharePhotoContent content = new SharePhotoContent.Builder().addPhoto(photo).build();
+        shareButton.setBackgroundResource(facebook);
+        shareButton.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
+        shareButton.setText("");
         shareButton.setShareContent(content);
 
     }
@@ -180,6 +164,12 @@ public class MainActivity extends Activity {
                 .text("just setting up my Fabric.")
                 .image(myUri);
         builder.show();
+    }
+
+    public void openURL(){
+        Uri uri = Uri.parse("http://esteeselfamosoriver.com"); // missing 'http://' will cause crashed
+        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+        startActivity(intent);
     }
 
     //Take the screenshot

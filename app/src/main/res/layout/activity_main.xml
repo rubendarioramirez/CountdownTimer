@@ -178,34 +178,35 @@
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="100dp"
+                android:layout_marginTop="120dp"
+                android:layout_gravity="center"
                 android:orientation="horizontal">
 
                 <com.facebook.share.widget.ShareButton
                     android:id="@+id/share_btn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:layout_width="30dp"
+                    android:layout_height="35dp"
                     android:clickable="true"
                     android:contentDescription=""
+                    android:gravity="top"
                     android:enabled="true"
+                    android:layout_marginRight="10dp"
                     android:visibility="visible" />
 
                 <ImageButton
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/url"
-                    android:id="@+id/urlBtn"
-                    android:layout_weight="1" />
+                    android:layout_marginRight="10dp"
+                    android:id="@+id/urlBtn" />
 
                 <ImageButton
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/twitter"
-                    android:id="@+id/twitterBtn"
-                    android:layout_weight="1" />
+                    android:id="@+id/twitterBtn" />
 
 
             </LinearLayout>
@@ -214,10 +215,9 @@
                 android:id="@+id/designText"
                 android:layout_width="match_parent"
                 android:layout_height="36dp"
-                android:background="#99000000"
                 android:gravity="center"
                 android:text="TextView"
-                android:textColorLink="@android:color/holo_red_dark" />
+                android:textColorLink="@android:color/white" />
 
         </LinearLayout>
 
