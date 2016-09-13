@@ -2,17 +2,23 @@ package com.android.rramirez.countdowntimer;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.text.Annotation;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Timer;
 
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.ActivityNotFoundException;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.ContextWrapper;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -24,26 +30,38 @@ import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.provider.MediaStore;
 import android.text.Html;
 import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.facebook.FacebookSdk;
 import com.facebook.share.model.ShareLinkContent;
 import com.facebook.share.model.SharePhoto;
 import com.facebook.share.model.SharePhotoContent;
 import com.facebook.share.widget.ShareButton;
+import com.twitter.sdk.android.tweetcomposer.TweetComposer;
+
+import static com.android.rramirez.countdowntimer.TimerService.context;
 
 
 public class MainActivity extends Activity {
 
-    private TextView dayCount, dayText, horaCount, horaText, minCount, minText, segCount, segText, copyText, designText, riverText;
+    private TextView dayCount, dayText, horaCount, horaText, minCount, minText, segCount, segText, designText, riverText;
+
+    //Facebook and Twitter buttons
+    private ShareButton shareButton;
+    private ImageButton twitterBtn;
+
     private Context mContext;
+    private View rootView;
     private static final String TAG = "BroadcastTest";
     private Intent intent;
     public static String packageName;
@@ -54,10 +72,13 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-
+        FacebookSdk.sdkInitialize(getApplicationContext());
         setContentView(R.layout.activity_main);
         mContext = getApplicationContext();
         packageName = getPackageName();
+
+        shareButton = (ShareButton) findViewById(R.id.share_btn);
+        twitterBtn = (ImageButton) findViewById(R.id.twitterBtn);
 
         //Get the intent from the service
         intent = new Intent(this, TimerService.class);
@@ -71,7 +92,7 @@ public class MainActivity extends Activity {
         minText = (TextView) findViewById(R.id.minText);
         segCount = (TextView) findViewById(R.id.segCount);
         segText = (TextView) findViewById(R.id.segText);
-        copyText = (TextView) findViewById(R.id.copyText);
+//        copyText = (TextView) findViewById(R.id.copyText);
         designText = (TextView) findViewById(R.id.designText);
         riverText = (TextView) findViewById(R.id.riverText);
 
@@ -88,10 +109,10 @@ public class MainActivity extends Activity {
         text2.setTypeface(myCustomFont);
         riverText.setTypeface(myCustomFontNegrita);
 
-        //Set hyperLinks
-        copyText.setText(Html.fromHtml(
-                "<b><font color=white>Copyright © 2016</b>" + "<a href=\"http://esteeselfamosoriver.com\"><font color=red> EsteeselfamosoRiver.com</font>" + "</a> "));
-        copyText.setMovementMethod(LinkMovementMethod.getInstance());
+//        //Set hyperLinks
+//        copyText.setText(Html.fromHtml(
+//                "<b><font color=white>Copyright © 2016</b>" + "<a href=\"http://esteeselfamosoriver.com\"><font color=red> EsteeselfamosoRiver.com</font>" + "</a> "));
+//        copyText.setMovementMethod(LinkMovementMethod.getInstance());
         designText.setText(Html.fromHtml("<b><font color=white>Design By </b>" + "<a href=\"http://cerebrosdigitales.com\"> " + "<font color=red> CerebrosDigiales{} </font>" + "</a> "));
         designText.setMovementMethod(LinkMovementMethod.getInstance());
 
@@ -129,6 +150,57 @@ public class MainActivity extends Activity {
         text1.setText(fetchText1);
         text2.setText(fetchText2);
 
+
+        twitterBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                postTwitter();
+            }
+        });
+
+
+    }
+
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+
+        //Facebook post
+        Bitmap bm = getScreen();
+        SharePhoto photo = new SharePhoto.Builder().setBitmap(bm).build();
+        SharePhotoContent content = new SharePhotoContent.Builder().addPhoto(photo).build();
+        shareButton.setShareContent(content);
+
+    }
+
+    public void postTwitter(){
+        Bitmap bm = getScreen();
+        Uri myUri = getImageUri(mContext, bm);
+        TweetComposer.Builder builder = new TweetComposer.Builder(this)
+                .text("just setting up my Fabric.")
+                .image(myUri);
+        builder.show();
+    }
+
+    //Take the screenshot
+    private Bitmap getScreen(){
+        View rootView = findViewById(android.R.id.content).getRootView();
+        rootView.setDrawingCacheEnabled(true);
+        rootView.buildDrawingCache();
+        // creates immutable clone of image
+        Bitmap image = Bitmap.createBitmap(rootView.getDrawingCache());
+        // destroy
+        rootView.destroyDrawingCache();
+
+        return image;
+    }
+
+    //Get the url from the image.
+    public Uri getImageUri(Context inContext, Bitmap inImage) {
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+        String path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), inImage, "screenshot", null);
+        return Uri.parse(path);
     }
 
     //Gets the updates for the CountDown.

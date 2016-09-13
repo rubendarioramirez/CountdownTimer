@@ -15,25 +15,16 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <!--<com.facebook.share.widget.ShareButton-->
-            <!--android:id="@+id/share_btn"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:contentDescription="Share"-->
-            <!--android:visibility="visible"-->
-            <!--android:clickable="true"-->
-            <!--android:enabled="true" />-->
-
         <TextView
             android:id="@+id/title1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="100dp"
             android:gravity="center_horizontal|center"
             android:text="Titulo Dinamico 1"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textColor="#ffffff"
-            android:textSize="33sp"
-            android:layout_marginTop="100dp" />
+            android:textSize="33sp" />
 
         <TextView
             android:id="@+id/title2"
@@ -49,11 +40,11 @@
             android:id="@+id/text1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
             android:gravity="center"
             android:text="Texto Dinamico 1"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="#ffffff"
-            android:layout_marginTop="30dp" />
+            android:textColor="#ffffff" />
 
         <TextView
             android:id="@+id/text2"
@@ -62,158 +53,171 @@
             android:gravity="center"
             android:text="Texto Dinamico 2"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="#ffffff"
-            />
+            android:textColor="#ffffff" />
 
         <TextView
-            android:text=""
+            android:id="@+id/riverText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:id="@+id/riverText"
             android:layout_marginTop="40dp"
-            android:textSize="33sp"
+            android:gravity="center"
+            android:text=""
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textColor="#ffffff" />
+            android:textColor="#ffffff"
+            android:textSize="33sp" />
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:layout_marginTop="10dp">
+            android:layout_height="269dp"
+            android:layout_marginTop="10dp"
+            android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginRight="20dp">
+                android:layout_marginRight="20dp"
+                android:orientation="horizontal">
 
                 <TextView
                     android:id="@+id/dayCount"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:gravity="center"
                     android:text="XX"
                     android:textAppearance="?android:attr/textAppearanceLarge"
                     android:textColor="#ffffff"
-                    android:layout_weight="1"
-                    android:gravity="center"
                     android:textSize="26sp" />
 
                 <TextView
                     android:id="@+id/horaCount"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
                     android:text="XX"
                     android:textAppearance="?android:attr/textAppearanceLarge"
                     android:textColor="#ffffff"
-                    android:layout_weight="1"
-                    android:gravity="center"
                     android:textSize="26sp" />
 
                 <TextView
                     android:id="@+id/minCount"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
                     android:text="XX"
                     android:textAppearance="?android:attr/textAppearanceLarge"
                     android:textColor="#ffffff"
-                    android:layout_weight="1"
-                    android:gravity="center"
                     android:textSize="26sp" />
 
                 <TextView
                     android:id="@+id/segCount"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
                     android:text="XX"
                     android:textAppearance="?android:attr/textAppearanceLarge"
                     android:textColor="#ffffff"
-                    android:layout_weight="1"
-                    android:gravity="center"
                     android:textSize="26sp" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
                 android:layout_marginRight="20dp"
-                android:layout_marginTop="30dp">
+                android:layout_marginTop="30dp"
+                android:orientation="horizontal">
 
                 <TextView
                     android:id="@+id/diaText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
                     android:text="Dia/s"
                     android:textAppearance="?android:attr/textAppearanceLarge"
                     android:textColor="#ffffff"
-                    android:textSize="16dp"
-                    android:layout_weight="1"
-                    android:gravity="center"/>
+                    android:textSize="16dp" />
 
                 <TextView
                     android:id="@+id/horaText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
                     android:text="Hora/s"
                     android:textAppearance="?android:attr/textAppearanceLarge"
                     android:textColor="#ffffff"
-                    android:textSize="16dp"
-                    android:layout_weight="1"
-                    android:gravity="center"/>
+                    android:textSize="16dp" />
 
                 <TextView
                     android:id="@+id/minText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
                     android:text="Minuto/s"
                     android:textAppearance="?android:attr/textAppearanceLarge"
                     android:textColor="#ffffff"
-                    android:textSize="16dp"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    />
+                    android:textSize="16dp" />
 
                 <TextView
                     android:id="@+id/segText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
                     android:text="Segundos"
                     android:textAppearance="?android:attr/textAppearanceLarge"
                     android:textColor="#ffffff"
-                    android:textSize="16dp"
-                    android:layout_weight="1"
-                    android:gravity="center"/>
+                    android:textSize="16dp" />
 
             </LinearLayout>
 
             <LinearLayout
-                android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="120dp">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="100dp"
+                android:orientation="horizontal">
 
-                <TextView
-                    android:id="@+id/copyText"
-                    android:layout_width="match_parent"
+                <com.facebook.share.widget.ShareButton
+                    android:id="@+id/share_btn"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="0.75"
-                    android:background="#99000000"
-                    android:gravity="center"
-                    android:text="TextView"
-                    android:textColorLink="@android:color/holo_red_dark" />
+                    android:layout_weight="1"
+                    android:clickable="true"
+                    android:contentDescription=""
+                    android:enabled="true"
+                    android:visibility="visible" />
 
-                <TextView
-                    android:id="@+id/designText"
-                    android:layout_width="match_parent"
+                <ImageButton
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="0.75"
-                    android:background="#99000000"
-                    android:gravity="center"
-                    android:text="TextView"
-                    android:textColorLink="@android:color/holo_red_dark" />
+                    android:background="@drawable/url"
+                    android:id="@+id/urlBtn"
+                    android:layout_weight="1" />
+
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/twitter"
+                    android:id="@+id/twitterBtn"
+                    android:layout_weight="1" />
+
+
             </LinearLayout>
+
+            <TextView
+                android:id="@+id/designText"
+                android:layout_width="match_parent"
+                android:layout_height="36dp"
+                android:background="#99000000"
+                android:gravity="center"
+                android:text="TextView"
+                android:textColorLink="@android:color/holo_red_dark" />
 
         </LinearLayout>
 

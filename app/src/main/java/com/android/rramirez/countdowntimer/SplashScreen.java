@@ -6,6 +6,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import com.twitter.sdk.android.Twitter;
+import com.twitter.sdk.android.core.TwitterAuthConfig;
+
+import io.fabric.sdk.android.Fabric;
+
 import static com.android.rramirez.countdowntimer.Utility.isNetworkAvailable;
 import static com.android.rramirez.countdowntimer.Utility.updateCurrentCountDownTime;
 
@@ -14,6 +19,11 @@ import static com.android.rramirez.countdowntimer.Utility.updateCurrentCountDown
  */
 public class SplashScreen extends Activity {
 
+    // Note: Your consumer key and secret should be obfuscated in your source code before shipping.
+    private static final String TWITTER_KEY = "OWVThf7yhua8aMKdFQzAacjke";
+    private static final String TWITTER_SECRET = "OZFra5DqU8zeCycKuJfvuakuxBg1wQczeh0EPwj84WqaKAmD84";
+
+
     //JSON URL
     String url = "http://esteeselfamosoriver.com/app/info.php";
     Context mContext;
@@ -21,6 +31,8 @@ public class SplashScreen extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        TwitterAuthConfig authConfig = new TwitterAuthConfig(TWITTER_KEY, TWITTER_SECRET);
+        Fabric.with(this, new Twitter(authConfig));
         setContentView(R.layout.splash);
         mContext = this.getApplicationContext();
 
