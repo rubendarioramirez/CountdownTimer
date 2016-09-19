@@ -28,7 +28,7 @@ import static com.android.rramirez.countdowntimer.R.drawable.facebook;
 
 public class MainActivity extends Activity {
 
-    private TextView dayCount, dayText, horaCount, horaText, minCount, minText, segCount, segText, designText, riverText;
+    private TextView dayCount, dayText, horaCount, horaText, minCount, minText, segCount, segText, riverJugando, designText;
 
     //Facebook, Twitter and URL buttons
     private ShareButton shareButton;
@@ -67,8 +67,9 @@ public class MainActivity extends Activity {
         minText = (TextView) findViewById(R.id.minText);
         segCount = (TextView) findViewById(R.id.segCount);
         segText = (TextView) findViewById(R.id.segText);
+        riverJugando = (TextView) findViewById(R.id.riverJugando);
         designText = (TextView) findViewById(R.id.designText);
-        riverText = (TextView) findViewById(R.id.riverText);
+
 
         //Crea la font Custom and assign to the titles
         Typeface myCustomFont = Typeface.createFromAsset(getApplicationContext().getAssets(), "fonts/Ubuntu-C.ttf");
@@ -81,13 +82,11 @@ public class MainActivity extends Activity {
         text1.setTypeface(myCustomFont);
         TextView text2 = (TextView) findViewById(R.id.text2);
         text2.setTypeface(myCustomFont);
-        riverText.setTypeface(myCustomFontNegrita);
+
+
 
 //        //Set hyperLinks
-//        copyText.setText(Html.fromHtml(
-//                "<b><font color=white>Copyright © 2016</b>" + "<a href=\"http://esteeselfamosoriver.com\"><font color=red> EsteeselfamosoRiver.com</font>" + "</a> "));
-//        copyText.setMovementMethod(LinkMovementMethod.getInstance());
-        designText.setText(Html.fromHtml("<b>Design By </b>" + "<a href=\"http://cerebrosdigitales.com\"> " + "CerebrosDigiales{}" + "</a> "));
+        designText.setText(Html.fromHtml("<b>Design By </b>" + "<a href=\"http://cerebrosdigitales.com\"> " + "CerebrosDigitales" + "</a> "));
         designText.setMovementMethod(LinkMovementMethod.getInstance());
 
         //Set the customTypeFace for the texts
@@ -99,6 +98,7 @@ public class MainActivity extends Activity {
         horaText.setTypeface(myCustomFontNegrita);
         minText.setTypeface(myCustomFontNegrita);
         segText.setTypeface(myCustomFontNegrita);
+        riverJugando.setTypeface(myCustomFontNegrita);
 
 
         //define River with red V
@@ -161,7 +161,7 @@ public class MainActivity extends Activity {
         Bitmap bm = getScreen();
         Uri myUri = getImageUri(mContext, bm);
         TweetComposer.Builder builder = new TweetComposer.Builder(this)
-                .text("just setting up my Fabric.")
+                .text("")
                 .image(myUri);
         builder.show();
     }
@@ -213,6 +213,7 @@ public class MainActivity extends Activity {
             String hour = Utility.getString(this, "hoursRemaining", "");
             String min = Utility.getString(this, "minutesRemaining", "");
             String sec = Utility.getString(this, "secRemaining", "");
+            String jugando = Utility.getString(this, "jugando", "");
             dayCount.setText(day);
             horaCount.setText(hour);
             minCount.setText(min);
@@ -221,9 +222,8 @@ public class MainActivity extends Activity {
             int diasFaltan = Integer.parseInt(day);
             int horasFaltan = Integer.parseInt(hour);
             int minFaltan = Integer.parseInt(min);
-            int total = diasFaltan + horasFaltan + minFaltan;
 
-            if (total == 0) {
+            if (jugando.equals("true")) {
                 setFinalText();
             } else {
                 setInitialTexts(diasFaltan, horasFaltan, minFaltan);
@@ -240,7 +240,8 @@ public class MainActivity extends Activity {
         minText.setText("");
         segCount.setText("");
         segText.setText("");
-        riverText.setText("River esta jugando!");
+        riverJugando.setText("River esta jugando!");
+
     }
 
     public void setInitialTexts(int diasFaltan, int horasFaltan, int minFaltan) {
@@ -262,7 +263,7 @@ public class MainActivity extends Activity {
             minText.setText("Minutos");
         }
         segText.setText("Segundos");
-        riverText.setText("");
+        riverJugando.setText("");
     }
 
     @Override

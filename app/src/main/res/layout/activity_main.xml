@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mainlayout"
     android:layout_width="match_parent"
@@ -13,6 +12,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_weight="1"
         android:orientation="vertical">
 
         <TextView
@@ -55,172 +55,177 @@
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="#ffffff" />
 
-        <TextView
-            android:id="@+id/riverText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"
-            android:gravity="center"
-            android:text=""
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textColor="#ffffff"
-            android:textSize="33sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="269dp"
-            android:layout_marginTop="10dp"
-            android:orientation="vertical">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="20dp"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/dayCount"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="XX"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:textColor="#ffffff"
-                    android:textSize="26sp" />
-
-                <TextView
-                    android:id="@+id/horaCount"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="XX"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:textColor="#ffffff"
-                    android:textSize="26sp" />
-
-                <TextView
-                    android:id="@+id/minCount"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="XX"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:textColor="#ffffff"
-                    android:textSize="26sp" />
-
-                <TextView
-                    android:id="@+id/segCount"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="XX"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:textColor="#ffffff"
-                    android:textSize="26sp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="20dp"
-                android:layout_marginTop="30dp"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/diaText"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="Dia/s"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:textColor="#ffffff"
-                    android:textSize="16dp" />
-
-                <TextView
-                    android:id="@+id/horaText"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="Hora/s"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:textColor="#ffffff"
-                    android:textSize="16dp" />
-
-                <TextView
-                    android:id="@+id/minText"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="Minuto/s"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:textColor="#ffffff"
-                    android:textSize="16dp" />
-
-                <TextView
-                    android:id="@+id/segText"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="Segundos"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:textColor="#ffffff"
-                    android:textSize="16dp" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="120dp"
-                android:layout_gravity="center"
-                android:orientation="horizontal">
-
-                <com.facebook.share.widget.ShareButton
-                    android:id="@+id/share_btn"
-                    android:layout_width="30dp"
-                    android:layout_height="35dp"
-                    android:clickable="true"
-                    android:contentDescription=""
-                    android:gravity="top"
-                    android:enabled="true"
-                    android:layout_marginRight="10dp"
-                    android:visibility="visible" />
-
-                <ImageButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/url"
-                    android:layout_marginRight="10dp"
-                    android:id="@+id/urlBtn" />
-
-                <ImageButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/twitter"
-                    android:id="@+id/twitterBtn" />
-
-
-            </LinearLayout>
+            android:layout_height="wrap_content"
+            android:layout_marginRight="20dp"
+            android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/designText"
+                android:id="@+id/dayCount"
                 android:layout_width="match_parent"
-                android:layout_height="36dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
                 android:gravity="center"
-                android:text="TextView"
-                android:textColorLink="@android:color/white" />
+                android:text="XX"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="#ffffff"
+                android:textSize="26sp" />
+
+            <TextView
+                android:id="@+id/horaCount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="XX"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="#ffffff"
+                android:textSize="26sp" />
+
+            <TextView
+                android:id="@+id/minCount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="XX"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="#ffffff"
+                android:textSize="26sp" />
+
+            <TextView
+                android:id="@+id/segCount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="XX"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="#ffffff"
+                android:textSize="26sp" />
 
         </LinearLayout>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="30dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/diaText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="Dia/s"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="#ffffff"
+                android:textSize="16dp" />
+
+            <TextView
+                android:id="@+id/horaText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="Hora/s"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="#ffffff"
+                android:textSize="16dp" />
+
+            <TextView
+                android:id="@+id/minText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="Minuto/s"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="#ffffff"
+                android:textSize="16dp" />
+
+            <TextView
+                android:id="@+id/segText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="Segundos"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="#ffffff"
+                android:textSize="16dp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+
+            <TextView
+                android:text="River"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/riverJugando"
+                android:gravity="center"
+                android:textSize="22sp"
+                android:textColor="#FFFFFF" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="100dp"
+            android:layout_gravity="center"
+            android:orientation="horizontal">
+
+            <com.facebook.share.widget.ShareButton
+                android:id="@+id/share_btn"
+                android:layout_width="30dp"
+                android:layout_height="35dp"
+                android:clickable="true"
+                android:contentDescription=""
+                android:gravity="top"
+                android:enabled="true"
+                android:layout_marginRight="10dp"
+                android:visibility="visible" />
+
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/url"
+                android:layout_marginRight="10dp"
+                android:id="@+id/urlBtn" />
+
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/twitter"
+                android:id="@+id/twitterBtn" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/designText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="TextView"
+            android:layout_marginTop="10dp"
+            android:textColorLink="@android:color/white" />
 
     </LinearLayout>
 

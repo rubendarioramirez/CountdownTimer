@@ -20,8 +20,8 @@ import static com.android.rramirez.countdowntimer.Utility.updateCurrentCountDown
 public class SplashScreen extends Activity {
 
     // Note: Your consumer key and secret should be obfuscated in your source code before shipping.
-    private static final String TWITTER_KEY = "OWVThf7yhua8aMKdFQzAacjke";
-    private static final String TWITTER_SECRET = "OZFra5DqU8zeCycKuJfvuakuxBg1wQczeh0EPwj84WqaKAmD84";
+    private static final String TWITTER_KEY = "CtonsPp3qP55qA7dJPHCqN2u2";
+    private static final String TWITTER_SECRET = "jIY6hlapK8tw9WitfzbAoFM24JqQZ4S6iOrVKoKrozCjcoZ2Gv";
 
 
     //JSON URL
