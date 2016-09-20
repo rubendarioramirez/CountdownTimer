@@ -107,7 +107,5 @@ public class getFechaTask extends AsyncTask<String, Void, String> {
             //Date
             Utility.putString(mContext,"fecha",separated[10]);
 
-           // Utility.makeToast(mContext,"Informacion actualizada");
-
         }
     }

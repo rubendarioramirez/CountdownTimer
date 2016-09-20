@@ -70,7 +70,31 @@ public class MainActivity extends Activity {
         riverJugando = (TextView) findViewById(R.id.riverJugando);
         designText = (TextView) findViewById(R.id.designText);
 
+        updateTitles();
 
+        //Set hyperLinks
+        designText.setText(Html.fromHtml("<b>Design By </b>" + "<a href=\"http://cerebrosdigitales.com\"> " + "CerebrosDigitales" + "</a> "));
+        designText.setMovementMethod(LinkMovementMethod.getInstance());
+
+        twitterBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                postTwitter();
+            }
+        });
+
+        urlBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               openURL();
+            }
+        });
+
+
+
+    }
+
+    public void updateTitles(){
         //Crea la font Custom and assign to the titles
         Typeface myCustomFont = Typeface.createFromAsset(getApplicationContext().getAssets(), "fonts/Ubuntu-C.ttf");
         Typeface myCustomFontNegrita = Typeface.createFromAsset(getApplicationContext().getAssets(), "fonts/Ubuntu-B.ttf");
@@ -82,24 +106,6 @@ public class MainActivity extends Activity {
         text1.setTypeface(myCustomFont);
         TextView text2 = (TextView) findViewById(R.id.text2);
         text2.setTypeface(myCustomFont);
-
-
-
-//        //Set hyperLinks
-        designText.setText(Html.fromHtml("<b>Design By </b>" + "<a href=\"http://cerebrosdigitales.com\"> " + "CerebrosDigitales" + "</a> "));
-        designText.setMovementMethod(LinkMovementMethod.getInstance());
-
-        //Set the customTypeFace for the texts
-        dayCount.setTypeface(myCustomFontNegrita);
-        horaCount.setTypeface(myCustomFontNegrita);
-        minCount.setTypeface(myCustomFontNegrita);
-        segCount.setTypeface(myCustomFontNegrita);
-        dayText.setTypeface(myCustomFontNegrita);
-        horaText.setTypeface(myCustomFontNegrita);
-        minText.setTypeface(myCustomFontNegrita);
-        segText.setTypeface(myCustomFontNegrita);
-        riverJugando.setTypeface(myCustomFontNegrita);
-
 
         //define River with red V
         String fetchTitle1 = Utility.getString(mContext, "title1", "");
@@ -125,19 +131,17 @@ public class MainActivity extends Activity {
         text2.setText(fetchText2);
 
 
-        twitterBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                postTwitter();
-            }
-        });
+        //Set the customTypeFace for the texts
+        dayCount.setTypeface(myCustomFontNegrita);
+        horaCount.setTypeface(myCustomFontNegrita);
+        minCount.setTypeface(myCustomFontNegrita);
+        segCount.setTypeface(myCustomFontNegrita);
+        dayText.setTypeface(myCustomFontNegrita);
+        horaText.setTypeface(myCustomFontNegrita);
+        minText.setTypeface(myCustomFontNegrita);
+        segText.setTypeface(myCustomFontNegrita);
+        riverJugando.setTypeface(myCustomFontNegrita);
 
-        urlBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-               openURL();
-            }
-        });
 
 
     }
@@ -198,7 +202,7 @@ public class MainActivity extends Activity {
         @Override
         public void onReceive(Context context, Intent intent) {
             try {
-                updateGUI(intent); // or whatever method used to update your GUI fields
+                updateCounter(intent); // or whatever method used to update your GUI fields
             } catch (ParseException e) {
                 e.printStackTrace();
             }
@@ -206,7 +210,7 @@ public class MainActivity extends Activity {
     };
 
 
-    private void updateGUI(Intent intent) throws ParseException {
+    private void updateCounter(Intent intent) throws ParseException {
         if (intent.getExtras() != null) {
 
             String day = Utility.getString(this, "daysRemaining", "");
@@ -276,8 +280,8 @@ public class MainActivity extends Activity {
         } else {
             //Start service to fetchData
             new getFechaTask(this.getApplicationContext()).execute(url);
+            updateTitles();
         }
-
     }
 
     @Override
