@@ -14,30 +14,26 @@
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent">
 
             <TextView
                 android:text="River"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/tvTitle1"
-                android:gravity="right"
+                android:gravity="center"
                 android:layout_weight="1"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                 android:textSize="30sp"
                 android:typeface="normal"
                 android:fontFamily="sans-serif"
                 android:textStyle="normal|bold" />
+        </LinearLayout>
 
-            <TextView
-                android:text="-"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/textView"
-                android:gravity="center"
-                android:layout_weight="0.3"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                android:textSize="30sp" />
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
             <TextView
                 android:text="Equipo"
@@ -45,7 +41,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/tvTitle2"
                 android:layout_weight="1"
-                android:gravity="left"
+                android:gravity="center"
                 android:typeface="normal"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                 android:textSize="30sp"
@@ -61,23 +57,17 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/linearLayout"
         android:gravity="center"
-        android:layout_marginTop="10dp">
+        android:layout_marginTop="7dp"
+        android:id="@+id/textMedioContainer">
 
-        <LinearLayout
-            android:orientation="horizontal"
+        <TextView
+            android:text="TextView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:text="TextView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/tvText1"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
-
-        </LinearLayout>
+            android:layout_height="wrap_content"
+            android:id="@+id/tvText1"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
     </LinearLayout>
 
@@ -87,7 +77,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:layout_marginTop="20dp">
+        android:layout_marginTop="12dp"
+        android:id="@+id/counterContainer">
 
         <LinearLayout
             android:orientation="horizontal"
