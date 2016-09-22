@@ -19,6 +19,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.facebook.FacebookSdk;
+import com.facebook.appevents.AppEventsLogger;
 import com.facebook.share.model.SharePhoto;
 import com.facebook.share.model.SharePhotoContent;
 import com.facebook.share.widget.ShareButton;
@@ -49,6 +50,16 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
         mContext = getApplicationContext();
         packageName = getPackageName();
+
+        //Set inmersive mode
+        getWindow().getDecorView().setSystemUiVisibility(
+                View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                        | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                        | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                        | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                        | View.SYSTEM_UI_FLAG_FULLSCREEN
+                        | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
+
 
         //Sharing buttons
         shareButton = (ShareButton) findViewById(R.id.share_btn);
@@ -274,6 +285,7 @@ public class MainActivity extends Activity {
     public void onResume() {
         super.onResume();
         registerReceiver(br, new IntentFilter(TimerService.COUNTDOWN_BR));
+        AppEventsLogger.activateApp(this);
         boolean internet = Utility.isNetworkAvailable(this);
         if (!internet) {
             Utility.makeToast(this, "No se pudo conectar al servidor");

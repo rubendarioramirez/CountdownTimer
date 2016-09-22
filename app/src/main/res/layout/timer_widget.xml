@@ -24,7 +24,7 @@
                 android:gravity="center"
                 android:layout_weight="1"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                android:textSize="30sp"
+                android:textSize="20dp"
                 android:typeface="normal"
                 android:fontFamily="sans-serif"
                 android:textStyle="normal|bold" />
@@ -44,7 +44,7 @@
                 android:gravity="center"
                 android:typeface="normal"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                android:textSize="30sp"
+                android:textSize="20dp"
                 android:textStyle="normal|bold" />
 
         </LinearLayout>
