@@ -69,6 +69,21 @@
             android:gravity="center"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
+        <TextView
+            android:text="River esta jugando!"
+            android:visibility="gone"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/riverWidgetTXT"
+            android:layout_weight="1"
+            android:layout_marginTop="20dp"
+            android:textSize="20dp"
+            android:typeface="normal"
+            android:fontFamily="sans-serif"
+            android:textStyle="normal|bold"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
+
     </LinearLayout>
 
 
@@ -163,7 +178,7 @@
                 android:text="Minutos"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/textView14"
+                android:id="@+id/widgetMinText"
                 android:layout_weight="1"
                 android:gravity="center_horizontal|center"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1"
@@ -173,7 +188,7 @@
                 android:text="Segundos"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/textView2"
+                android:id="@+id/widgetSecText"
                 android:layout_weight="1"
                 android:gravity="center_horizontal|center"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1"
