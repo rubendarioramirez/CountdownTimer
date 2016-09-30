@@ -60,7 +60,13 @@ public class SplashScreen extends Activity {
         timerThread.start();
 
         //Start service to fetchData
-        new getFechaTask(this.getApplicationContext()).execute(url);
+        boolean internet = Utility.isNetworkAvailable(this);
+        if (!internet) {
+            Utility.makeToast(this, "No se pudo conectar al servidor");
+        } else {
+            //Start service to fetchData
+            new getFechaTask(this.getApplicationContext()).execute(url);
+        }
         startService(new Intent(this, TimerService.class));
     }
 
