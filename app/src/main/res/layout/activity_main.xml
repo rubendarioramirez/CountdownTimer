@@ -24,7 +24,7 @@
             android:text="Titulo Dinamico 1"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textColor="#ffffff"
-            android:textSize="33sp" />
+            android:textSize="@dimen/font_size_titles_main" />
 
         <TextView
             android:id="@+id/title2"
@@ -34,7 +34,7 @@
             android:text="Titulo Dinamico 2"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textColor="#ffffff"
-            android:textSize="33sp" />
+            android:textSize="@dimen/font_size_titles_main" />
 
         <TextView
             android:id="@+id/text1"
@@ -43,6 +43,7 @@
             android:layout_marginTop="30dp"
             android:gravity="center"
             android:text="Texto Dinamico 1"
+            android:textSize="@dimen/font_size_text_main"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="#ffffff" />
 
@@ -52,6 +53,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="Texto Dinamico 2"
+            android:textSize="@dimen/font_size_text_main"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="#ffffff" />
 
@@ -81,6 +83,7 @@
                 android:text="XX"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:textColor="#ffffff"
+                android:elevation="8dp"
                 android:textSize="26sp" />
 
             <TextView
@@ -92,6 +95,7 @@
                 android:text="XX"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:textColor="#ffffff"
+                android:elevation="8dp"
                 android:textSize="26sp" />
 
             <TextView
@@ -103,6 +107,7 @@
                 android:text="XX"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:textColor="#ffffff"
+                android:elevation="8dp"
                 android:textSize="26sp" />
 
             <TextView
@@ -114,6 +119,7 @@
                 android:text="XX"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:textColor="#ffffff"
+                android:elevation="8dp"
                 android:textSize="26sp" />
 
         </LinearLayout>
@@ -134,7 +140,7 @@
                 android:text="Dia/s"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:textColor="#ffffff"
-                android:textSize="16dp" />
+                android:textSize="@dimen/font_main_activity_size" />
 
             <TextView
                 android:id="@+id/horaText"
@@ -145,7 +151,7 @@
                 android:text="Hora/s"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:textColor="#ffffff"
-                android:textSize="16dp" />
+                android:textSize="@dimen/font_main_activity_size" />
 
             <TextView
                 android:id="@+id/minText"
@@ -156,7 +162,7 @@
                 android:text="Minuto/s"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:textColor="#ffffff"
-                android:textSize="16dp" />
+                android:textSize="@dimen/font_main_activity_size" />
 
             <TextView
                 android:id="@+id/segText"
@@ -167,8 +173,7 @@
                 android:text="Segundos"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:textColor="#ffffff"
-                android:textSize="16dp" />
-
+                android:textSize="@dimen/font_main_activity_size" />
         </LinearLayout>
 
         <LinearLayout
