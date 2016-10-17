@@ -275,7 +275,7 @@ public class MainActivity extends Activity {
         } else {
             minText.setText("Minutos");
         }
-        segText.setText("Seg.");
+        segText.setText("Segundos");
         riverJugando.setText("");
     }
 

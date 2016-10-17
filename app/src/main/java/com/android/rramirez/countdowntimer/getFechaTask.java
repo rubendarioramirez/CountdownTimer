@@ -2,21 +2,16 @@ package com.android.rramirez.countdowntimer;
 
 import android.content.Context;
 import android.os.AsyncTask;
-import android.widget.TextView;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.net.URLDecoder;
 
 
 public class getFechaTask extends AsyncTask<String, Void, String> {
@@ -27,9 +22,10 @@ public class getFechaTask extends AsyncTask<String, Void, String> {
             mContext = context;
         }
 
+
         @Override
         protected String doInBackground(String... strings) {
-            String titles = "UNDEFINED";
+            String titles = "River";
             try {
                 URL url = new URL(strings[0]);
                 HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
@@ -78,6 +74,7 @@ public class getFechaTask extends AsyncTask<String, Void, String> {
                 e.printStackTrace();
             }
             return titles;
+
         }
 
         @Override
