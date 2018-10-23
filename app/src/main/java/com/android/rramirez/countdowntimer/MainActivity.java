@@ -21,6 +21,7 @@ import android.text.Html;
 import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -29,6 +30,7 @@ import com.facebook.appevents.AppEventsLogger;
 import com.facebook.share.model.SharePhoto;
 import com.facebook.share.model.SharePhotoContent;
 import com.facebook.share.widget.ShareButton;
+import com.facebook.share.widget.ShareDialog;
 import com.twitter.sdk.android.tweetcomposer.TweetComposer;
 
 import static com.android.rramirez.countdowntimer.R.drawable.facebook;
@@ -39,7 +41,7 @@ public class MainActivity extends Activity {
 
     //Facebook, Twitter and URL buttons
     private ShareButton shareButton;
-    private ImageButton twitterBtn, urlBtn;
+    private ImageButton twitterBtn, urlBtn, menu;
 
     private Context mContext;
     private static final String TAG = "BroadcastTest";
@@ -58,19 +60,16 @@ public class MainActivity extends Activity {
         packageName = getPackageName();
 
         //Set inmersive mode
-        getWindow().getDecorView().setSystemUiVisibility(
-                View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                        | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-                        | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                        | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-                        | View.SYSTEM_UI_FLAG_FULLSCREEN
-                        | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
+        Utility.makeInmmersive(getWindow());
 
 
         //Sharing buttons
         shareButton = (ShareButton) findViewById(R.id.share_btn);
         twitterBtn = (ImageButton) findViewById(R.id.twitterBtn);
         urlBtn = (ImageButton) findViewById(R.id.urlBtn);
+
+        //Menu button
+        menu = (ImageButton) findViewById(R.id.menu);
 
         //Get the intent from the service
         intent = new Intent(this, TimerService.class);
@@ -103,10 +102,17 @@ public class MainActivity extends Activity {
         urlBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               openURL();
+                openURL();
             }
         });
 
+        menu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getBaseContext(), menu.class);
+                startActivity(i);
+            }
+        });
     }
 
     public void updateTitles(){
@@ -167,12 +173,17 @@ public class MainActivity extends Activity {
 
         //Facebook post
         Bitmap bm = getScreen();
-        SharePhoto photo = new SharePhoto.Builder().setBitmap(bm).build();
-        SharePhotoContent content = new SharePhotoContent.Builder().addPhoto(photo).build();
+        SharePhoto photo = new SharePhoto.Builder()
+                .setBitmap(bm)
+                .build();
+        SharePhotoContent content = new SharePhotoContent.Builder()
+                .addPhoto(photo)
+                .build();
         shareButton.setBackgroundResource(facebook);
         shareButton.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
         shareButton.setText("");
         shareButton.setShareContent(content);
+
 
     }
 
