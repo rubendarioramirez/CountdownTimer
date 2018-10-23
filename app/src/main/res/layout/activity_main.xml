@@ -200,11 +200,11 @@
                 android:id="@+id/share_btn"
                 android:layout_width="30dp"
                 android:layout_height="35dp"
+                android:layout_marginRight="30dp"
                 android:clickable="true"
                 android:contentDescription=""
-                android:gravity="top"
                 android:enabled="true"
-                android:layout_marginRight="10dp"
+                android:gravity="top"
                 android:visibility="visible" />
 
             <ImageButton
@@ -215,16 +215,18 @@
                 android:id="@+id/urlBtn" />
 
             <ImageButton
+                android:id="@+id/twitterBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/twitter"
-                android:id="@+id/twitterBtn" />
+                android:layout_marginLeft="30dp"
+                android:background="@drawable/twitter" />
         </LinearLayout>
 
         <TextView
             android:id="@+id/designText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
             android:gravity="center"
             android:text="TextView"
             android:textColorLink="@android:color/white" />

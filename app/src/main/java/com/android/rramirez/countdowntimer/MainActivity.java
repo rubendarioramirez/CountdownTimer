@@ -2,18 +2,24 @@ package com.android.rramirez.countdowntimer;
 
 import java.io.ByteArrayOutputStream;
 import java.text.ParseException;
+
+import android.Manifest;
 import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Typeface;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.support.v4.app.ActivityCompat;
 import android.text.Html;
 import android.text.method.LinkMovementMethod;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -177,6 +183,7 @@ public class MainActivity extends Activity {
                 .text("")
                 .image(myUri);
         builder.show();
+
     }
 
     public void openURL(){
@@ -200,9 +207,18 @@ public class MainActivity extends Activity {
 
     //Get the url from the image.
     public Uri getImageUri(Context inContext, Bitmap inImage) {
-        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-        inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
-        String path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), inImage, "screenshot", null);
+        String path = "";
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+                Log.v(TAG,"Permission is granted");
+                ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+                inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+                path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), inImage, "screenshot", null);
+
+            } else {
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 000000);
+            }
+        }
         return Uri.parse(path);
     }
 

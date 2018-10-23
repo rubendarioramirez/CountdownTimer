@@ -5,7 +5,7 @@ android {
     defaultConfig {
         applicationId "com.android.rramirez.countdowntimer"
         minSdkVersion 15
-        targetSdkVersion 26
+        targetSdkVersion 27
         versionCode 4
         versionName "1.1"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
