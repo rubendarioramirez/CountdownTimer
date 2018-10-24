@@ -11,8 +11,10 @@ import android.os.Build;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.SeekBar;
 import android.widget.Toast;
 
 import java.security.Policy;
@@ -22,7 +24,11 @@ public class bengala extends Activity {
     public static Camera cam = null;// has to be static, otherwise onDestroy() destroys it
     public boolean cameraOn;
     public boolean buttonPressed;
+    public boolean threadInterrupted;
+    public float frequency = 1000;
+    SeekBar seekbar;
     ImageButton flashlight_btn;
+    Thread t;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +36,8 @@ public class bengala extends Activity {
         setContentView(R.layout.activity_bengala);
 
         flashlight_btn = findViewById(R.id.flashlight_btn);
+        seekbar = findViewById(R.id.seekBar);
+
 
         //Set inmersive mode
         Utility.makeInmmersive(getWindow());
@@ -38,30 +46,42 @@ public class bengala extends Activity {
         flashlight_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Thread t = new Thread() {
-                    @Override
-                    public void run() {
-                        while (!isInterrupted()) {
-                            try {
-                                Thread.sleep(1000);
-                                runOnUiThread(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        cameraToggle();
-                                    }
-                                });
-                            } catch (InterruptedException e) {
-                                e.printStackTrace();
-                            }
+                        if(!buttonPressed){
+                            if(!threadInterrupted){
+                                buttonPressed = true;
+                                t.start();
+                                }
 
+                        } else {
+                            buttonPressed = false;
+                            t.interrupt();
+                            Intent i = new Intent(getBaseContext(), menu.class);
+                            startActivity(i);
                         }
-                    }
-                };
-                t.start();
             }
         });
 
+            t = new Thread() {
+            @Override
+            public void run() {
+                while (!Thread.currentThread().isInterrupted()) {
+                    try {
+                        Thread.sleep((long) frequency);
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                cameraToggle();
+                                frequency = seekbar.getProgress()* 500 + 500; //Progress goes from 0 to 3, *500 to make it noticable + 500 to have a minimum of half second.
+                            }
+                        });
+                    } catch (InterruptedException e) {
+                        Thread.currentThread().interrupt();
+                        cameraToggle();
+                    }
 
+                }
+            }
+        };
 
 
     }
