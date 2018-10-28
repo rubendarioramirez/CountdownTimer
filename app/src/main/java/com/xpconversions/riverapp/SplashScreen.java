@@ -1,4 +1,4 @@
-package com.android.rramirez.countdowntimer;
+package com.xpconversions.riverapp;
 
 import android.app.Activity;
 import android.content.Context;
@@ -10,9 +10,6 @@ import com.twitter.sdk.android.Twitter;
 import com.twitter.sdk.android.core.TwitterAuthConfig;
 
 import io.fabric.sdk.android.Fabric;
-
-import static com.android.rramirez.countdowntimer.Utility.isNetworkAvailable;
-import static com.android.rramirez.countdowntimer.Utility.updateCurrentCountDownTime;
 
 /**
  * Created by rramirez on 8/16/16.

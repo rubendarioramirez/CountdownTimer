@@ -1,4 +1,4 @@
-package com.android.rramirez.countdowntimer;
+package com.xpconversions.riverapp;
 
 import android.annotation.TargetApi;
 import android.app.NotificationManager;
@@ -16,6 +16,7 @@ import android.support.v4.app.NotificationCompat;
 import android.view.View;
 import android.widget.RemoteViews;
 import android.widget.Toast;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;

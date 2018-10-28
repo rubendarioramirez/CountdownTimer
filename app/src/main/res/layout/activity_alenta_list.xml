@@ -5,81 +5,90 @@
     xmlns:ads="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#cf1223"
-    tools:context=".menu"
-    tools:layout_editor_absoluteY="25dp">
-
+    android:background="@color/river_red"
+    tools:context=".alenta_list">
 
     <TextView
-        android:id="@+id/proximo"
-        android:layout_width="wrap_content"
+        android:id="@+id/river_amigo"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="72dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:gravity="center"
+        android:text="RIVER MI BUEN AMIGO"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Display1"
+        android:textColor="#ffffff"
+        android:textStyle="bold"
+        android:typeface="monospace"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/mune"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:gravity="center"
+        android:text="MUÑEEE\nMUÑEEE"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Display1"
+        android:textColor="#ffffff"
+        android:textStyle="bold"
+        android:typeface="monospace"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/river_amigo" />
+
+    <TextView
+        android:id="@+id/gol"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:gravity="center"
+        android:text="GOOOOL!"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Display1"
+        android:textColor="#ffffff"
+        android:textStyle="bold"
+        android:typeface="monospace"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/mune" />
+
+    <TextView
+        android:id="@+id/famoso_river"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
-        android:text="PROXIMO PARTIDO"
+        android:gravity="center"
+        android:text="ESTE ES EL\nFAMOSO RIVER"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Display1"
         android:textColor="#ffffff"
         android:textStyle="bold"
         android:typeface="monospace"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/adView_alentalist"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.3" />
-
-    <TextView
-        android:id="@+id/bengala"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="46dp"
-        android:text="BENGALA"
-        android:textAppearance="@style/Base.TextAppearance.AppCompat.Display1"
-        android:textColor="#ffffff"
-        android:textStyle="bold"
-        android:typeface="monospace"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/proximo" />
-
-    <TextView
-        android:id="@+id/alenta"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="46dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:text="ALENTA!"
-        android:textAppearance="@style/Base.TextAppearance.AppCompat.Display1"
-        android:textColor="#ffffff"
-        android:textStyle="bold"
-        android:typeface="monospace"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/bengala"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <TextView
-        android:id="@+id/fondos"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="46dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:text="FONDOS"
-        android:textAppearance="@style/Base.TextAppearance.AppCompat.Display1"
-        android:textColor="#ffffff"
-        android:textStyle="bold"
-        android:typeface="monospace"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/alenta" />
+        app:layout_constraintTop_toBottomOf="@+id/gol" />
 
     <com.google.android.gms.ads.AdView
-        android:id="@+id/adView_menu"
+        android:id="@+id/adView_alentalist"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -97,6 +106,21 @@
 
     </com.google.android.gms.ads.AdView>
 
-
+    <ImageButton
+        android:id="@+id/menu_alenta_list"
+        android:layout_width="55dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right|end"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:background="#00FFFFFF"
+        android:src="@android:drawable/ic_menu_sort_by_size"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </android.support.constraint.ConstraintLayout>

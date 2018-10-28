@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "895811394798",
+    "firebase_url": "https://hoy-river-app.firebaseio.com",
+    "project_id": "hoy-river-app",
+    "storage_bucket": "hoy-river-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:895811394798:android:e5538925b862d814",
+        "android_client_info": {
+          "package_name": "com.xpconversions.riverapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "895811394798-vc69ou9caqk4j6q73kfihjac8dm00leb.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.xpconversions.riverapp",
+            "certificate_hash": "2ea8f82bbe8ed2760740b881edbe413992d0b4f9"
+          }
+        },
+        {
+          "client_id": "895811394798-gu07fnbkhbbeek9ek60pvvqn698t62j8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBTkz9xKXg7ajR4NMRIV9ljJ6ICEDQXXoQ"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "895811394798-gu07fnbkhbbeek9ek60pvvqn698t62j8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

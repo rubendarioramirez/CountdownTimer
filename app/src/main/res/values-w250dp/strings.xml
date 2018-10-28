@@ -1,7 +1,7 @@
 <resources>
-    <string name="app_name">Hoy River App</string>
-    <string name="appwidget_text">Hoy River Widget</string>
-    <string name="add_widget">Add widget</string>
-    <string name="URL_WS">http://esteeselfamosoriver.com/app/info.php</string>
-    <string name="facebook_app_id">1404522856243777</string>
+    <string name="app_name" translatable="false">Hoy River App</string>
+    <string name="appwidget_text" translatable="false">Hoy River Widget</string>
+    <string name="add_widget" translatable="false">Add widget</string>
+    <string name="URL_WS" translatable="false">http://esteeselfamosoriver.com/app/info.php</string>
+    <string name="facebook_app_id" translatable="false">1404522856243777</string>
 </resources>

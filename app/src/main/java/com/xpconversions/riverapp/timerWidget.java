@@ -1,4 +1,4 @@
-package com.android.rramirez.countdowntimer;
+package com.xpconversions.riverapp;
 
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;

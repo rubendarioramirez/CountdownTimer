@@ -1,4 +1,4 @@
-package com.android.rramirez.countdowntimer;
+package com.xpconversions.riverapp;
 
 import java.io.ByteArrayOutputStream;
 import java.text.ParseException;
@@ -21,19 +21,18 @@ import android.text.Html;
 import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.view.View;
-import android.view.Window;
 import android.widget.ImageButton;
 import android.widget.TextView;
-
 import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
 import com.facebook.share.model.SharePhoto;
 import com.facebook.share.model.SharePhotoContent;
 import com.facebook.share.widget.ShareButton;
-import com.facebook.share.widget.ShareDialog;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.twitter.sdk.android.tweetcomposer.TweetComposer;
 
-import static com.android.rramirez.countdowntimer.R.drawable.facebook;
+import static com.xpconversions.riverapp.R.drawable.facebook;
 
 public class MainActivity extends Activity {
 
@@ -47,6 +46,7 @@ public class MainActivity extends Activity {
     private static final String TAG = "BroadcastTest";
     private Intent intent;
     public static String packageName;
+    private AdView mAdView;
 
     String url = "http://esteeselfamosoriver.com/app/info.php";
 
@@ -58,6 +58,10 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
         mContext = getApplicationContext();
         packageName = getPackageName();
+
+        mAdView = findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
 
         //Set inmersive mode
         Utility.makeInmmersive(getWindow());
@@ -89,7 +93,7 @@ public class MainActivity extends Activity {
         updateTitles();
 
         //Set hyperLinks
-        designText.setText(Html.fromHtml("<b>Design By </b>" + "<a href=\"http://cerebrosdigitales.com\"> " + "CerebrosDigitales" + "</a> "));
+        designText.setText(Html.fromHtml("<b>Design By </b>" + "<a href=\"https://esteeselfamosoriver.com/?utm_source=hoy-river-app&utm_medium=footer\"> " + "xpconversions.com" + "</a> "));
         designText.setMovementMethod(LinkMovementMethod.getInstance());
 
         twitterBtn.setOnClickListener(new View.OnClickListener() {
@@ -309,6 +313,7 @@ public class MainActivity extends Activity {
     @Override
     public void onResume() {
         super.onResume();
+        Utility.makeInmmersive(getWindow());
         registerReceiver(br, new IntentFilter(TimerService.COUNTDOWN_BR));
         AppEventsLogger.activateApp(this);
         boolean internet = Utility.isNetworkAvailable(this);
@@ -343,6 +348,7 @@ public class MainActivity extends Activity {
     }
 
 }
+
 
 
 

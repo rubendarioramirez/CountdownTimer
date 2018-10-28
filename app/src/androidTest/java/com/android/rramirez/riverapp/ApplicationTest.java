@@ -1,4 +1,4 @@
-package com.android.rramirez.countdowntimer;
+package com.android.rramirez.riverapp;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

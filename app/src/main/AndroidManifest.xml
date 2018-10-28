@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.android.rramirez.countdowntimer">
+    package="com.xpconversions.riverapp">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -9,7 +9,7 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission android:name="android.permission.FLASHLIGHT"/>
+    <uses-permission android:name="android.permission.FLASHLIGHT" />
 
     <application
         android:allowBackup="true"
@@ -59,7 +59,7 @@
 
         <provider
             android:name="com.facebook.FacebookContentProvider"
-            android:authorities="com.facebook.app.FacebookContentProvider1404522856243777"
+            android:authorities="com.facebook.app.FacebookContentProvider192483678318357"
             android:exported="true" />
 
         <service
@@ -72,7 +72,9 @@
             android:value="8c02ad0770994280e04501ba2e7660e674fc9ff2" />
 
         <activity android:name=".menu" />
-        <activity android:name=".bengala"></activity>
+        <activity android:name=".bengala" />
+        <activity android:name=".alenta" />
+        <activity android:name=".alenta_list"></activity>
     </application>
 
 </manifest>

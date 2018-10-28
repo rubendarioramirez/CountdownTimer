@@ -1,9 +1,8 @@
-package com.android.rramirez.countdowntimer;
+package com.xpconversions.riverapp;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 
 /**
  * Created by rramirez on 10/17/16.
