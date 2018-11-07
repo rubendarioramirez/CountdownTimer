@@ -9,13 +9,16 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.ActivityCompat;
 import android.text.Html;
 import android.text.method.LinkMovementMethod;
@@ -41,6 +44,10 @@ public class MainActivity extends Activity {
     //Facebook, Twitter and URL buttons
     private ShareButton shareButton;
     private ImageButton twitterBtn, urlBtn, menu;
+    public int bg_image;
+    public ConstraintLayout mainlayout;
+    public Drawable background;
+
 
     private Context mContext;
     private static final String TAG = "BroadcastTest";
@@ -65,7 +72,7 @@ public class MainActivity extends Activity {
 
         //Set inmersive mode
         Utility.makeInmmersive(getWindow());
-
+        setBG();
 
         //Sharing buttons
         shareButton = (ShareButton) findViewById(R.id.share_btn);
@@ -313,6 +320,7 @@ public class MainActivity extends Activity {
     @Override
     public void onResume() {
         super.onResume();
+        setBG();
         Utility.makeInmmersive(getWindow());
         registerReceiver(br, new IntentFilter(TimerService.COUNTDOWN_BR));
         AppEventsLogger.activateApp(this);
@@ -347,7 +355,42 @@ public class MainActivity extends Activity {
         super.onDestroy();
     }
 
-}
+
+    public void setBG(){
+        SharedPreferences prefs = getSharedPreferences("my_sharepref", MODE_PRIVATE);
+        bg_image = prefs.getInt("bgImage", 0);
+        Log.v("matilda", "its " + bg_image);
+        mainlayout = findViewById(R.id.mainlayout);
+        switch (bg_image){
+            case 0:
+                mainlayout.setBackgroundResource(R.drawable.background);
+                break;
+            case 1:
+                mainlayout.setBackgroundResource(R.drawable.bg1);
+                break;
+            case 2:
+                mainlayout.setBackgroundResource(R.drawable.bg2);
+                break;
+            case 3:
+                mainlayout.setBackgroundResource(R.drawable.bg4);
+                break;
+            case 4:
+                mainlayout.setBackgroundResource(R.drawable.bg3);
+                break;
+            case 5:
+                mainlayout.setBackgroundResource(R.drawable.bg5);
+                break;
+            case 6:
+                mainlayout.setBackgroundResource(R.drawable.bg6);
+                break;
+            }
+
+        }
+    }
+
+
+
+
 
 
 

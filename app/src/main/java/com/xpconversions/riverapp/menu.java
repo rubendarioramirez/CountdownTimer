@@ -33,7 +33,7 @@ public class menu extends Activity {
         bengala = findViewById(R.id.bengala);
         alenta = findViewById(R.id.alenta);
         fondos = findViewById(R.id.fondos);
-        fondos.setVisibility(View.INVISIBLE);
+//        fondos.setVisibility(View.INVISIBLE);
 
         mAdView_menu = findViewById(R.id.adView_menu);
         AdRequest adRequest = new AdRequest.Builder().build();
@@ -68,7 +68,8 @@ public class menu extends Activity {
         fondos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO Add Fondos activity
+                Intent i = new Intent(getBaseContext(), fondos.class);
+                startActivity(i);
             }
         });
 
