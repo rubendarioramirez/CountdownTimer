@@ -27,13 +27,13 @@ public class menu extends Activity {
 
         //Set inmersive mode
         Utility.makeInmmersive(getWindow());
+
         cameraToggle();
 
         proximo = findViewById(R.id.proximo);
         bengala = findViewById(R.id.bengala);
         alenta = findViewById(R.id.alenta);
         fondos = findViewById(R.id.fondos);
-//        fondos.setVisibility(View.INVISIBLE);
 
         mAdView_menu = findViewById(R.id.adView_menu);
         AdRequest adRequest = new AdRequest.Builder().build();

@@ -1,10 +1,12 @@
 package com.xpconversions.riverapp;
 
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.text.ParseException;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.WallpaperManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -12,7 +14,9 @@ import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
@@ -35,6 +39,12 @@ import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.twitter.sdk.android.tweetcomposer.TweetComposer;
 
+import static com.xpconversions.riverapp.R.drawable.bg1;
+import static com.xpconversions.riverapp.R.drawable.bg2;
+import static com.xpconversions.riverapp.R.drawable.bg3;
+import static com.xpconversions.riverapp.R.drawable.bg4;
+import static com.xpconversions.riverapp.R.drawable.bg5;
+import static com.xpconversions.riverapp.R.drawable.bg6;
 import static com.xpconversions.riverapp.R.drawable.facebook;
 
 public class MainActivity extends Activity {
@@ -359,7 +369,6 @@ public class MainActivity extends Activity {
     public void setBG(){
         SharedPreferences prefs = getSharedPreferences("my_sharepref", MODE_PRIVATE);
         bg_image = prefs.getInt("bgImage", 0);
-        Log.v("matilda", "its " + bg_image);
         mainlayout = findViewById(R.id.mainlayout);
         switch (bg_image){
             case 0:
@@ -372,10 +381,10 @@ public class MainActivity extends Activity {
                 mainlayout.setBackgroundResource(R.drawable.bg2);
                 break;
             case 3:
-                mainlayout.setBackgroundResource(R.drawable.bg4);
+                mainlayout.setBackgroundResource(R.drawable.bg3);
                 break;
             case 4:
-                mainlayout.setBackgroundResource(R.drawable.bg3);
+                mainlayout.setBackgroundResource(R.drawable.bg4);
                 break;
             case 5:
                 mainlayout.setBackgroundResource(R.drawable.bg5);
@@ -387,7 +396,6 @@ public class MainActivity extends Activity {
 
         }
     }
-
 
 
 
