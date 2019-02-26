@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#cf1223"
+    tools:context=".fondos"
+    >
+
+
+    <ImageView
+        android:id="@+id/bg1_iv"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/bg1"
+        ads:layout_constraintBottom_toTopOf="@+id/bg3_iv"
+        ads:layout_constraintEnd_toStartOf="@+id/bg2_iv"
+        ads:layout_constraintStart_toStartOf="parent"
+        ads:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/bg2_iv"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/bg2"
+        ads:layout_constraintBottom_toTopOf="@+id/bg4_iv"
+        ads:layout_constraintEnd_toEndOf="parent"
+        ads:layout_constraintStart_toEndOf="@+id/bg1_iv"
+        ads:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/bg4_iv"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/bg3"
+        ads:layout_constraintBottom_toTopOf="@+id/bg6_iv"
+        ads:layout_constraintEnd_toEndOf="parent"
+        ads:layout_constraintStart_toEndOf="@+id/bg3_iv"
+        ads:layout_constraintTop_toBottomOf="@+id/bg2_iv" />
+
+    <ImageView
+        android:id="@+id/bg3_iv"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/bg4"
+        ads:layout_constraintBottom_toTopOf="@+id/bg5_iv"
+        ads:layout_constraintEnd_toStartOf="@+id/bg4_iv"
+        ads:layout_constraintStart_toStartOf="parent"
+        ads:layout_constraintTop_toBottomOf="@+id/bg1_iv" />
+
+    <ImageView
+        android:id="@+id/bg6_iv"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/bg5"
+        ads:layout_constraintBottom_toBottomOf="parent"
+        ads:layout_constraintEnd_toEndOf="parent"
+        ads:layout_constraintStart_toEndOf="@+id/bg5_iv"
+        ads:layout_constraintTop_toBottomOf="@+id/bg4_iv" />
+
+    <ImageView
+        android:id="@+id/bg5_iv"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/bg6"
+        ads:layout_constraintBottom_toBottomOf="parent"
+        ads:layout_constraintEnd_toStartOf="@+id/bg6_iv"
+        ads:layout_constraintStart_toStartOf="parent"
+        ads:layout_constraintTop_toBottomOf="@+id/bg3_iv" />
+
+</android.support.constraint.ConstraintLayout>
